@@ -1,0 +1,48 @@
+﻿using Application.UseCases.Clients.Responses;
+using AutoMapper;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using NewProject.Abstraction;
+
+namespace Application.UseCases.Clients.Filters;
+
+public record FilterByBirthDate : IRequest<List<ClientResponse>>
+{
+    public DateOnly MinBirthDate { get; set; }
+    public DateOnly? MaxBirthDate { get; set; }
+    public bool ValidYearRange => MaxBirthDate > MinBirthDate;
+
+
+    public FilterByBirthDate(DateOnly MinBirthDate, DateOnly? MaxBirthDate = null)
+    {
+        this.MinBirthDate = MinBirthDate;
+        if(MaxBirthDate != null)
+        this.MaxBirthDate = MaxBirthDate;
+        else 
+            this.MaxBirthDate = DateOnly.FromDateTime(DateTime.Now);
+    }
+
+}
+public class FilterByBirthDateHandler : IRequestHandler<FilterByBirthDate, List<ClientResponse>>
+{
+    private readonly IApplicationDbContext _context;
+    private readonly IMapper _mapper;
+
+    public FilterByBirthDateHandler(IApplicationDbContext context, IMapper mapper)
+    {
+        _context = context;
+        _mapper = mapper;
+    }
+
+    public async Task<List<ClientResponse>> Handle(FilterByBirthDate request, CancellationToken cancellationToken)
+    {
+        if (!request.ValidYearRange)
+            throw new Exception(" Invalid year range input. ");
+
+        var clients =await  _context.Clients
+            .Where(client => client.Person.Birthdate >= request.MinBirthDate &&
+        client.Person.Birthdate <= request.MaxBirthDate).ToListAsync();
+
+        return _mapper.Map<List<ClientResponse>>(clients);
+    }
+}

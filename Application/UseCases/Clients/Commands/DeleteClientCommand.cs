@@ -1,0 +1,39 @@
+﻿using Application.Common.Exceptions;
+using Domein.Entities;
+using MediatR;
+using NewProject.Abstraction;
+
+namespace Application.UseCases.Clients.Commands;
+
+
+public record DeleteClientCommand(Guid ClientId) : IRequest;
+public class DeleteClientCommandHandler : IRequestHandler<DeleteClientCommand>
+{
+    private readonly IApplicationDbContext _context;
+
+    public DeleteClientCommandHandler(IApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task Handle(DeleteClientCommand request, CancellationToken cancellationToken)
+    {
+        var client = await _context.Clients.FindAsync(request.ClientId, cancellationToken);
+        if (client is null)
+        {
+            throw new NotFoundException(nameof(Clients), request.ClientId);
+        }
+
+        _context.Clients.Remove(client);
+
+        var person = await _context.People.FindAsync(client.PersonId);
+
+        if(person is null)
+        {
+            throw new NotFoundException(nameof(Person), client.PersonId);
+        }
+        _context.People.Remove(person);
+
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+}

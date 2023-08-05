@@ -1,0 +1,10 @@
+﻿CREATE TABLE IF NOT EXISTS public.person
+(
+    "Id" uuid NOT NULL,
+    first_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    last_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    birthdate date NOT NULL,
+    phone_number character varying(20) COLLATE pg_catalog."default",
+    CONSTRAINT person_pkey PRIMARY KEY ("Id")
+);
+

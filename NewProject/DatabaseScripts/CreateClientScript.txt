@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS public.clients
+(
+    quarter_id uuid NOT NULL,
+    client_type_id uuid NOT NULL,
+    CONSTRAINT client_type_id_fkey FOREIGN KEY (client_type_id)
+        REFERENCES public.client_type ("Id"),
+    CONSTRAINT clients_quarter_id_fkey FOREIGN KEY (quarter_id)
+        REFERENCES public.quarters (id)
+) INHERITS (person);

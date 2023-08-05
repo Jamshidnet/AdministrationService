@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS public.answers
+(
+    id uuid NOT NULL,
+    answer_text text COLLATE pg_catalog."default" NOT NULL,
+    question_id uuid NOT NULL,
+    doc_id uuid NOT NULL,
+    CONSTRAINT primarykey_of_answer PRIMARY KEY (id),
+    CONSTRAINT answers_question_id_doc_id_key UNIQUE (question_id, doc_id),
+    CONSTRAINT answers_doc_id_fkey FOREIGN KEY (doc_id)
+        REFERENCES public.docs (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT answers_question_id_fkey FOREIGN KEY (question_id)
+        REFERENCES public.questions (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);

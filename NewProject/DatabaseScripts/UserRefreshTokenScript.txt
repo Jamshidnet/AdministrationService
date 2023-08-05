@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS public.userrefreshtokens
+(
+    id uuid NOT NULL,
+    refresh_token text NOT NULL,
+    username character varying(50) NOT NULL,
+    expires_date date NOT NULL,
+    CONSTRAINT primarykey_of_userrefreshtokens PRIMARY KEY (id)
+);
+
