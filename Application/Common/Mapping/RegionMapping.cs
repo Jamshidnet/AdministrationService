@@ -13,6 +13,7 @@ public class RegionMapping : Profile
         CreateMap<CreateRegionCommand, Region>();
         CreateMap<UpdateRegionCommand, Region>();
         CreateMap<Region, RegionResponse>();
+        CreateMap<Region, GetListRegionResponse>();
 
     }
 

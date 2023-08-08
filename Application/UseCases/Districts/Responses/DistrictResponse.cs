@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.Quarters.Responses;
-using Domein.Entities;
+using Application.UseCases.Regions.Responses;
 
 namespace Application.UseCases.Districts.Responses;
 
@@ -10,8 +10,8 @@ public  class DistrictResponse
     public string DistrictName { get; set; }
 
 
-    public Guid RegionId { get; set; }
+    public GetListRegionResponse Region { get; set; }
 
-    public virtual ICollection<QuarterResponse> Quarters { get; set; }
+    public virtual ICollection<GetListQuarterResponse> Quarters { get; set; }
 
 }

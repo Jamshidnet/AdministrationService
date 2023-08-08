@@ -9,5 +9,5 @@ public class UserTypeResponse
 
     public string TypeName { get; set; }
 
-    public virtual ICollection<UserResponse> Users { get; set; }
+    public virtual ICollection<GetListUserResponse> Users { get; set; }
 }

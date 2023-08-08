@@ -1,4 +1,5 @@
-﻿using Application.UseCases.DefaultAnswers.Responses;
+﻿using Application.UseCases.Clients.Responses;
+using Application.UseCases.DefaultAnswers.Responses;
 
 namespace Application.UseCases.Docs.Responses;
 
@@ -6,7 +7,7 @@ public class DocResponse
 {
     public Guid Id { get; set; }
 
-    public string ClientName { get; set; }
+    public GetListClientResponse Client { get; set; }
 
     public string UserName { get; set; }
 
@@ -18,6 +19,6 @@ public class DocResponse
 
     public string Device { get; set; }
 
-    public virtual ICollection<DefaultAnswerResponse> DefaultAnswers { get; set; }
+    public virtual ICollection<ClientAnswerResponse> ClientAnswers { get; set; }
 
 }

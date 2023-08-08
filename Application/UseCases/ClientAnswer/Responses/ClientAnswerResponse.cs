@@ -1,4 +1,6 @@
 ﻿
+using Application.UseCases.Docs.Responses;
+
 namespace Application.UseCases.DefaultAnswers.Responses
 {
     public class ClientAnswerResponse
@@ -7,7 +9,7 @@ namespace Application.UseCases.DefaultAnswers.Responses
 
         public string AnswerText { get; set; }
 
-        public Guid DocId { get; set; }
+        public  GetListDocResponse Doc { get; set; }
 
         public string Question { get; set; }
     }

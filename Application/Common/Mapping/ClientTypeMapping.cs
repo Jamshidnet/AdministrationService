@@ -14,6 +14,7 @@ namespace Application.Common.Mapping
                  CreateMap<CreateClientTypeCommand, ClientType>();
                  CreateMap<UpdateClientCommand, ClientType>();
                   CreateMap<ClientType, ClientTypeResponse>();
+                  CreateMap<ClientType, GetListClientTypeResponse>();
         }
 
     }

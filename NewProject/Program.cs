@@ -39,7 +39,12 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+            });
             app.UseSwaggerUI();
+
         }
 
         app.UseHttpsRedirection();

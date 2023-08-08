@@ -6,8 +6,8 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Users.Queries;
 
-public record GetAllUserQuery : IRequest<List<UserResponse>>;
-public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, List<UserResponse>>
+public record GetAllUserQuery : IRequest<List<GetListUserResponse>>;
+public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, List<GetListUserResponse>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -15,10 +15,10 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, List<User
     public GetAllUserQueryHandler(IApplicationDbContext context, IMapper mapper)
             => (_context, _mapper) = (context, mapper);
 
-    public async Task<List<UserResponse>> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetListUserResponse>> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
     {
         var allUser = await _context.Users.ToListAsync(cancellationToken);
-        var result = _mapper.Map<List<UserResponse>>(allUser);
+        var result = _mapper.Map<List<GetListUserResponse>>(allUser);
         return result;
     }
 }

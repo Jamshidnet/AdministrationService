@@ -6,10 +6,10 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Categories.Queries;
 
-public record GetAllCategoryQuery   : IRequest<List<CategoryResponse>>;
+public record GetAllCategoryQuery   : IRequest<List<GetListCategoryResponse>>;
 
 
-public class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQuery, List<CategoryResponse>>
+public class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQuery, List<GetListCategoryResponse>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -19,10 +19,10 @@ public class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQuery, L
         _mapper = mapper;
     }
 
-    public async Task<List<CategoryResponse>> Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetListCategoryResponse>> Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
     {
         var entities = await _context.Categories.ToListAsync(cancellationToken);
-        var result = _mapper.Map<List<CategoryResponse>>(entities);
+        var result = _mapper.Map<List<GetListCategoryResponse>>(entities);
         return result;
     }
 }

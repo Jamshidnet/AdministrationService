@@ -6,7 +6,9 @@ namespace Domein.Entities;
 [Table("person")]
 public partial class Person
 {
+
     [Key]
+    [Column("id")]
     public Guid Id { get; set; }
 
     [Required]

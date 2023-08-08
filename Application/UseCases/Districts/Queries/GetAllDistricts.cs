@@ -6,10 +6,10 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Districts.Queries;
 
-public record GetAllDistrictQuery : IRequest<List<DistrictResponse>>;
+public record GetAllDistrictQuery : IRequest<List<GetListDIstrictResponse>>;
 
 
-public class GetAllDistrictQueryHandler : IRequestHandler<GetAllDistrictQuery, List<DistrictResponse>>
+public class GetAllDistrictQueryHandler : IRequestHandler<GetAllDistrictQuery, List<GetListDIstrictResponse>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -19,10 +19,10 @@ public class GetAllDistrictQueryHandler : IRequestHandler<GetAllDistrictQuery, L
         _mapper = mapper;
     }
 
-    public async Task<List<DistrictResponse>> Handle(GetAllDistrictQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetListDIstrictResponse>> Handle(GetAllDistrictQuery request, CancellationToken cancellationToken)
     {
         var entities = await _context.Districts.ToListAsync(cancellationToken);
-        var result = _mapper.Map<List<DistrictResponse>>(entities);
+        var result = _mapper.Map<List<GetListDIstrictResponse>>(entities);
         return result;
     }
 }

@@ -11,8 +11,7 @@ public class DefaultAnswerMapping : Profile
     {
         CreateMap<CreateDefaultAnswerCommand, DefaultAnswer>();
         CreateMap<UpdateDefaultAnswerCommand, DefaultAnswer>();
-        CreateMap<DefaultAnswer, DefaultAnswerResponse>()
-            .ForMember(x => x.Question, des => des.MapFrom(x => x.Question.QuestionText));
+        CreateMap<DefaultAnswer, DefaultAnswerResponse>();
     }
 
 }

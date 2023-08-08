@@ -1,11 +1,13 @@
-﻿using Application.UseCases.Roles.Responses;
-
+﻿using Application.UseCases.Quarters.Responses;
+using Application.UseCases.Roles.Responses;
+using Application.UseCases.UserTypes.Responses;
 
 namespace Application.UseCases.Users.Responses;
 
 public class UserResponse
 {
     public Guid Id { get; set; }
+
     public string FirstName { get; set; }
 
     public string LastName { get; set; }
@@ -16,11 +18,9 @@ public class UserResponse
 
     public string Username { get; set; }
 
-    public string UserType { get; set; }
+    public GetListUserTypeResponse UserType { get; set; }
     
-    public string QuarterName { get; set; }
-
-
+    public GetListQuarterResponse Quarter { get; set; }
 
     public List<RoleResponse> Roles { get; set; }
 }

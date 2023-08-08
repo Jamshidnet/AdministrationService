@@ -1,8 +1,0 @@
-CREATE TABLE IF NOT EXISTS public.users
-(
-    id uuid NOT NULL,
-    username character varying(20) NOT NULL,
-    password character varying(100) NOT NULL,
-    CONSTRAINT primarykey_of_users PRIMARY KEY (id),
-    CONSTRAINT users_username_key UNIQUE (username) 
-);

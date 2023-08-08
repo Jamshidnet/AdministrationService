@@ -1,5 +1,6 @@
 ﻿using Application.UseCases.Clients.Responses;
-using Domein.Entities;
+using Application.UseCases.Districts.Responses;
+
 
 namespace Application.UseCases.Quarters.Responses;
 
@@ -9,9 +10,9 @@ public  class QuarterResponse
 
     public string QuarterName { get; set; }
 
-    public Guid? DistrictId { get; set; }
+    public GetListDIstrictResponse District { get; set; }
 
-    public virtual ICollection<ClientResponse> Clients { get; set; }
+    public virtual ICollection<GetListClientResponse> Clients { get; set; }
 
 
 }

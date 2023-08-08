@@ -13,6 +13,7 @@ namespace Application.Common.Mapping
             CreateMap<CreateCategoryCommand, Category>();
             CreateMap<UpdateCategoryCommand, Category>();
             CreateMap<Category, CategoryResponse>();
+            CreateMap<Category, GetListCategoryResponse>();
 
         }
 

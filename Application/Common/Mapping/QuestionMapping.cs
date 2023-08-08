@@ -11,10 +11,13 @@ public  class QuestionMapping : Profile
     {
             CreateMap<CreateQuestionCommand, Question>();
             CreateMap<UpdateQuestionCommand, Question>();
-        CreateMap<Question, QuestionResponse>()
+        CreateMap<Question, GetListQuestionResponse>()
         .ForMember(x => x.QuestionType, y => y.MapFrom(z => z.QuestionType.QuestionTypeName))
         .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username))
         .ForMember(x => x.Category, y => y.MapFrom(z => z.Category.CategoryName));
 
+
+        CreateMap<Question, QuestionResponse>()
+       .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username));
     }
 }

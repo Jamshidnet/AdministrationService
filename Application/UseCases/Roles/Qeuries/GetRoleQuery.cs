@@ -6,10 +6,10 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Roles.Qeuries;
 
-public record GetAllRoleQuery : IRequest<List<RoleResponse>>;
+public record GetAllRoleQuery : IRequest<List<GetListRoleResponse>>;
 
 
-public class GetAllRoleQueryHandler : IRequestHandler<GetAllRoleQuery, List<RoleResponse>>
+public class GetAllRoleQueryHandler : IRequestHandler<GetAllRoleQuery, List<GetListRoleResponse>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -19,10 +19,10 @@ public class GetAllRoleQueryHandler : IRequestHandler<GetAllRoleQuery, List<Role
         _mapper = mapper;
     }
 
-    public async Task<List<RoleResponse>> Handle(GetAllRoleQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetListRoleResponse>> Handle(GetAllRoleQuery request, CancellationToken cancellationToken)
     {
         var entities = await _context.Roles.ToListAsync(cancellationToken);
-        var result = _mapper.Map<List<RoleResponse>>(entities);
+        var result = _mapper.Map<List<GetListRoleResponse>>(entities);
         return result;
     }
 }

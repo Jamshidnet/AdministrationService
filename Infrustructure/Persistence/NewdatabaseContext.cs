@@ -1,4 +1,6 @@
-﻿using Domein.Entities;
+﻿using Application.UseCases.Docs.Filters;
+using Application.UseCases.Docs.Responses;
+using Domein.Entities;
 using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 
@@ -280,6 +282,28 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
         OnModelCreatingPartial(modelBuilder);
     }
+
+    [DbFunction("filter_docs_by_user")]
+    public IQueryable<FilterByUserResponse> GetFilteredUsers(
+        Guid? RegionId,
+        Guid? DistrictId,
+        Guid? QuarterId,
+        bool ByRegion,
+        bool ByDistrict,
+        bool ByQuarter
+        )
+        => FromExpression(() => GetFilteredUsers(
+            RegionId,
+            DistrictId,
+            QuarterId,
+             ByRegion,
+            ByDistrict,
+            ByQuarter
+            )
+        );
+
+
+
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

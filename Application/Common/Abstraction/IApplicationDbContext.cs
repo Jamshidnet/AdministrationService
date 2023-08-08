@@ -1,4 +1,5 @@
-﻿using Domein.Entities;
+﻿using Application.UseCases.Docs.Responses;
+using Domein.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace NewProject.Abstraction
@@ -35,6 +36,14 @@ namespace NewProject.Abstraction
 
           DbSet<ClientAnswer> ClientAnswers { get; set; }
          DbSet<UserType> UserTypes { get; set; }
+
+        IQueryable<FilterByUserResponse> GetFilteredUsers(Guid? RegionId,
+        Guid? DistrictId,
+        Guid? QuarterId,
+        bool ByRegion,
+        bool ByDistrict,
+        bool ByQuarter
+        );
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

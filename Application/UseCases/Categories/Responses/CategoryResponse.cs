@@ -8,5 +8,5 @@ public class CategoryResponse
 
     public string CategoryName { get; set; }
 
-    public virtual ICollection<QuestionResponse> Questions { get; set; } 
+    public virtual ICollection<GetListQuestionResponse> Questions { get; set; } 
 }

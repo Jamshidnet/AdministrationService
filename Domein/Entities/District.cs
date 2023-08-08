@@ -19,7 +19,7 @@ public partial class District
     public Guid RegionId { get; set; }
 
     [InverseProperty("District")]
-    public virtual ICollection<Quarter> Quarters { get; set; } = new List<Quarter>();
+    public virtual ICollection<Quarter> Quarters { get; set; } 
 
     [ForeignKey("RegionId")]
     [InverseProperty("Districts")]

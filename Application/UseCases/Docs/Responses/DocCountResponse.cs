@@ -8,13 +8,13 @@ namespace Application.UseCases.Docs.Filters;
 
 public class DocCountResponse
 {
-    public RegionResponse? Region { get; set; }
+    public GetListRegionResponse? Region { get; set; }
 
-    public DistrictResponse? District { get; set; }
+    public GetListDIstrictResponse? District { get; set; }
 
-    public QuarterResponse? Quarter { get; set; }
+    public GetListQuarterResponse? Quarter { get; set; }
 
-    public CategoryResponse? Category { get; set; }
+    public GetListCategoryResponse Category { get; set; }
 
     public int DocumentCount { get; set; }
 }

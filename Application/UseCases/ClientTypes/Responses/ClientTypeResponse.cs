@@ -1,10 +1,4 @@
 ﻿using Application.UseCases.Clients.Responses;
-using Domein.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.ClientTypes.Responses
 {
@@ -14,7 +8,7 @@ namespace Application.UseCases.ClientTypes.Responses
 
         public string TypeName { get; set; }
 
-        public virtual ICollection<ClientResponse> Clients { get; set; }
+        public virtual ICollection<GetListClientResponse> Clients { get; set; }
 
     }
 }

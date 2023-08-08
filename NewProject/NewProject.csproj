@@ -7,10 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DatabaseScripts\**" />
-    <Content Remove="DatabaseScripts\**" />
-    <EmbeddedResource Remove="DatabaseScripts\**" />
-    <None Remove="DatabaseScripts\**" />
+    <None Remove="DatabaseScripts\CreateUserTypeScrpit.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="DatabaseScripts\CreateUserTypeScrpit.sql" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,6 @@
-﻿using Application.UseCases.DefaultAnswers.Responses;
+﻿using Application.UseCases.Categories.Responses;
+using Application.UseCases.DefaultAnswers.Responses;
+using Application.UseCases.QuestionTypes.Responses;
 
 namespace Application.UseCases.Questions.Responses;
 
@@ -8,11 +10,11 @@ public  class QuestionResponse
 
     public string QuestionText { get; set; }
 
-    public string Category { get; set; }
+    public GetListCategoryResponse Category { get; set; }
 
     public string CreatorUser { get; set; }
 
-    public string QuestionType { get; set; }
+    public GetLIstQuestionTypeResponse QuestionType { get; set; }
 
     public virtual ICollection<DefaultAnswerResponse> DefaultAnswers { get; set; } 
 

@@ -7,10 +7,10 @@ using NewProject.Abstraction;
 namespace Application.UseCases.Docs.Queries;
 
 
-public record GetAllDocQuery : IRequest<List<DocResponse>>;
+public record GetAllDocQuery : IRequest<List<GetListDocResponse>>;
 
 
-public class GetAllDocQueryHandler : IRequestHandler<GetAllDocQuery, List<DocResponse>>
+public class GetAllDocQueryHandler : IRequestHandler<GetAllDocQuery, List<GetListDocResponse>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -20,10 +20,10 @@ public class GetAllDocQueryHandler : IRequestHandler<GetAllDocQuery, List<DocRes
         _mapper = mapper;
     }
 
-    public async Task<List<DocResponse>> Handle(GetAllDocQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetListDocResponse>> Handle(GetAllDocQuery request, CancellationToken cancellationToken)
     {
         var entities = await _context.Docs.ToListAsync(cancellationToken);
-        var result = _mapper.Map<List<DocResponse>>(entities);
+        var result = _mapper.Map<List<GetListDocResponse>>(entities);
         return result;
     }
 }

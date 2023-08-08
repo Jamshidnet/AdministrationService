@@ -6,10 +6,10 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Clients.Queries;
 
-public record GetAllClientQuery : IRequest<List<ClientResponse>>;
+public record GetAllClientQuery : IRequest<List<GetListClientResponse>>;
 
 
-public class GetAllClientQueryHandler : IRequestHandler<GetAllClientQuery, List<ClientResponse>>
+public class GetAllClientQueryHandler : IRequestHandler<GetAllClientQuery, List<GetListClientResponse>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -19,11 +19,11 @@ public class GetAllClientQueryHandler : IRequestHandler<GetAllClientQuery, List<
         _mapper = mapper;
     }
 
-    public async Task<List<ClientResponse>> Handle(GetAllClientQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetListClientResponse>> Handle(GetAllClientQuery request, CancellationToken cancellationToken)
     {
         var entities = await _context.Clients.ToListAsync(cancellationToken);
 
-        List<ClientResponse> responses = _mapper.Map<List<ClientResponse>>(entities);
+        List<GetListClientResponse> responses = _mapper.Map<List<GetListClientResponse>>(entities);
         return responses;
     }
 }

@@ -8,6 +8,7 @@ namespace Domein.Entities;
 public partial class Client
 {
     [Key]
+    [Column("id")]
     public Guid Id { get; set; }
 
     [Column("client_type_id")]

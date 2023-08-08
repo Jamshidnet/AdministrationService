@@ -7,10 +7,10 @@ using NewProject.Abstraction;
 namespace Application.UseCases.UserTypes.Queries;
 
 
-public record GetAllUserTypeQuery : IRequest<List<UserTypeResponse>>;
+public record GetAllUserTypeQuery : IRequest<List<GetListUserTypeResponse>>;
 
 
-public class GetAllUserTypeQueryHandler : IRequestHandler<GetAllUserTypeQuery, List<UserTypeResponse>>
+public class GetAllUserTypeQueryHandler : IRequestHandler<GetAllUserTypeQuery, List<GetListUserTypeResponse>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -20,10 +20,10 @@ public class GetAllUserTypeQueryHandler : IRequestHandler<GetAllUserTypeQuery, L
         _mapper = mapper;
     }
 
-    public async Task<List<UserTypeResponse>> Handle(GetAllUserTypeQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetListUserTypeResponse>> Handle(GetAllUserTypeQuery request, CancellationToken cancellationToken)
     {
         var entities = await _context.UserTypes.ToListAsync(cancellationToken);
-        var result = _mapper.Map<List<UserTypeResponse>>(entities);
+        var result = _mapper.Map<List<GetListUserTypeResponse>>(entities);
         return result;
     }
 }

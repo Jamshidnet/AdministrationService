@@ -10,6 +10,7 @@ namespace Domein.Entities;
 public partial class User
 {
     [Key]
+    [Column("id")]
     public Guid Id { get; set; }
 
     [Required]

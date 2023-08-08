@@ -12,10 +12,10 @@ public partial class Permission
 
     [Required]
     [Column("permission_name")]
-    [StringLength(20)]
+    [StringLength(70)]
     public string PermissionName { get; set; }
 
     [ForeignKey("PermissionId")]
     [InverseProperty("Permissions")]
-    public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+    public virtual ICollection<Role> Roles { get; set; } 
 }

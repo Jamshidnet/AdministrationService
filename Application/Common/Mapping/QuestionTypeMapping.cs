@@ -13,5 +13,6 @@ public class QuestionTypeMapping : Profile
         CreateMap<CreateQuestionTypeCommand, QuestionType>();
         CreateMap<UpdateQuestionTypeCommand, QuestionType>();
         CreateMap<QuestionType, QuestionTypeResponse>();
+        CreateMap<QuestionType, GetLIstQuestionTypeResponse>();
     }
 }

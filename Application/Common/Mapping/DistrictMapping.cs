@@ -13,6 +13,8 @@ public class DistrictMapping : Profile
         CreateMap<CreateDistrictCommand, District>();
         CreateMap<UpdateDistrictCommand, District>();
         CreateMap<District, DistrictResponse>();
+        CreateMap<District, GetListDIstrictResponse>()
+            .ForMember(x => x.RegionName, y => y.MapFrom(dis => dis.Region.RegionName));
 
     }
 
