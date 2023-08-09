@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="DatabaseScripts\CreateUserTypeScrpit.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="DatabaseScripts\CreateUserTypeScrpit.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">

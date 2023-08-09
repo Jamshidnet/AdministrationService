@@ -4,6 +4,7 @@ using Application.UseCases.Roles.Responses;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 using NewProject.JWT.Interfaces;
 using NewProject.JWT.Models;
@@ -24,9 +25,6 @@ public class RegisterUserCommand : IRequest<TokenResponse>
     public string Password { get; set; }
     public string ConfirmPassword { get; set; }
 
-    public Guid? QuarterId { get; set; }
-
-    public Guid UserTypeId { get; set; }
 }
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, TokenResponse>
 {
@@ -49,14 +47,23 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
 
         var user = _mapper.Map<User>(request);
         var person = _mapper.Map<Person>(request);
-
+        person.Id = Guid.NewGuid();
+        var roles = await _context.Roles.ToListAsync();
+        var NewUserRole = roles.SingleOrDefault(x => x.RoleName == "NewUser");
+        user.Roles.Add(NewUserRole);
         user.SaltId = Guid.NewGuid();
         user.Password = (user.Password+user.SaltId).GetHashedString();
         user.Id = Guid.NewGuid();
+        user.Person = person;
+        user.UserType = await _context.UserTypes.SingleOrDefaultAsync(x => x.TypeName == "NoneSet");
         await _context.Users.AddAsync(user, cancellationToken);
         await _context.People.AddAsync(person, cancellationToken);
+
+
         await _context.SaveChangesAsync(cancellationToken);
-        var tokenResponse = _jwtToken.CreateTokenAsync(user.Username, user.Id.ToString(), new List<RoleResponse>(), cancellationToken);
+
+        var tokenResponse = _jwtToken.CreateTokenAsync(user.Username, user.Id.ToString(), _mapper.Map<RoleResponse[]>( user.Roles),cancellationToken);
+       
         return tokenResponse;
     }
 }

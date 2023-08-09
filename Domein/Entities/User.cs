@@ -36,7 +36,7 @@ public partial class User
     public DateTime? ExpiresDate { get; set; }
 
     [Column("user_type_id")]
-    public Guid UserTypeId { get; set; }
+    public Guid? UserTypeId { get; set; } = null;
 
     [InverseProperty("User")]
     public virtual ICollection<Doc> Docs { get; set; } = new List<Doc>();
