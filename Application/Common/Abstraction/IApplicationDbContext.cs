@@ -6,6 +6,10 @@ namespace NewProject.Abstraction
 {
     public interface IApplicationDbContext
     {
+         DbSet<DocChangeLog> DocChangeLogs { get; set; }
+
+         DbSet<SysTable> SysTables { get; set; }
+         DbSet<UserAction> UserActions { get; set; }
         DbSet<DefaultAnswer> DefaultAnswers { get; set; }
 
         DbSet<Category> Categories { get; set; }

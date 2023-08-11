@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domein.Entities;
-
 
 [Table("client_answers")]
 public partial class ClientAnswer
@@ -12,10 +14,10 @@ public partial class ClientAnswer
     public Guid Id { get; set; }
 
     [Column("answer_text")]
-    public string? AnswerText { get; set; } = null;
+    public string AnswerText { get; set; }
 
     [Column("default_answer_id")]
-    public Guid? DefaultAnswerId { get; set; } = null;
+    public Guid? DefaultAnswerId { get; set; }
 
     [Column("doc_id")]
     public Guid DocId { get; set; }

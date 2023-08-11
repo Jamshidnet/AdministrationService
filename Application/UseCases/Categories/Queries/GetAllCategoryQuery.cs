@@ -1,5 +1,6 @@
 ﻿using Application.UseCases.Categories.Responses;
 using AutoMapper;
+using Domein.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;

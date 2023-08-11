@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +39,10 @@ public partial class Doc
     public virtual Client Client { get; set; }
 
     [InverseProperty("Doc")]
-    public virtual ICollection<ClientAnswer> ClientAnswers { get; set; } 
+    public virtual ICollection<ClientAnswer> ClientAnswers { get; set; } = new List<ClientAnswer>();
+
+    [InverseProperty("Doc")]
+    public virtual ICollection<DocChangeLog> DocChangeLogs { get; set; } = new List<DocChangeLog>();
 
     [ForeignKey("UserId")]
     [InverseProperty("Docs")]

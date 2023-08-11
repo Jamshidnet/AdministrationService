@@ -1,4 +1,5 @@
-﻿using Application.Common.Exceptions;
+﻿using Application.Common.Abstraction;
+using Application.Common.Exceptions;
 using Application.UseCases.Docs.Responses;
 using AutoMapper;
 using Domein.Entities;
@@ -25,11 +26,15 @@ public class UpdateDocCommand : IRequest<DocResponse>
 public class UpdateDocCommandHandler : IRequestHandler<UpdateDocCommand, DocResponse>
 {
     private IApplicationDbContext _context;
+    public IDocChangeLogger _logger { get; set; }
     private readonly IMapper _mapper;
-    public UpdateDocCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+
+
+    public UpdateDocCommandHandler(IApplicationDbContext dbContext, IMapper mapper, IDocChangeLogger logger)
     {
         _context = dbContext;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<DocResponse> Handle(UpdateDocCommand request, CancellationToken cancellationToken)
@@ -41,6 +46,8 @@ public class UpdateDocCommandHandler : IRequestHandler<UpdateDocCommand, DocResp
             ?? throw new NotFoundException(nameof(Doc), request.Id);
         _mapper.Map(request, foundDoc);
         _context.Docs.Update(foundDoc);
+        await _logger.Log(foundDoc.Id, "Update");
+
         await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<DocResponse>(foundDoc);
     }

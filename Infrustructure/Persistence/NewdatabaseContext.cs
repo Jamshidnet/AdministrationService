@@ -1,5 +1,4 @@
-﻿using Application.UseCases.Docs.Filters;
-using Application.UseCases.Docs.Responses;
+﻿using Application.UseCases.Docs.Responses;
 using Domein.Entities;
 using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
@@ -22,15 +21,15 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
     public virtual DbSet<Client> Clients { get; set; }
 
     public virtual DbSet<ClientAnswer> ClientAnswers { get; set; }
-    public virtual DbSet<UserType> UserTypes { get; set; }
 
+    public virtual DbSet<ClientType> ClientTypes { get; set; }
 
     public virtual DbSet<DefaultAnswer> DefaultAnswers { get; set; }
-    public virtual DbSet<ClientType> ClientTypes { get; set; }
 
     public virtual DbSet<District> Districts { get; set; }
 
     public virtual DbSet<Doc> Docs { get; set; }
+
 
     public virtual DbSet<Permission> Permissions { get; set; }
 
@@ -45,9 +44,15 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
     public virtual DbSet<Region> Regions { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
+    public virtual DbSet<DocChangeLog> DocChangeLogs { get; set; }
 
+    public virtual DbSet<SysTable> SysTables { get; set; }
+
+    public virtual DbSet<UserAction> UserActions { get; set; }
     public virtual DbSet<User> Users { get; set; }
 
+
+    public virtual DbSet<UserType> UserTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Jam2001!!!;Database=newdatabase");
@@ -67,24 +72,18 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.ClientType).WithMany(p => p.Clients)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("client_type_id_fkey");
+            entity.HasOne(d => d.ClientType).WithMany(p => p.Clients).HasConstraintName("client_type_id_fkey");
 
-            entity.HasOne(d => d.Person).WithMany(p => p.Clients)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("person_client_fk");
+            entity.HasOne(d => d.Person).WithMany(p => p.Clients).HasConstraintName("person_client_fk");
 
             entity.HasMany(d => d.Categories).WithMany(p => p.Clients)
                 .UsingEntity<Dictionary<string, object>>(
                     "ClientCategory",
                     r => r.HasOne<Category>().WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("category_fk"),
                     l => l.HasOne<Client>().WithMany()
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("client_fk"),
                     j =>
                     {
@@ -101,15 +100,13 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.DefaultAnswer).WithMany(p => p.ClientAnswers).HasConstraintName("default_answer_fk");
+            entity.HasOne(d => d.DefaultAnswer).WithMany(p => p.ClientAnswers)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("default_answer_fk");
 
-            entity.HasOne(d => d.Doc).WithMany(p => p.ClientAnswers)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("doc_fk");
+            entity.HasOne(d => d.Doc).WithMany(p => p.ClientAnswers).HasConstraintName("doc_fk");
 
-            entity.HasOne(d => d.Question).WithMany(p => p.ClientAnswers)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("question_fk");
+            entity.HasOne(d => d.Question).WithMany(p => p.ClientAnswers).HasConstraintName("question_fk");
         });
 
         modelBuilder.Entity<ClientType>(entity =>
@@ -125,9 +122,7 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Question).WithMany(p => p.DefaultAnswers)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("question_fk");
+            entity.HasOne(d => d.Question).WithMany(p => p.DefaultAnswers).HasConstraintName("question_fk");
         });
 
         modelBuilder.Entity<District>(entity =>
@@ -136,9 +131,7 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Region).WithMany(p => p.Districts)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("districts_region_id_fkey");
+            entity.HasOne(d => d.Region).WithMany(p => p.Districts).HasConstraintName("districts_region_id_fkey");
         });
 
         modelBuilder.Entity<Doc>(entity =>
@@ -147,13 +140,22 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Client).WithMany(p => p.Docs)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("cleint_doc_fk");
+            entity.HasOne(d => d.Client).WithMany(p => p.Docs).HasConstraintName("cleint_doc_fk");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Docs)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("user_doc_fk");
+            entity.HasOne(d => d.User).WithMany(p => p.Docs).HasConstraintName("user_doc_fk");
+        });
+
+        modelBuilder.Entity<DocChangeLog>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("doc_change_log_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Doc).WithMany(p => p.DocChangeLogs).HasConstraintName("doc_fk");
+
+            entity.HasOne(d => d.Table).WithMany(p => p.DocChangeLogs).HasConstraintName("table_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.DocChangeLogs).HasConstraintName("user_fk");
         });
 
         modelBuilder.Entity<Permission>(entity =>
@@ -169,7 +171,9 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Quarter).WithMany(p => p.People).HasConstraintName("quarter_fk");
+            entity.HasOne(d => d.Quarter).WithMany(p => p.People)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("quarter_fk");
         });
 
         modelBuilder.Entity<Quarter>(entity =>
@@ -178,9 +182,7 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.District).WithMany(p => p.Quarters)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("quarters_district_id_fkey");
+            entity.HasOne(d => d.District).WithMany(p => p.Quarters).HasConstraintName("quarters_district_id_fkey");
         });
 
         modelBuilder.Entity<Question>(entity =>
@@ -189,15 +191,13 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Category).WithMany(p => p.Questions)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("questions_category_id_fkey");
+            entity.HasOne(d => d.Category).WithMany(p => p.Questions).HasConstraintName("questions_category_id_fkey");
 
-            entity.HasOne(d => d.CreatorUser).WithMany(p => p.Questions)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("questions_creator_user_id_fkey");
+            entity.HasOne(d => d.CreatorUser).WithMany(p => p.Questions).HasConstraintName("questions_creator_user_id_fkey");
 
-            entity.HasOne(d => d.QuestionType).WithMany(p => p.Questions).HasConstraintName("questions_question_type_id_fkey");
+            entity.HasOne(d => d.QuestionType).WithMany(p => p.Questions)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("questions_question_type_id_fkey");
         });
 
         modelBuilder.Entity<QuestionType>(entity =>
@@ -225,11 +225,9 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
                     "RolePermission",
                     r => r.HasOne<Permission>().WithMany()
                         .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("role_permissions_permission_id_fkey"),
                     l => l.HasOne<Role>().WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("role_permissions_role_id_fkey"),
                     j =>
                     {
@@ -240,18 +238,23 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
                     });
         });
 
+        modelBuilder.Entity<SysTable>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("sys_tables_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("user_id_pr");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Person).WithMany(p => p.Users)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("user_person_id");
+            entity.HasOne(d => d.Person).WithMany(p => p.Users).HasConstraintName("user_person_id");
 
             entity.HasOne(d => d.UserType).WithMany(p => p.Users)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("user_type_fk");
 
             entity.HasMany(d => d.Roles).WithMany(p => p.Users)
@@ -259,7 +262,6 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
                     "UserRole",
                     r => r.HasOne<Role>().WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("user_roles_role_id_fkey"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("UserId")
@@ -273,6 +275,17 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
                     });
         });
 
+        modelBuilder.Entity<UserAction>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("user_actions_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Table).WithMany(p => p.UserActions).HasConstraintName("table_action");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserActions).HasConstraintName("user_fk");
+        });
+
         modelBuilder.Entity<UserType>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("user_type_pkey");
@@ -283,24 +296,25 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
         OnModelCreatingPartial(modelBuilder);
     }
 
+
     [DbFunction("filter_docs_by_user")]
     public IQueryable<FilterByUserResponse> GetFilteredUsers(
-        Guid? RegionId,
-        Guid? DistrictId,
-        Guid? QuarterId,
-        bool ByRegion,
-        bool ByDistrict,
-        bool ByQuarter
+    Guid? RegionId,
+    Guid? DistrictId,
+    Guid? QuarterId,
+    bool ByRegion,
+    bool ByDistrict,
+    bool ByQuarter
+    )
+    => FromExpression(() => GetFilteredUsers(
+        RegionId,
+        DistrictId,
+        QuarterId,
+         ByRegion,
+        ByDistrict,
+        ByQuarter
         )
-        => FromExpression(() => GetFilteredUsers(
-            RegionId,
-            DistrictId,
-            QuarterId,
-             ByRegion,
-            ByDistrict,
-            ByQuarter
-            )
-        );
+    );
 
 
 

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NewProject.Abstraction;
+using NewProject.CustomAttributes;
+using NewProject.Middlewares;
 using System;
 
 namespace NewProject;
@@ -19,12 +21,13 @@ public class Program
         builder.Services.AddApplication();
         // Add services to the container.
         builder.Services.AddApi(builder.Configuration);
-      //  builder.Services.AddScoped<CustomAuthorizeAttribute>();
+        //  builder.Services.AddScoped<CustomAuthorizeAttribute>();
         builder.Services.AddControllers();
-       // builder.Services.AddAuthorization();
+        // builder.Services.AddAuthorization();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddScoped<ChangeLoggingMiddleware>();
         builder.Services.AddScoped<IApplicationDbContext, NewdatabaseContext>();
         builder.Services.AddDbContext<NewdatabaseContext>(
             options =>
@@ -52,7 +55,7 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
-
+        app.UseMiddleware<ChangeLoggingMiddleware>();
         app.MapControllers();
 
         app.Run();

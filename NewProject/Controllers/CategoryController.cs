@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using NewProject.CustomAttributes;
+using Domein.Common;
+using Domein.Entities;
 
 namespace NewProject.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+//[LogControllerActions(TableId =TableIdConst.CategoryTable)]
 public class CategoryController : ApiBaseController
 {
     [HttpGet("[action]")]

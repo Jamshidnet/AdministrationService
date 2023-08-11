@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domein.Entities;
-
 
 [Table("users")]
 [Index("Username", Name = "users_username_key", IsUnique = true)]
@@ -36,7 +37,10 @@ public partial class User
     public DateTime? ExpiresDate { get; set; }
 
     [Column("user_type_id")]
-    public Guid? UserTypeId { get; set; } = null;
+    public Guid? UserTypeId { get; set; }
+
+    [InverseProperty("User")]
+    public virtual ICollection<DocChangeLog> DocChangeLogs { get; set; } = new List<DocChangeLog>();
 
     [InverseProperty("User")]
     public virtual ICollection<Doc> Docs { get; set; } = new List<Doc>();
@@ -47,6 +51,9 @@ public partial class User
 
     [InverseProperty("CreatorUser")]
     public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
+
+    [InverseProperty("User")]
+    public virtual ICollection<UserAction> UserActions { get; set; } = new List<UserAction>();
 
     [ForeignKey("UserTypeId")]
     [InverseProperty("Users")]

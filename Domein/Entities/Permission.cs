@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domein.Entities;
 
@@ -17,5 +20,5 @@ public partial class Permission
 
     [ForeignKey("PermissionId")]
     [InverseProperty("Permissions")]
-    public virtual ICollection<Role> Roles { get; set; } 
+    public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
 }

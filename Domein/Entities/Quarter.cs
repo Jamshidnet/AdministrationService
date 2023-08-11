@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domein.Entities;
 
@@ -23,5 +26,5 @@ public partial class Quarter
     public virtual District District { get; set; }
 
     [InverseProperty("Quarter")]
-    public virtual ICollection<Person> People { get; set; } 
+    public virtual ICollection<Person> People { get; set; } = new List<Person>();
 }
