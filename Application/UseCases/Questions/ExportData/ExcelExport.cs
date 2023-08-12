@@ -51,6 +51,7 @@ public class GetQuestionExcel : IRequest<ExcelReportResponse>
                 sheet1.Column(2).Width = 50;
                 sheet1.Column(3).Width = 40;
                 sheet1.Column(4).Width = 20;
+                sheet1.Column(5).Width = 20;
 
                 using MemoryStream ms = new();
                 wb.SaveAs(ms);
@@ -67,12 +68,13 @@ public class GetQuestionExcel : IRequest<ExcelReportResponse>
                     TableName = "Questions"
                 };
                 dt.Columns.Add("Id", typeof(Guid));
-                dt.Columns.Add("QuestionText", typeof(string));
-                dt.Columns.Add("CreatorUser full name", typeof(string));
-                dt.Columns.Add("CategoryName", typeof(string));
+                dt.Columns.Add("Question Text", typeof(string));
+                dt.Columns.Add("Creator Username", typeof(string));
+                dt.Columns.Add("Category Name", typeof(string));
+                dt.Columns.Add("Question type", typeof(string));
 
 
-                var _list = _mapper.Map<List<QuestionResponse>>(AllQuestions);
+                var _list = _mapper.Map<List<GetListQuestionResponse>>(AllQuestions);
                 if (_list.Count > 0)
                 {
                     _list.ForEach(item =>
@@ -81,7 +83,8 @@ public class GetQuestionExcel : IRequest<ExcelReportResponse>
                             item.Id,
                             item.QuestionText,
                             item.CreatorUser,
-                            item.Category
+                            item.Category,
+                            item.QuestionType
                             );
                     });
                 }

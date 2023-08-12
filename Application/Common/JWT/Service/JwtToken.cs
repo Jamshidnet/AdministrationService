@@ -1,4 +1,5 @@
 ﻿using Application.Common.Extensions;
+using Application.UseCases.Permissions.Responses;
 using Application.UseCases.Roles.Responses;
 using Domein.Entities.Identity;
 using Microsoft.Extensions.Configuration;
@@ -29,9 +30,18 @@ public class JwtToken : IJwtToken
         new Claim(ClaimTypes.NameIdentifier,UserId)
     };
 
+        List<PermissionResponse> permissions = new List<PermissionResponse>();
+        
+        foreach (var item in Roles)
+        {
+            foreach (var per in item.Permissions)
+            {
+                permissions.Add(per);
+            }
+        }
+
         if (Roles.Count > 0)
         {
-
             foreach (var role in Roles)
             {
                 foreach (var permission in role.Permissions)
@@ -58,7 +68,8 @@ public class JwtToken : IJwtToken
         var responseModel = new TokenResponse
         {
             AccessToken = new JwtSecurityTokenHandler().WriteToken(jwt),
-            RefreshToken =  GenerateRefreshTokenAsync(userName)
+            RefreshToken =  GenerateRefreshTokenAsync(userName),
+            Permissions= permissions
         };
 
         refreshTokenService.AddOrUpdateRefreshToken(new UserRefreshToken()

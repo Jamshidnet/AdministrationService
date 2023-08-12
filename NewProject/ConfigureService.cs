@@ -1,17 +1,11 @@
 ﻿using Application.Common.Abstraction;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using NewProject.CustomAttributes;
 using NewProject.JWT;
 using NewProject.Service;
-using Newtonsoft.Json;
 using System.Text.Json.Serialization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using ZstdSharp.Unsafe;
 using Application.Common.Logging;
 
 namespace NewProject;

@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Authorization;
 using NewProject.CustomAttributes;
+using Application.UseCases.Docs.ExportData;
+using MySqlX.XDevAPI.Common;
+using static Application.UseCases.Questions.ExportData.GetQuestionExcel;
 
 namespace NewProject.Controllers;
 
@@ -73,4 +76,21 @@ public class DocController : ApiBaseController
              .ToPagedList(PageNumber, PageSize);
         return query;
     }
+
+    [HttpGet("[action]")]
+    //[Authorize(Roles = "PDFGetDocById")]
+    public async ValueTask<FileResult> PDFGetDocById(Guid DocId, string filename = "DocFile")
+    {
+        var result =  await _mediator.Send(new GetDocPDF(filename, DocId));
+        return File(result.FileContents, result.Options, result.FileName);
+    }
+
+    [HttpGet("[action]")]
+   // [Authorize(Roles = "ExportExcelDocs")]
+    public async Task<FileResult> ExportExcelDocs(string fileName = "DocsFile")
+    {
+        var result = await _mediator.Send(new GetDocsExcelQuery(fileName));
+        return File(result.FileContents, result.Option, result.FileName);
+    }
 }
+
