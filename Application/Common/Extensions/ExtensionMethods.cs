@@ -34,9 +34,10 @@ public static  class ExtensionMethods
         ["RegionTable"] = 13,
         ["DocChangeLogTable"] = 15,
         ["SysTableTable"] =  16,
-        ["UserActionTable"] = 17,
+        ["UserActionLogTable"] = 17,
         ["UserTable"] = 18,
-        ["UserTypeTable"] = 19
+        ["UserTypeTable"] = 19,
+        ["RoleTable"] =20
     };
 
     public static Dictionary<string, int> Tables { get => tables; set => tables = value; }
