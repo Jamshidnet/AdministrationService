@@ -35,7 +35,7 @@ public class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand, C
 
     public async Task<ClientResponse> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
     {
-       await  FilterIfQuarterExsists(request.QuarterId);
+        await FilterIfQuarterExsists(request.QuarterId);
         var foundClient = await _context.Clients.FindAsync(new object[] { request.Id }, cancellationToken)
             ?? throw new NotFoundException(nameof(Client), request.Id);
         Person person = await FilterIfPersonExsists(foundClient.PersonId);
@@ -44,10 +44,10 @@ public class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand, C
         person.Birthdate = DateOnly.FromDateTime(request.Birthdate);
         person.PhoneNumber = request.PhoneNumber;
         person.QuarterId = request.QuarterId;
-         _context.People.Update(person);
+        _context.People.Update(person);
 
         foundClient.ClientTypeId = request.ClientTypeId;
-       
+
         _context.Clients.Update(foundClient);
         await _context.SaveChangesAsync(cancellationToken);
 
@@ -65,7 +65,7 @@ public class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand, C
     {
         if (await _context.Quarters.FindAsync(quarterId) is null)
             throw new NotFoundException("There is no quarter with given Id. ");
-    } 
+    }
 
 
 }

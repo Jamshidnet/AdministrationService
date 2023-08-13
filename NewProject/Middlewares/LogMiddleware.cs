@@ -19,36 +19,36 @@ public class ChangeLoggingMiddleware : IMiddleware
         this.currentUserService = currentUserService;
     }
 
-    public IApplicationDbContext     _context { get; set; }
+    public IApplicationDbContext _context { get; set; }
     public ICurrentUserService currentUserService { get; set; }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-       await next(context);
+        await next(context);
         var routeValues = context.Request.RouteValues;
         string tableName = routeValues["controller"] as string;
         string actionName = routeValues["action"] as string;
-       
-       await  Log( actionName, tableName);
+
+        await Log(actionName, tableName);
     }
 
-    public  async Task Log( string action, string tableName)
+    public async Task Log(string action, string tableName)
     {
         int TableId = ExtensionMethods.Tables
             .GetValueOrDefault($"{tableName}Table");
 
-        var table = await  _context.SysTables
+        var table = await _context.SysTables
             .SingleOrDefaultAsync(x => x.TableId == TableId)
             ?? throw new Exception(
                 " there is no table with this table id . ");
         string UserName = currentUserService.Username;
         var user = _context.Users
-            .SingleOrDefault(x => x.Username == UserName );
-            
+            .SingleOrDefault(x => x.Username == UserName);
+
 
         UserAction Logitems = new()
         {
-            ActionName =action,
+            ActionName = action,
             ActionTime = DateTime.Now,
             Id = Guid.NewGuid(),
             TableId = table.Id,
@@ -57,6 +57,6 @@ public class ChangeLoggingMiddleware : IMiddleware
 
 
         await _context.UserActions.AddAsync(Logitems);
-        await  _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
     }
 }

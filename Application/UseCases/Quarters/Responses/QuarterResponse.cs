@@ -4,7 +4,7 @@ using Application.UseCases.Districts.Responses;
 
 namespace Application.UseCases.Quarters.Responses;
 
-public  class QuarterResponse
+public class QuarterResponse
 {
     public Guid Id { get; set; }
 

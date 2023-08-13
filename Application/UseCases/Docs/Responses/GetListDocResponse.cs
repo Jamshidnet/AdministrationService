@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.Docs.Responses;
 
-public  class GetListDocResponse
+public class GetListDocResponse
 {
     public Guid Id { get; set; }
 

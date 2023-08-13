@@ -29,7 +29,7 @@ public class UpdateQuarterCommandHandler : IRequestHandler<UpdateQuarterCommand,
     {
         var foundQuarter = await _context.Quarters.FindAsync(new object[] { request.Id }, cancellationToken)
             ?? throw new NotFoundException(nameof(Quarter), request.Id);
-        _mapper.Map( request, foundQuarter);
+        _mapper.Map(request, foundQuarter);
         _context.Quarters.Update(foundQuarter);
         await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<QuarterResponse>(foundQuarter);

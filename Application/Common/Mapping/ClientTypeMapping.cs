@@ -6,15 +6,15 @@ using Domein.Entities;
 
 namespace Application.Common.Mapping
 {
-    public class ClientTypeMapping  : Profile
+    public class ClientTypeMapping : Profile
     {
 
         public ClientTypeMapping()
         {
-                 CreateMap<CreateClientTypeCommand, ClientType>();
-                 CreateMap<UpdateClientCommand, ClientType>();
-                  CreateMap<ClientType, ClientTypeResponse>();
-                  CreateMap<ClientType, GetListClientTypeResponse>();
+            CreateMap<CreateClientTypeCommand, ClientType>();
+            CreateMap<UpdateClientCommand, ClientType>();
+            CreateMap<ClientType, ClientTypeResponse>();
+            CreateMap<ClientType, GetListClientTypeResponse>();
         }
 
     }

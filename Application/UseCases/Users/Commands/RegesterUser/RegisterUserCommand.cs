@@ -52,7 +52,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
         var NewUserRole = roles.SingleOrDefault(x => x.RoleName == "NewUser");
         user.Roles.Add(NewUserRole);
         user.SaltId = Guid.NewGuid();
-        user.Password = (user.Password+user.SaltId).GetHashedString();
+        user.Password = (user.Password + user.SaltId).GetHashedString();
         user.Id = Guid.NewGuid();
         user.Person = person;
         user.UserType = await _context.UserTypes.SingleOrDefaultAsync(x => x.TypeName == "NoneSet");
@@ -62,8 +62,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var tokenResponse = _jwtToken.CreateTokenAsync(user.Username, user.Id.ToString(), _mapper.Map<RoleResponse[]>( user.Roles),cancellationToken);
-       
+        var tokenResponse = _jwtToken.CreateTokenAsync(user.Username, user.Id.ToString(), _mapper.Map<RoleResponse[]>(user.Roles), cancellationToken);
+
         return tokenResponse;
     }
 }

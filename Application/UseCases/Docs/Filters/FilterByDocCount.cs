@@ -13,7 +13,7 @@ namespace Application.UseCases.Docs.Filters;
 public record FilterByDocCount : IRequest<List<DocCountResponse>>
 {
     public Guid? RegionId { get; set; }
-    public bool ByRegion { get; set; } = false; 
+    public bool ByRegion { get; set; } = false;
     public Guid? DistrictId { get; set; }
     public bool ByDistrict { get; set; } = false;
     public Guid? QuarterId { get; set; }
@@ -48,33 +48,33 @@ public class FilterByDocCountHandler : IRequestHandler<FilterByDocCount, List<Do
             var regions = await _dbContext.Regions.ToListAsync(cancellationToken);
 
             var list = new List<DocCountResponse>();
-             regions.ForEach(region =>
-             list.AddRange( from category in categories
-                               select new DocCountResponse()
-                               {
-                                   Region = _mapper.Map<GetListRegionResponse>(region),
-                                   Category=_mapper.Map<GetListCategoryResponse>(category),
-                                   DocumentCount = docs.Where(d => d.Client.Person.Quarter.District.RegionId == region.Id
-                                   && d.ClientAnswers.DistinctBy(x=>x.QuestionId).Any(y=>y.Question.CategoryId==category.Id)).Count()
-                               }));
-            
+            regions.ForEach(region =>
+            list.AddRange(from category in categories
+                          select new DocCountResponse()
+                          {
+                              Region = _mapper.Map<GetListRegionResponse>(region),
+                              Category = _mapper.Map<GetListCategoryResponse>(category),
+                              DocumentCount = docs.Where(d => d.Client.Person.Quarter.District.RegionId == region.Id
+                               && d.ClientAnswers.DistinctBy(x => x.QuestionId).Any(y => y.Question.CategoryId == category.Id)).Count()
+                          }));
+
 
             return list.ToList();
         }
-        else if(request.ByDistrict)
+        else if (request.ByDistrict)
         {
             if (request.DistrictId is not null)
                 docs = docs.Where(x => x.Client.Person.Quarter.DistrictId == request.DistrictId).ToList();
 
             var districts = await _dbContext.Districts.ToListAsync(cancellationToken);
-           
+
             var list = new List<DocCountResponse>();
             districts.ForEach(district =>
             list.AddRange(from category in categories
                           select new DocCountResponse()
                           {
                               Region = _mapper.Map<GetListRegionResponse>(district.Region),
-                              District= _mapper.Map<GetListDIstrictResponse>(district),
+                              District = _mapper.Map<GetListDIstrictResponse>(district),
                               Category = _mapper.Map<GetListCategoryResponse>(category),
                               DocumentCount = docs.Where(d => d.Client.Person.Quarter.DistrictId == district.Id
                                && d.ClientAnswers.DistinctBy(x => x.QuestionId).Any(y => y.Question.CategoryId == category.Id)).Count()

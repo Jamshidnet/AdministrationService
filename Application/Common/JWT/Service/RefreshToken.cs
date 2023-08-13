@@ -10,7 +10,7 @@ using NewProject.JWT.Interfaces;
 
 namespace Application.Common.JWT.Service
 {
-    public  class RefreshToken :IUserRefreshToken
+    public class RefreshToken : IUserRefreshToken
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -26,12 +26,12 @@ namespace Application.Common.JWT.Service
             var user = await _context.Users
                 .FirstOrDefaultAsync(x => x.Username == refreshToken.UserName, cancellationToken);
 
-                user.RefreshToken = refreshToken.RefreshToken;
-              user.ExpiresDate = refreshToken.ExpiresTime;
-             // _context.Users.Update(user);
-                await _context.SaveChangesAsync(cancellationToken);
-                return refreshToken;
-         
+            user.RefreshToken = refreshToken.RefreshToken;
+            user.ExpiresDate = refreshToken.ExpiresTime;
+            // _context.Users.Update(user);
+            await _context.SaveChangesAsync(cancellationToken);
+            return refreshToken;
+
         }
 
         public async ValueTask<UserResponse> AuthenAsync(LoginUserCommand user)
@@ -40,18 +40,18 @@ namespace Application.Common.JWT.Service
                 ?? throw new NotFoundException(" There is no user with this username ");
 
             Guid salt = foundUserByUsername.SaltId;
-            
-            string hashPassword = (user.Password+salt).GetHashedString();
+
+            string hashPassword = (user.Password + salt).GetHashedString();
             var founUser = await _context.Users.FirstOrDefaultAsync(x => x.Password == hashPassword)
                     ?? throw new NotFoundException(" Invalid password . ");
 
             var userResponse = _mapper.Map<UserResponse>(founUser);
-            
+
 
             return userResponse;
         }
 
-        public async  ValueTask<bool> DeleteUserRefreshTokens(string username, string refreshToken, CancellationToken cancellationToken = default)
+        public async ValueTask<bool> DeleteUserRefreshTokens(string username, string refreshToken, CancellationToken cancellationToken = default)
         {
             var foundUser = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
@@ -66,7 +66,7 @@ namespace Application.Common.JWT.Service
             return new UserRefreshToken()
             {
                 RefreshToken = user.RefreshToken,
-               //  ExpiresTime=user.ExpiresDate,
+                //  ExpiresTime=user.ExpiresDate,
                 UserName = user.Username
             };
         }

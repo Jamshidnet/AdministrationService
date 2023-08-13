@@ -29,7 +29,7 @@ public class CreatePermissionCommandHanler : IRequestHandler<CreatePermissionCom
         {
             _permissions.Add(new()
             {
-                Id=Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 PermissionName = item
             });
         }

@@ -28,10 +28,10 @@ public class DeleteDocCommandHandler : IRequestHandler<DeleteDocCommand>
         }
         _context.Docs.Remove(doc);
 
-       await _logger.Log(doc.Id, "Delete");
+        await _logger.Log(doc.Id, "Delete");
 
         var result = await _context.SaveChangesAsync(cancellationToken);
 
-       
+
     }
 }

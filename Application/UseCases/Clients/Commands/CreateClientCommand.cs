@@ -41,7 +41,7 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, G
             LastName = request.LastName,
             Birthdate = DateOnly.FromDateTime(request.Birthdate),
             PhoneNumber = request.PhoneNumber,
-            QuarterId=request.QuarterId
+            QuarterId = request.QuarterId
         };
         person.Id = Guid.NewGuid();
         await _dbContext.People.AddAsync(person);

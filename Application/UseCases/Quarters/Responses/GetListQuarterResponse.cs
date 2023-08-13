@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.Quarters.Responses;
 
-public  class GetListQuarterResponse
+public class GetListQuarterResponse
 {
     public Guid Id { get; set; }
 

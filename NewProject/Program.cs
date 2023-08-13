@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NewProject.Abstraction;
-using NewProject.CustomAttributes;
 using NewProject.Middlewares;
 using System;
 
@@ -61,3 +60,5 @@ public class Program
         app.Run();
     }
 }
+
+

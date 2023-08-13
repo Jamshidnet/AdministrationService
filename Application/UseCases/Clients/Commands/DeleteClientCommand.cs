@@ -28,7 +28,7 @@ public class DeleteClientCommandHandler : IRequestHandler<DeleteClientCommand>
 
         var person = await _context.People.FindAsync(client.PersonId);
 
-        if(person is null)
+        if (person is null)
         {
             throw new NotFoundException(nameof(Person), client.PersonId);
         }

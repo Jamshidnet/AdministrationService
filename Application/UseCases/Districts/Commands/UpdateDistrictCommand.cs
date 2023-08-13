@@ -38,7 +38,7 @@ public class UpdateDistrictCommandHandler : IRequestHandler<UpdateDistrictComman
         {
             foundDistrict?.Quarters?.Clear();
             quarters.ForEach(quarter =>
-            { 
+            {
                 if (request.Quarters.Any(id => id == quarter.Id))
                     foundDistrict.Quarters.Add(quarter);
             });

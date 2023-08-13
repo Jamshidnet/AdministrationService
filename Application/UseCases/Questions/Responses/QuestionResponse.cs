@@ -4,7 +4,7 @@ using Application.UseCases.QuestionTypes.Responses;
 
 namespace Application.UseCases.Questions.Responses;
 
-public  class QuestionResponse
+public class QuestionResponse
 {
     public Guid Id { get; set; }
 
@@ -16,6 +16,6 @@ public  class QuestionResponse
 
     public GetLIstQuestionTypeResponse QuestionType { get; set; }
 
-    public virtual ICollection<DefaultAnswerResponse> DefaultAnswers { get; set; } 
+    public virtual ICollection<DefaultAnswerResponse> DefaultAnswers { get; set; }
 
 }

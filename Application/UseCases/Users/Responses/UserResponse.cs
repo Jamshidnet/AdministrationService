@@ -19,7 +19,7 @@ public class UserResponse
     public string Username { get; set; }
 
     public GetListUserTypeResponse UserType { get; set; }
-    
+
     public GetListQuarterResponse Quarter { get; set; }
 
     public List<RoleResponse> Roles { get; set; }

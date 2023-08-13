@@ -65,7 +65,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
             LastName = request.LastName,
             Birthdate = DateOnly.FromDateTime(request.Birthdate),
             PhoneNumber = request.PhoneNumber,
-            QuarterId=request.QuarterId
+            QuarterId = request.QuarterId
         };
         person.Id = Guid.NewGuid();
         await _context.People.AddAsync(person);
@@ -79,7 +79,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
             Username = request.Username,
             PersonId = person.Id,
             Roles = userRole,
-            UserTypeId=request.UserTypeId
+            UserTypeId = request.UserTypeId
         };
         await _context.Users.AddAsync(user, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);

@@ -3,7 +3,7 @@ using Application.UseCases.Regions.Responses;
 
 namespace Application.UseCases.Districts.Responses;
 
-public  class DistrictResponse
+public class DistrictResponse
 {
     public Guid Id { get; set; }
 

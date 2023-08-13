@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
+﻿using Application.UseCases.QuestionTypes.Commands;
 using Application.UseCases.QuestionTypes.Queries;
 using Application.UseCases.QuestionTypes.Responses;
-using Application.UseCases.QuestionTypes.Commands;
-using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace NewProject.Controllers;
 
@@ -16,12 +16,12 @@ namespace NewProject.Controllers;
 public class QuestionTypeController : ApiBaseController
 {
     [HttpGet("[action]")]
-    [Authorize(Roles ="GetQuestionTypeById")]
+    [Authorize(Roles = "GetQuestionTypeById")]
     public async ValueTask<QuestionTypeResponse> GetQuestionTypeById(Guid QuestionTypeId)
    => await _mediator.Send(new GetByIdQuestionTypeQuery(QuestionTypeId));
 
     [HttpGet("[action]")]
-    [Authorize(Roles ="GetAllQuestionType")]
+    [Authorize(Roles = "GetAllQuestionType")]
     public async ValueTask<IEnumerable<GetLIstQuestionTypeResponse>> GetAllQuestionType(int PageNumber = 1, int PageSize = 10)
     {
         IPagedList<GetLIstQuestionTypeResponse> query = (await _mediator
@@ -31,7 +31,7 @@ public class QuestionTypeController : ApiBaseController
     }
 
     [HttpPost("[action]")]
-    [Authorize(Roles ="CreateQuestionType")]
+    [Authorize(Roles = "CreateQuestionType")]
     public async ValueTask<Guid> CreateQuestionType(CreateQuestionTypeCommand command)
         => await _mediator.Send(command);
 
@@ -45,7 +45,7 @@ public class QuestionTypeController : ApiBaseController
     }
 
     [HttpDelete("[action]")]
-    [Authorize(Roles ="DeleteQuestionType")]
+    [Authorize(Roles = "DeleteQuestionType")]
     public async ValueTask<IActionResult> DeleteQuestionType(DeleteQuestionTypeCommand command)
     {
         await _mediator.Send(command);

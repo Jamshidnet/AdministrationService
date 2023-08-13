@@ -1,12 +1,12 @@
-﻿using Application.UseCases.Quarters.Queries;
+﻿using Application.UseCases.Quarters.Commands;
+using Application.UseCases.Quarters.Queries;
 using Application.UseCases.Quarters.Responses;
-using Application.UseCases.Quarters.Commands;
-using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace NewProject.Controllers
 {
@@ -15,12 +15,12 @@ namespace NewProject.Controllers
     public class QuarterController : ApiBaseController
     {
         [HttpGet("[action]")]
-        [Authorize(Roles ="GetQuarterById")]
+        [Authorize(Roles = "GetQuarterById")]
         public async ValueTask<QuarterResponse> GetQuarterById(Guid QuarterId)
        => await _mediator.Send(new GetByIdQuarterQuery(QuarterId));
 
         [HttpGet("[action]")]
-        [Authorize(Roles ="GetAllQuarter")]
+        [Authorize(Roles = "GetAllQuarter")]
         public async ValueTask<IEnumerable<GetListQuarterResponse>> GetAllQuarter(int PageNumber = 1, int PageSize = 10)
         {
             IPagedList<GetListQuarterResponse> query = (await _mediator
@@ -30,13 +30,13 @@ namespace NewProject.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize(Roles ="CreateQuarter")]
+        [Authorize(Roles = "CreateQuarter")]
         public async ValueTask<Guid> CreateQuarter(CreateQuarterCommand command)
             => await _mediator.Send(command);
 
 
         [HttpPut("[action]")]
-        [Authorize(Roles ="UpdateQuarter")]
+        [Authorize(Roles = "UpdateQuarter")]
         public async ValueTask<IActionResult> UpdateQuarter(UpdateQuarterCommand command)
         {
             await _mediator.Send(command);
@@ -44,7 +44,7 @@ namespace NewProject.Controllers
         }
 
         [HttpDelete("[action]")]
-        [Authorize(Roles ="DeleteQuarter")]
+        [Authorize(Roles = "DeleteQuarter")]
         public async ValueTask<IActionResult> DeleteQuarter(DeleteQuarterCommand command)
         {
             await _mediator.Send(command);

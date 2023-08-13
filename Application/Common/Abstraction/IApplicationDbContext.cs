@@ -6,10 +6,10 @@ namespace NewProject.Abstraction
 {
     public interface IApplicationDbContext
     {
-         DbSet<DocChangeLog> DocChangeLogs { get; set; }
+        DbSet<DocChangeLog> DocChangeLogs { get; set; }
 
-         DbSet<SysTable> SysTables { get; set; }
-         DbSet<UserAction> UserActions { get; set; }
+        DbSet<SysTable> SysTables { get; set; }
+        DbSet<UserAction> UserActions { get; set; }
         DbSet<DefaultAnswer> DefaultAnswers { get; set; }
 
         DbSet<Category> Categories { get; set; }
@@ -38,8 +38,8 @@ namespace NewProject.Abstraction
 
         DbSet<User> Users { get; set; }
 
-          DbSet<ClientAnswer> ClientAnswers { get; set; }
-         DbSet<UserType> UserTypes { get; set; }
+        DbSet<ClientAnswer> ClientAnswers { get; set; }
+        DbSet<UserType> UserTypes { get; set; }
 
         IQueryable<FilterByUserResponse> GetFilteredUsers(Guid? RegionId,
         Guid? DistrictId,

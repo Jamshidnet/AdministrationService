@@ -1,14 +1,14 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
-using Application.UseCases.Permissions.Queries;
-using Application.UseCases.Permissions.Responses;
-using Application.UseCases.Permissions.Commands.CreatePermission;
+﻿using Application.UseCases.Permissions.Commands.CreatePermission;
 using Application.UseCases.Permissions.Commands.DeletePermission;
 using Application.UseCases.Permissions.Commands.UpdatePermission;
-using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
+using Application.UseCases.Permissions.Queries;
+using Application.UseCases.Permissions.Responses;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace NewProject.Controllers
 {
@@ -18,12 +18,12 @@ namespace NewProject.Controllers
     {
 
         [HttpGet("[action]")]
-        [Authorize(Roles ="GetPermissionById")]
+        [Authorize(Roles = "GetPermissionById")]
         public async ValueTask<PermissionResponse> GetPermissionById(Guid Id)
-            => await _mediator.Send(new GetByIdPermissionQuery(Id)); 
+            => await _mediator.Send(new GetByIdPermissionQuery(Id));
 
         [HttpGet("[action]")]
-      [Authorize(Roles ="GetAllPermission")]
+        [Authorize(Roles = "GetAllPermission")]
         public async ValueTask<IEnumerable<PermissionResponse>> GetAllPermission(int PageNumber = 1, int PageSize = 10)
         {
             IPagedList<PermissionResponse> query = (await _mediator
@@ -31,25 +31,25 @@ namespace NewProject.Controllers
                  .ToPagedList(PageNumber, PageSize);
             return query;
         }
-        
+
         [HttpGet("[action]")]
         public async ValueTask<IEnumerable<PermissionResponse>> GetAllPermissionWithoutPagination()
         {
             List<PermissionResponse> query = await _mediator
                  .Send(new GetAllPermissionQuery());
-                 
+
             return query;
         }
 
 
         [HttpPost("[action]")]
-       [Authorize(Roles ="CreatePermission")]
+        [Authorize(Roles = "CreatePermission")]
         public async ValueTask<List<PermissionResponse>> CreatePermission(CreatePermissionCommand command)
             => await _mediator.Send(command);
 
 
         [HttpPut("[action]")]
-        [Authorize(Roles ="UpdatePermission")]
+        [Authorize(Roles = "UpdatePermission")]
         public async ValueTask<IActionResult> UpdatePermission(UpdatePermissionCommand command)
         {
             await _mediator.Send(command);
@@ -57,7 +57,7 @@ namespace NewProject.Controllers
         }
 
         [HttpDelete("[action]")]
-        [Authorize(Roles ="DeletePermission")]
+        [Authorize(Roles = "DeletePermission")]
         public async ValueTask<IActionResult> DeletePermission(DeletePermissionCommand command)
         {
             await _mediator.Send(command);

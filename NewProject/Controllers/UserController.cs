@@ -1,17 +1,17 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
-using Application.UseCases.Users.Queries;
-using Application.UseCases.Users.Responses;
-using Application.UseCases.Users.Commands.CreateUser;
+﻿using Application.UseCases.Users.Commands.CreateUser;
 using Application.UseCases.Users.Commands.DeleteUser;
 using Application.UseCases.Users.Commands.LoginUser;
 using Application.UseCases.Users.Commands.RegesterUser;
 using Application.UseCases.Users.Commands.UpdateUser;
+using Application.UseCases.Users.Queries;
+using Application.UseCases.Users.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NewProject.JWT.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using X.PagedList;
-using Microsoft.AspNetCore.Authorization;
 
 namespace NewProject.Controllers;
 
@@ -21,12 +21,12 @@ public class UserController : ApiBaseController
 {
 
 
-    [Authorize(Roles= "GetUserById")]
+    [Authorize(Roles = "GetUserById")]
     [HttpGet("[action]")]
     public async ValueTask<UserResponse> GetUserById(Guid UserId)
         => await _mediator.Send(new GetByIdUserQuery(UserId));
 
-    [Authorize(Roles= "GetAllUser")]
+    [Authorize(Roles = "GetAllUser")]
     [HttpGet("[action]")]
     public async ValueTask<IEnumerable<GetListUserResponse>> GetAllUser(int PageNumber = 1, int PageSize = 10)
     {
@@ -46,12 +46,12 @@ public class UserController : ApiBaseController
     public async ValueTask<TokenResponse> LoginUser(LoginUserCommand command)
         => await _mediator.Send(command);
 
-    [Authorize(Roles= "CreateUser")]
+    [Authorize(Roles = "CreateUser")]
     [HttpPost("[action]")]
     public async ValueTask<Guid> CreateUser(CreateUserCommand command)
         => await _mediator.Send(command);
 
-    [Authorize(Roles= "UpdateUser")]
+    [Authorize(Roles = "UpdateUser")]
     [HttpPut("[action]")]
     public async ValueTask<IActionResult> UpdateUser(UpdateUserCommand command)
     {
@@ -59,7 +59,7 @@ public class UserController : ApiBaseController
         return NoContent();
     }
 
-    [Authorize(Roles= "DeleteUser")]
+    [Authorize(Roles = "DeleteUser")]
     [HttpDelete("[action]")]
     public async ValueTask<IActionResult> DeleteUser(DeleteUserCommand command)
     {

@@ -10,11 +10,11 @@ public class ClientAnswerMapping : Profile
 {
     public ClientAnswerMapping()
     {
-
         CreateMap<CreateClientAnswerCommand, ClientAnswer>();
+        CreateMap<ClientInDocUpdateResponse, ClientAnswer>();
         CreateMap<ClientInDocResponse, ClientAnswer>();
         CreateMap<ClientAnswer, ClientAnswerResponse>()
             .ForMember(x => x.Question, m => m.MapFrom(y => y.Question.QuestionText))
-            .ForMember(x => x.AnswerText, m => m.MapFrom(y => y.AnswerText ?? y.DefaultAnswer.AnswerText));       
+            .ForMember(x => x.AnswerText, m => m.MapFrom(y => y.AnswerText ?? y.DefaultAnswer.AnswerText));
     }
 }

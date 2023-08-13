@@ -12,7 +12,7 @@ public class UpdateCategoryCommand : IRequest<CategoryResponse>
     public Guid Id { get; set; }
 
     public string CategoryName { get; set; }
-  
+
 }
 public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, CategoryResponse>
 {

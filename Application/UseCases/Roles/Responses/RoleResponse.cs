@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Roles.Responses;
 
-public  class RoleResponse
+public class RoleResponse
 {
     public Guid Id { get; set; }
     public string RoleName { get; set; }

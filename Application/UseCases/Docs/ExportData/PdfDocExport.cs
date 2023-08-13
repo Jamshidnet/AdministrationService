@@ -41,7 +41,7 @@ public class GenerateDocPDFHandler : IRequestHandler<GetDocPDF, PDFExportRespons
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             document.Add(titleParagraph);
 
-            Chunk creatorUserChunk = new ($"\n\nCreator User:\n" +
+            Chunk creatorUserChunk = new($"\n\nCreator User:\n" +
               $"    Username: {doc.User.Username}\n" +
               $"    First Name: {doc.User.Person.FirstName}\n" +
               $"    Last Name: {doc.User.Person.LastName}\n" +
@@ -53,7 +53,7 @@ public class GenerateDocPDFHandler : IRequestHandler<GetDocPDF, PDFExportRespons
             Paragraph creatorUserParagraph = new Paragraph(creatorUserChunk);
             document.Add(creatorUserParagraph);
 
-            Chunk clientInfoChunk = new ($"Client:\n" +
+            Chunk clientInfoChunk = new($"Client:\n" +
                 $"  First Name: {doc.Client.Person.FirstName}\n" +
                 $"  Last Name: {doc.Client.Person.LastName}\n" +
                 $"  Birthdate: {doc.Client.Person.Birthdate}\n" +
@@ -83,13 +83,13 @@ public class GenerateDocPDFHandler : IRequestHandler<GetDocPDF, PDFExportRespons
             var answers = doc.ClientAnswers.GroupBy(x => x.Question.CategoryId);
             foreach (var item in answers)
             {
-                Chunk category = new ($"\nCategory: {item.First().Question.Category.CategoryName}", regularFont);
-                Paragraph categorypar = new (category);
+                Chunk category = new($"\nCategory: {item.First().Question.Category.CategoryName}", regularFont);
+                Paragraph categorypar = new(category);
                 document.Add(categorypar);
                 foreach (var answer in item)
                 {
-                    Chunk answerTextChunk = new ($"     Question: {answer.Question.QuestionText}      Answer: {answer.AnswerText}", regularFont);
-                    Paragraph answerParagraph = new (answerTextChunk);
+                    Chunk answerTextChunk = new($"     Question: {answer.Question.QuestionText}      Answer: {answer.AnswerText}", regularFont);
+                    Paragraph answerParagraph = new(answerTextChunk);
                     document.Add(answerParagraph);
                 }
             }

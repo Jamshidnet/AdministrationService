@@ -21,7 +21,7 @@ public class CreateDefaultAnswerCommandHandler : IRequestHandler<CreateDefaultAn
 
     public async Task<Guid> Handle(CreateDefaultAnswerCommand request, CancellationToken cancellationToken)
     {
-       await  FilterIfQuestionExsists(request.QuestionId);
+        await FilterIfQuestionExsists(request.QuestionId);
         DefaultAnswer answer = _mapper.Map<DefaultAnswer>(request);
         answer.Id = Guid.NewGuid();
         await _dbContext.DefaultAnswers.AddAsync(answer);
@@ -29,7 +29,7 @@ public class CreateDefaultAnswerCommandHandler : IRequestHandler<CreateDefaultAn
         return answer.Id;
     }
 
-    private async  Task FilterIfQuestionExsists(Guid questionId)
+    private async Task FilterIfQuestionExsists(Guid questionId)
     {
         if (await _dbContext.Questions.FindAsync(questionId) is null)
             throw new NotFoundException("There is no question with given Id. ");

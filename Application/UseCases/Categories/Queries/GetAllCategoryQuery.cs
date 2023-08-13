@@ -1,13 +1,12 @@
 ﻿using Application.UseCases.Categories.Responses;
 using AutoMapper;
-using Domein.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.Categories.Queries;
 
-public record GetAllCategoryQuery   : IRequest<List<GetListCategoryResponse>>;
+public record GetAllCategoryQuery : IRequest<List<GetListCategoryResponse>>;
 
 
 public class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQuery, List<GetListCategoryResponse>>

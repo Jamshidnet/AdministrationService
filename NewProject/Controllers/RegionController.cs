@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
+﻿using Application.UseCases.Regions.Commands;
 using Application.UseCases.Regions.Queries;
 using Application.UseCases.Regions.Responses;
-using Application.UseCases.Regions.Commands;
-using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace NewProject.Controllers;
 
@@ -15,7 +15,7 @@ namespace NewProject.Controllers;
 public class RegionController : ApiBaseController
 {
     [HttpGet("[action]")]
-     [Authorize(Roles = "GetRegionById")]
+    [Authorize(Roles = "GetRegionById")]
 
     public async ValueTask<RegionResponse> GetRegionById(Guid RegionId)
         => await _mediator.Send(new GetByIdRegionQuery(RegionId));
@@ -35,14 +35,14 @@ public class RegionController : ApiBaseController
     public async ValueTask<Guid> CreateRegion(CreateRegionCommand command)
         => await _mediator.Send(command);
 
-    [Authorize(Roles= "UpdateRegion")]
+    [Authorize(Roles = "UpdateRegion")]
     [HttpPut("[action]")]
     public async ValueTask<IActionResult> UpdateRegion(UpdateRegionCommand command)
     {
         await _mediator.Send(command);
         return NoContent();
     }
-    [Authorize(Roles= "DeleteRegion")]
+    [Authorize(Roles = "DeleteRegion")]
     [HttpDelete("[action]")]
     public async ValueTask<IActionResult> DeleteRegion(DeleteRegionCommand command)
     {

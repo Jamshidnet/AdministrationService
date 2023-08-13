@@ -1,12 +1,12 @@
 ﻿using Application.UseCases.Categories.Commands;
 using Application.UseCases.Categories.Queries;
 using Application.UseCases.Categories.Responses;
-using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace NewProject.Controllers;
 
@@ -16,12 +16,12 @@ namespace NewProject.Controllers;
 public class CategoryController : ApiBaseController
 {
     [HttpGet("[action]")]
-    [Authorize(Roles ="GetCategoryById")]
+    [Authorize(Roles = "GetCategoryById")]
     public async ValueTask<CategoryResponse> GetCategoryById(Guid CategoryId)
    => await _mediator.Send(new GetByIdCategoryQuery(CategoryId));
 
     [HttpGet("[action]")]
-    [Authorize(Roles ="GetAllCategory")]
+    [Authorize(Roles = "GetAllCategory")]
     public async ValueTask<IEnumerable<GetListCategoryResponse>> GetAllCategory(int PageNumber = 1, int PageSize = 10)
     {
         IPagedList<GetListCategoryResponse> query = (await _mediator
@@ -31,13 +31,13 @@ public class CategoryController : ApiBaseController
     }
 
     [HttpPost("[action]")]
-    [Authorize(Roles ="CreateCategory")]
+    [Authorize(Roles = "CreateCategory")]
     public async ValueTask<Guid> CreateCategory(CreateCategoryCommand command)
         => await _mediator.Send(command);
 
 
     [HttpPut("[action]")]
-    [Authorize(Roles ="UpdateCategory")]
+    [Authorize(Roles = "UpdateCategory")]
     public async ValueTask<IActionResult> UpdateCategory(UpdateCategoryCommand command)
     {
         await _mediator.Send(command);
@@ -46,7 +46,7 @@ public class CategoryController : ApiBaseController
 
 
     [HttpDelete("[action]")]
-    [Authorize(Roles ="DeleteCategory")]
+    [Authorize(Roles = "DeleteCategory")]
     public async ValueTask<IActionResult> DeleteCategory(DeleteCategoryCommand command)
     {
         await _mediator.Send(command);

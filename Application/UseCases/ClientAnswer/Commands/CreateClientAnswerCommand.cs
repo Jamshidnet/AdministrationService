@@ -23,7 +23,7 @@ public class CreateClientAnswerCommandHandler : IRequestHandler<CreateClientAnsw
 
     public async Task<Guid> Handle(CreateClientAnswerCommand request, CancellationToken cancellationToken)
     {
-       await FilterIfDocExsists(request.DocId);
+        await FilterIfDocExsists(request.DocId);
         if ((request.AnswerText is null && request.DefaultAnswerId is null) ||
             (request.AnswerText is not null && request.DefaultAnswerId is not null))
         {
@@ -32,7 +32,7 @@ public class CreateClientAnswerCommandHandler : IRequestHandler<CreateClientAnsw
                     or reverse. ");
         }
 
-      ClientAnswer clientAnswer=  _mapper.Map<ClientAnswer>(request);
+        ClientAnswer clientAnswer = _mapper.Map<ClientAnswer>(request);
 
         clientAnswer.Id = Guid.NewGuid();
         await _dbContext.ClientAnswers.AddAsync(clientAnswer);
@@ -42,7 +42,7 @@ public class CreateClientAnswerCommandHandler : IRequestHandler<CreateClientAnsw
 
     private async Task FilterIfDocExsists(Guid docId)
     {
-        if(await _dbContext.Docs.FindAsync(docId) is null)
+        if (await _dbContext.Docs.FindAsync(docId) is null)
             throw new NotFoundException("There is no doc with given Id. ");
     }
     private async Task FilterIfDefaultAnswerExsists(Guid? defaultAnswerId)

@@ -19,7 +19,7 @@ public class CreateDistrictCommandHandler : IRequestHandler<CreateDistrictComman
 
     public async Task<Guid> Handle(CreateDistrictCommand request, CancellationToken cancellationToken)
     {
-       await  FilterIfRegionExsists(request.RegionId);
+        await FilterIfRegionExsists(request.RegionId);
         District district = _mapper.Map<District>(request);
         district.Id = Guid.NewGuid();
         await _dbContext.Districts.AddAsync(district);

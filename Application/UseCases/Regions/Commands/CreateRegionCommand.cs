@@ -5,7 +5,7 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Regions.Commands;
 
-public record  CreateRegionCommand(string RegionName) : IRequest<Guid>;
+public record CreateRegionCommand(string RegionName) : IRequest<Guid>;
 
 public class CreateRegionCommandHandler : IRequestHandler<CreateRegionCommand, Guid>
 {
@@ -18,7 +18,7 @@ public class CreateRegionCommandHandler : IRequestHandler<CreateRegionCommand, G
     }
 
     public async Task<Guid> Handle(CreateRegionCommand request, CancellationToken cancellationToken)
-    { 
+    {
         Region region = _mapper.Map<Region>(request);
         region.Id = Guid.NewGuid();
         await _dbContext.Regions.AddAsync(region);

@@ -13,9 +13,9 @@ namespace NewProject.CustomAttributes
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
 
-        public PermissionTypes permission { get; set; } 
+        public PermissionTypes permission { get; set; }
 
-        public  void OnAuthorizationn(HttpActionContext actionContext)
+        public void OnAuthorizationn(HttpActionContext actionContext)
         {
             /*base.OnAuthorization(actionContext);*/
 
@@ -47,7 +47,7 @@ namespace NewProject.CustomAttributes
                         actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Invalid token");
                         return;
                     }
-               
+
                 }
 
                 else

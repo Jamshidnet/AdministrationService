@@ -15,7 +15,7 @@ public record CreateDocCommand : IRequest<Guid>
     public CreateClientCommand client { get; set; }
 
     public Guid? ClientId { get; set; }
-    public ClientInDocResponse[]  ClientAnswers { get; set; }
+    public ClientInDocResponse[] ClientAnswers { get; set; }
 
     public decimal? Longitude { get; set; }
 
@@ -35,8 +35,8 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
     public IDocChangeLogger _logger { get; set; }
 
     public CreateDocCommandHandler(
-        IApplicationDbContext dbContext, 
-        IMapper mapper, 
+        IApplicationDbContext dbContext,
+        IMapper mapper,
         ICurrentUserService currentUser,
         IDocChangeLogger logger)
     {
@@ -72,7 +72,7 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
                 ClientTypeId = request.client.ClientTypeId,
             };
 
-           // doc.ClientId = client.Id;
+            // doc.ClientId = client.Id;
             doc.Client = client;
             await _dbContext.Clients.AddAsync(client);
             await _dbContext.People.AddAsync(person);
@@ -82,7 +82,7 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
         {
             doc.Client = await FilterIfClienExsists(request.ClientId);
         }
-            var clientAnswers =  _mapper.Map<ClientAnswer[]>(request.ClientAnswers).ToList();
+        var clientAnswers = _mapper.Map<ClientAnswer[]>(request.ClientAnswers).ToList();
         clientAnswers.ForEach(x =>
         {
             x.Id = Guid.NewGuid();
@@ -98,8 +98,8 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
 
 
         doc.ClientAnswers = clientAnswers;
-        
-            doc.UserId = user.Id;
+
+        doc.UserId = user.Id;
         await _dbContext.Docs.AddAsync(doc);
         await _dbContext.ClientAnswers.AddRangeAsync(clientAnswers);
         await _dbContext.SaveChangesAsync();
@@ -112,8 +112,8 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
 
     private async Task<Client> FilterIfClienExsists(Guid? clientId)
     {
-       return await  _dbContext.Clients.FindAsync(clientId)
-            ?? throw new NotFoundException("There is no client with given Id. ");
+        return await _dbContext.Clients.FindAsync(clientId)
+             ?? throw new NotFoundException("There is no client with given Id. ");
     }
 
 }

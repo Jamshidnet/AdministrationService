@@ -4,7 +4,7 @@ using Domein.Entities;
 
 namespace Application.Common.Mapping;
 
-public  class RoleMapping : Profile
+public class RoleMapping : Profile
 {
     public RoleMapping()
     {

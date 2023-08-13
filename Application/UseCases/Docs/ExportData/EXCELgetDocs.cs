@@ -39,8 +39,8 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
 
         sheet1.Row(1).Style.Font.Bold = true;
         sheet1.Row(1).Style.Font.Shadow = true;
-     //   sheet1.Row(1).Style.Font.Underline = XLFontUnderlineValues.Single;
-       // sheet1.Row(1).Style.Font.VerticalAlignment = XLFontVerticalTextAlignmentValues.Superscript;
+        //   sheet1.Row(1).Style.Font.Underline = XLFontUnderlineValues.Single;
+        // sheet1.Row(1).Style.Font.VerticalAlignment = XLFontVerticalTextAlignmentValues.Superscript;
         sheet1.Row(1).Style.Font.FontSize = 13;
 
         sheet1.RowHeight = 20;
@@ -79,9 +79,9 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
 
         if (docs.Count > 0)
         {
-            docs.ForEach( item =>
+            docs.ForEach(item =>
             {
-                var answers =  item.ClientAnswers.GroupBy(x=>x.Question.CategoryId).ToList();
+                var answers = item.ClientAnswers.GroupBy(x => x.Question.CategoryId).ToList();
 
                 Dictionary<string, int> counts = new();
                 categories.ForEach(x =>
@@ -91,7 +91,7 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
                     {
                         if (y.First().Question.CategoryId == x.Id)
                         {
-                            counts.Add(x.CategoryName,y.Count()); HasValue = true;
+                            counts.Add(x.CategoryName, y.Count()); HasValue = true;
                             break;
                         }
                     };
@@ -99,7 +99,7 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
                 });
 
                 DataRow row = dt.NewRow();
-                
+
                 row["Id"] = item.Id;
                 row["User FullName"] = $"{item.User.Person.FirstName} {item.User.Person.LastName}";
                 row["Client FullName"] = $"{item.Client.Person.FirstName} {item.Client.Person.LastName}";
@@ -110,7 +110,7 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
                 {
                     row[$"{count.Key} Category"] = count.Value;
                 }
-                    dt.Rows.Add(row.ItemArray);
+                dt.Rows.Add(row.ItemArray);
             });
         }
 

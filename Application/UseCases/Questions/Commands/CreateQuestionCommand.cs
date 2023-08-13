@@ -32,7 +32,7 @@ public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionComman
 
 
         Question region = _mapper.Map<Question>(request);
-        
+
         region.Id = Guid.NewGuid();
         region.CreatorUserId = user.Id;
 

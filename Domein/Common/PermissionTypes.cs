@@ -75,7 +75,7 @@
         DeleteCategory,
         #endregion
 
-        
+
         #region QuarterPermissions
         GetQuarterById,
         GetAllQuarter,

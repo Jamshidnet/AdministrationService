@@ -1,12 +1,12 @@
-﻿using Application.UseCases.ClientTypes.Queries;
+﻿using Application.UseCases.ClientTypes.Commands;
+using Application.UseCases.ClientTypes.Queries;
 using Application.UseCases.ClientTypes.Responses;
-using Application.UseCases.ClientTypes.Commands;
-using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace NewProject.Controllers;
 
@@ -16,12 +16,12 @@ namespace NewProject.Controllers;
 public class ClientTypeController : ApiBaseController
 {
     [HttpGet("[action]")]
-    [Authorize(Roles ="GetClientTypeById")]
+    [Authorize(Roles = "GetClientTypeById")]
     public async ValueTask<ClientTypeResponse> GetClientTypeById(Guid ClientTypeId)
    => await _mediator.Send(new GetByIdClientTypeQuery(ClientTypeId));
 
     [HttpGet("[action]")]
-    [Authorize(Roles ="GetAllClientType")]
+    [Authorize(Roles = "GetAllClientType")]
     public async ValueTask<IEnumerable<GetListClientTypeResponse>> GetAllClientType(int PageNumber = 1, int PageSize = 10)
     {
         IPagedList<GetListClientTypeResponse> query = (await _mediator
@@ -31,13 +31,13 @@ public class ClientTypeController : ApiBaseController
     }
 
     [HttpPost("[action]")]
-    [Authorize(Roles ="CreateClientType")]
+    [Authorize(Roles = "CreateClientType")]
     public async ValueTask<Guid> CreateClientType(CreateClientTypeCommand command)
         => await _mediator.Send(command);
 
 
     [HttpPut("[action]")]
-    [Authorize(Roles ="UpdateClientType")]
+    [Authorize(Roles = "UpdateClientType")]
     public async ValueTask<IActionResult> UpdateClientType(UpdateClientTypeCommand command)
     {
         await _mediator.Send(command);
@@ -45,7 +45,7 @@ public class ClientTypeController : ApiBaseController
     }
 
     [HttpDelete("[action]")]
-    [Authorize(Roles ="DeleteClientType")]
+    [Authorize(Roles = "DeleteClientType")]
     public async ValueTask<IActionResult> DeleteClientType(DeleteClientTypeCommand command)
     {
         await _mediator.Send(command);

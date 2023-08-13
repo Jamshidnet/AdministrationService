@@ -57,13 +57,13 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
         var person = await _context.People.SingleOrDefaultAsync(x => x.Id == foundUser.PersonId)
             ?? throw new NotFoundException(" There is no person with this id. ");
 
-        _mapper.Map(request, person); 
+        _mapper.Map(request, person);
 
-       _context.People.Update(person);
+        _context.People.Update(person);
         await _context.SaveChangesAsync(cancellationToken);
         foundUser.Username = request.Username;
         if (!string.IsNullOrEmpty(request.Password))
-            foundUser.Password = (request.Password+foundUser.SaltId).GetHashedString();
+            foundUser.Password = (request.Password + foundUser.SaltId).GetHashedString();
         _context.Users.Update(foundUser);
         await _context.SaveChangesAsync(cancellationToken);
     }

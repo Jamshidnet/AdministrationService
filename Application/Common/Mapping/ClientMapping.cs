@@ -5,7 +5,7 @@ using Domein.Entities;
 
 namespace Application.Common.Mapping;
 
-public  class ClientMapping : Profile
+public class ClientMapping : Profile
 {
     public ClientMapping()
     {
@@ -25,6 +25,6 @@ public  class ClientMapping : Profile
             .ForMember(d => d.FirstName, cfg => cfg.MapFrom(ent => ent.Person.FirstName))
             .ForMember(d => d.LastName, cfg => cfg.MapFrom(ent => ent.Person.LastName))
             .ForMember(d => d.Birthdate, cfg => cfg.MapFrom(ent => ent.Person.Birthdate));
-                   //.ForMember(d => d.Quarter, cfg => cfg.MapFrom(ent => ent.Person.Quarter));
+        //.ForMember(d => d.Quarter, cfg => cfg.MapFrom(ent => ent.Person.Quarter));
     }
 }

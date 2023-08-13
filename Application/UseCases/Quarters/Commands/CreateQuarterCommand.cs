@@ -23,7 +23,7 @@ public class CreateQuarterCommandHandler : IRequestHandler<CreateQuarterCommand,
 
     public async Task<Guid> Handle(CreateQuarterCommand request, CancellationToken cancellationToken)
     {
-        await   FilterIfDistrictExsists(request.DistrictId);
+        await FilterIfDistrictExsists(request.DistrictId);
         Quarter quarter = _mapper.Map<Quarter>(request);
         quarter.Id = Guid.NewGuid();
         await _dbContext.Quarters.AddAsync(quarter);

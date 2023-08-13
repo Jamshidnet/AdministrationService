@@ -4,12 +4,12 @@ using Domein.Entities;
 
 namespace Application.Common.Mapping;
 
-public  class LogMapping : Profile
+public class LogMapping : Profile
 {
     public LogMapping()
     {
-        CreateMap<UserAction, UserActionResponse>();   
-        CreateMap<DocChangeLog, DocChangeResponse>();   
+        CreateMap<UserAction, UserActionResponse>();
+        CreateMap<DocChangeLog, DocChangeResponse>();
     }
 
 }

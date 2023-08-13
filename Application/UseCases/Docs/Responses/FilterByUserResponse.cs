@@ -13,7 +13,7 @@ namespace Application.UseCases.Docs.Responses
         public string District { get; set; }
 
         [Column("quarter_name")]
-        public string  Quarter { get; set; }
+        public string Quarter { get; set; }
 
         [Column("user_type_name")]
         public string UserType { get; set; }

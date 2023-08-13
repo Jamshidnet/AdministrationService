@@ -32,7 +32,7 @@ public class UpdateRegionCommandHandler : IRequestHandler<UpdateRegionCommand, R
         var districts = await _context.Districts.ToListAsync(cancellationToken);
         var foundRegion = await _context.Regions.FindAsync(new object[] { request.Id }, cancellationToken)
             ?? throw new NotFoundException(nameof(Region), request.Id);
-        
+
         if (request?.Districts?.Count > 0)
         {
             foundRegion?.Districts?.Clear();
@@ -45,7 +45,7 @@ public class UpdateRegionCommandHandler : IRequestHandler<UpdateRegionCommand, R
         }
 
         foundRegion.RegionName = request.RegionName;
-         _context.Regions.Update(foundRegion);
+        _context.Regions.Update(foundRegion);
         await _context.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<RegionResponse>(foundRegion);

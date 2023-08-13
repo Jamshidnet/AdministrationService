@@ -26,8 +26,8 @@ public class DocMapping : Profile
             .ForMember(x => x.Region, y => y.MapFrom(z => z.Client.Person.Quarter.District.Region))
             .ForMember(x => x.District, y => y.MapFrom(z => z.Client.Person.Quarter.District))
             .ForMember(x => x.Quarter, y => y.MapFrom(z => z.Client.Person.Quarter));
-            //.ForMember(x => x.Category, y => y.MapFrom(z => z.Client.));
-           
+        //.ForMember(x => x.Category, y => y.MapFrom(z => z.Client.));
+
 
     }
 

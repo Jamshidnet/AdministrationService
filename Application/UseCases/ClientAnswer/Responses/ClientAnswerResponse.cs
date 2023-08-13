@@ -9,7 +9,7 @@ namespace Application.UseCases.DefaultAnswers.Responses
 
         public string AnswerText { get; set; }
 
-        public  GetListDocResponse Doc { get; set; }
+        public GetListDocResponse Doc { get; set; }
 
         public string Question { get; set; }
     }

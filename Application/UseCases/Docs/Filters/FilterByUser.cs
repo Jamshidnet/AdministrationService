@@ -1,12 +1,11 @@
 ﻿using Application.UseCases.Docs.Responses;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.Docs.Filters;
 
-public  class FilterByUser : IRequest<List<FilterByUserResponse>>
+public class FilterByUser : IRequest<List<FilterByUserResponse>>
 {
     public Guid? RegionId { get; set; }
     public bool ByRegion { get; set; } = false;
@@ -29,16 +28,16 @@ public class FilterByUserHandler : IRequestHandler<FilterByUser, List<FilterByUs
 
     public async Task<List<FilterByUserResponse>> Handle(FilterByUser request, CancellationToken cancellationToken)
     {
-       var result= _dbContext.GetFilteredUsers(
-                                                request.RegionId,
-                                                request.DistrictId,
-                                                request.QuarterId,
-                                                request.ByRegion,
-                                                request.ByDistrict,
-                                                request.ByQuarter
-                                                );
+        var result = _dbContext.GetFilteredUsers(
+                                                 request.RegionId,
+                                                 request.DistrictId,
+                                                 request.QuarterId,
+                                                 request.ByRegion,
+                                                 request.ByDistrict,
+                                                 request.ByQuarter
+                                                 );
 
-        return  result.ToList();
+        return result.ToList();
     }
 }
 

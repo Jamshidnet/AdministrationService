@@ -1,8 +1,6 @@
-﻿using Application.UseCases.Regions.Responses;
+﻿namespace Application.UseCases.Districts.Responses;
 
-namespace Application.UseCases.Districts.Responses;
-
-public  class GetListDIstrictResponse
+public class GetListDIstrictResponse
 {
     public Guid Id { get; set; }
 

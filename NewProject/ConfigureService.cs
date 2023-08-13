@@ -1,4 +1,5 @@
 ﻿using Application.Common.Abstraction;
+using Application.Common.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,7 +7,6 @@ using Microsoft.OpenApi.Models;
 using NewProject.JWT;
 using NewProject.Service;
 using System.Text.Json.Serialization;
-using Application.Common.Logging;
 
 namespace NewProject;
 
@@ -19,13 +19,13 @@ public static class ConfigureService
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
         services.AddEndpointsApiExplorer();
         services.AddAuthorization();
-        services.AddScoped<IDocChangeLogger,LoggingService>();
+        services.AddScoped<IDocChangeLogger, LoggingService>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtSettings(configuration);
         services.AddHttpContextAccessor();
         services.AddSwaggerGen();
 
-       
+
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Example API", Version = "v1" });

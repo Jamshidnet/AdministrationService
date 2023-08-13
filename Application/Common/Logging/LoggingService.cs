@@ -20,21 +20,21 @@ namespace Application.Common.Logging
 
         public async Task Log(Guid DocId, string action)
         {
-                int TableId= ExtensionMethods.Tables
-                .GetValueOrDefault("DocTable");
-            var table= await  _context.SysTables.SingleOrDefaultAsync(x=>x.TableId == TableId);  
+            int TableId = ExtensionMethods.Tables
+            .GetValueOrDefault("DocTable");
+            var table = await _context.SysTables.SingleOrDefaultAsync(x => x.TableId == TableId);
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == _currentUserService.Username);
-            DocChangeLog docChangeLog = new ()
+            DocChangeLog docChangeLog = new()
             {
                 Id = Guid.NewGuid(),
-                ActionName= action,
-                DateAt=DateOnly.FromDateTime( DateTime.Now),
-                UserId= user?.Id,
-                TableId=table.Id,
-                DocId= DocId
-             };
+                ActionName = action,
+                DateAt = DateOnly.FromDateTime(DateTime.Now),
+                UserId = user?.Id,
+                TableId = table.Id,
+                DocId = DocId
+            };
             await _context.DocChangeLogs.AddAsync(docChangeLog);
-            await _context.SaveChangesAsync();  
+            await _context.SaveChangesAsync();
 
         }
     }

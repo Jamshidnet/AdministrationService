@@ -5,12 +5,12 @@ using Domein.Entities;
 
 namespace Application.Common.Mapping;
 
-public  class QuestionMapping : Profile
+public class QuestionMapping : Profile
 {
     public QuestionMapping()
     {
-            CreateMap<CreateQuestionCommand, Question>();
-            CreateMap<UpdateQuestionCommand, Question>();
+        CreateMap<CreateQuestionCommand, Question>();
+        CreateMap<UpdateQuestionCommand, Question>();
         CreateMap<Question, GetListQuestionResponse>()
         .ForMember(x => x.QuestionType, y => y.MapFrom(z => z.QuestionType.QuestionTypeName))
         .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username))

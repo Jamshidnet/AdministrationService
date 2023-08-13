@@ -23,13 +23,13 @@ public class FilterByTakenDateHandler : IRequestHandler<FilterByTakenDate, List<
         _mapper = mapper;
     }
 
-    public  Task<List<DocResponse>> Handle(FilterByTakenDate request, CancellationToken cancellationToken)
+    public Task<List<DocResponse>> Handle(FilterByTakenDate request, CancellationToken cancellationToken)
     {
         if (!request.ValidYearRange) throw new Exception(" Invalid year range input. ");
-       
+
         var docs = _context.Docs.Where(o => o.TakenDate >= request.MinTakenDate &&
                                     o.TakenDate <= request.MaxTakenDate);
 
-        return Task.FromResult(_mapper.Map<List<DocResponse>>(docs));  
+        return Task.FromResult(_mapper.Map<List<DocResponse>>(docs));
     }
 }

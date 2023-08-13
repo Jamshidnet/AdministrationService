@@ -15,7 +15,7 @@ namespace Application
                 option.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 
             });
-  
+
             services.AddScoped<IUserRefreshToken, RefreshToken>();
             services.AddScoped<IJwtToken, JwtToken>();
 

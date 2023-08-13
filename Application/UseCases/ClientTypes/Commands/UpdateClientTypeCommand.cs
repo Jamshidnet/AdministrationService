@@ -29,7 +29,7 @@ public class UpdateClientTypeCommandHandler : IRequestHandler<UpdateClientTypeCo
     {
         var foundClientType = await _context.ClientTypes.FindAsync(new object[] { request.Id }, cancellationToken)
             ?? throw new NotFoundException(nameof(ClientType), request.Id);
-        
+
         _mapper.Map(request, foundClientType);
         _context.ClientTypes.Update(foundClientType);
         await _context.SaveChangesAsync(cancellationToken);

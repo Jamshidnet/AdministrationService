@@ -14,14 +14,16 @@ public class UpdateDocCommand : IRequest<DocResponse>
 {
     public Guid Id { get; set; }
 
-    public CreateClientCommand client { get; set; }
+    public UpdateClientCommand client { get; set; }
 
-    public ClientInDocResponse[] ClientAnswers { get; set; }
+    public ClientInDocUpdateResponse[] ClientAnswers { get; set; }
 }
+
 public class UpdateDocCommandHandler : IRequestHandler<UpdateDocCommand, DocResponse>
 {
     private IApplicationDbContext _context;
     public IDocChangeLogger _logger { get; set; }
+
     private readonly IMapper _mapper;
 
 
@@ -37,7 +39,14 @@ public class UpdateDocCommandHandler : IRequestHandler<UpdateDocCommand, DocResp
         await FilterIfDocExsists(request.Id);
         var foundDoc = await _context.Docs.FindAsync(new object[] { request.Id }, cancellationToken)
             ?? throw new NotFoundException(nameof(Doc), request.Id);
-        _mapper.Map(request, foundDoc);
+
+        var client = _mapper.Map<Client>(request.client);
+
+        _context.Clients.Update(client);
+
+        foundDoc.Client = client;
+        _mapper.Map(request.ClientAnswers, foundDoc.ClientAnswers);
+
         _context.Docs.Update(foundDoc);
         await _logger.Log(foundDoc.Id, "Update");
 
@@ -56,3 +65,4 @@ public class UpdateDocCommandHandler : IRequestHandler<UpdateDocCommand, DocResp
             throw new NotFoundException("There is no client with given Id. ");
     }
 }
+public record ClientInDocUpdateResponse(Guid Id, string AnswerText, Guid QuestionId, Guid? DefaultAnswerId);

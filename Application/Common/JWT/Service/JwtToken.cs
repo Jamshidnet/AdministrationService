@@ -31,7 +31,7 @@ public class JwtToken : IJwtToken
     };
 
         List<PermissionResponse> permissions = new List<PermissionResponse>();
-        
+
         foreach (var item in Roles)
         {
             foreach (var per in item.Permissions)
@@ -46,11 +46,11 @@ public class JwtToken : IJwtToken
             {
                 foreach (var permission in role.Permissions)
                 {
-                     claims.Add(new Claim(ClaimTypes.Role, permission.PermissionName));
+                    claims.Add(new Claim(ClaimTypes.Role, permission.PermissionName));
 
                 }
 
-               // claims.Add(new Claim(ClaimTypes.Role, role.RoleName));
+                // claims.Add(new Claim(ClaimTypes.Role, role.RoleName));
 
             }
         }
@@ -68,20 +68,20 @@ public class JwtToken : IJwtToken
         var responseModel = new TokenResponse
         {
             AccessToken = new JwtSecurityTokenHandler().WriteToken(jwt),
-            RefreshToken =  GenerateRefreshTokenAsync(userName),
-            Permissions= permissions
+            RefreshToken = GenerateRefreshTokenAsync(userName),
+            Permissions = permissions
         };
 
         refreshTokenService.AddOrUpdateRefreshToken(new UserRefreshToken()
         {
             RefreshToken = responseModel.RefreshToken,
             ExpiresTime = DateTime.Now.AddDays(_configuration.GetValue<int>("JWT:RefreshTokenExpiredTimeAtDays")),
-            UserName=userName
+            UserName = userName
         }, cancellationToken);
-        
+
         return responseModel;
     }
-    public  string GenerateRefreshTokenAsync(string userName)
+    public string GenerateRefreshTokenAsync(string userName)
     {
         var refreshToken = (userName + DateTime.Now).GetHashedString();
         return refreshToken;
