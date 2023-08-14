@@ -27,6 +27,9 @@ public partial class User
 
     [Column("person_id")]
     public Guid PersonId { get; set; }
+    
+    [Column("language_id")]
+    public Guid LanguageId { get; set; }
 
     [Column("refresh_token")]
     public string RefreshToken { get; set; }
@@ -46,6 +49,11 @@ public partial class User
     [ForeignKey("PersonId")]
     [InverseProperty("Users")]
     public virtual Person Person { get; set; }
+
+    [ForeignKey("LanguageId")]
+    [InverseProperty("Users")]
+    public virtual Language Language { get; set; }
+
 
     [InverseProperty("CreatorUser")]
     public virtual ICollection<Question> Questions { get; set; } = new List<Question>();

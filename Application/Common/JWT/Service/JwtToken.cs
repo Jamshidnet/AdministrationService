@@ -1,7 +1,7 @@
 ﻿using Application.Common.Extensions;
 using Application.UseCases.Permissions.Responses;
 using Application.UseCases.Roles.Responses;
-using Domein.Common.Identity;
+using Domein.Entities.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NewProject.JWT.Interfaces;

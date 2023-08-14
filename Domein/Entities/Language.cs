@@ -37,4 +37,7 @@ public partial class Language
 
     [InverseProperty("Language")]
     public virtual ICollection<TranslateUserType> TranslateUserTypes { get; set; } = new List<TranslateUserType>();
+
+    [InverseProperty("Language")]
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

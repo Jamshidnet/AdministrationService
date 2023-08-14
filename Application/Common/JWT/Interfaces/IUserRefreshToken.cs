@@ -1,6 +1,6 @@
 ﻿using Application.UseCases.Users.Commands.LoginUser;
 using Application.UseCases.Users.Responses;
-using Domein.Common.Identity;
+using Domein.Entities.Identity;
 
 namespace NewProject.JWT.Interfaces
 {
