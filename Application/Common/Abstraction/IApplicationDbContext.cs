@@ -6,40 +6,62 @@ namespace NewProject.Abstraction
 {
     public interface IApplicationDbContext
     {
-        DbSet<DocChangeLog> DocChangeLogs { get; set; }
+        DbSet<Category> Categories { get; }
 
-        DbSet<SysTable> SysTables { get; set; }
-        DbSet<UserAction> UserActions { get; set; }
-        DbSet<DefaultAnswer> DefaultAnswers { get; set; }
+        DbSet<Client> Clients { get; }
 
-        DbSet<Category> Categories { get; set; }
+        DbSet<ClientAnswer> ClientAnswers { get; }
 
-        DbSet<Client> Clients { get; set; }
+        DbSet<ClientType> ClientTypes { get; }
 
-        DbSet<ClientType> ClientTypes { get; set; }
+        DbSet<DefaultAnswer> DefaultAnswers { get; }
 
-        DbSet<District> Districts { get; set; }
+        DbSet<District> Districts { get; }
 
-        DbSet<Doc> Docs { get; set; }
+        DbSet<Doc> Docs { get; }
 
-        DbSet<Permission> Permissions { get; set; }
+        DbSet<DocChangeLog> DocChangeLogs { get; }
 
-        DbSet<Person> People { get; set; }
+        DbSet<Language> Languages { get; }
 
-        DbSet<Quarter> Quarters { get; set; }
+        DbSet<Permission> Permissions { get; }
 
-        DbSet<Question> Questions { get; set; }
+        DbSet<Person> People { get; }
 
-        DbSet<QuestionType> QuestionTypes { get; set; }
+        DbSet<Quarter> Quarters { get; }
 
-        DbSet<Region> Regions { get; set; }
+        DbSet<Question> Questions { get; }
 
-        DbSet<Role> Roles { get; set; }
+        DbSet<QuestionType> QuestionTypes { get; }
 
-        DbSet<User> Users { get; set; }
+        DbSet<Region> Regions { get; }
 
-        DbSet<ClientAnswer> ClientAnswers { get; set; }
-        DbSet<UserType> UserTypes { get; set; }
+        DbSet<Role> Roles { get; }
+
+        DbSet<SysTable> SysTables { get; }
+
+        DbSet<TranslateCategory> TranslateCategories { get; }
+
+        DbSet<TranslateClientType> TranslateClientTypes { get; }
+
+        DbSet<TranslateDefaultAnswer> TranslateDefaultAnswers { get; }
+
+        DbSet<TranslatePermission> TranslatePermissions { get; }
+
+        DbSet<TranslateQuestion> TranslateQuestions { get; }
+
+        DbSet<TranslateQuestionType> TranslateQuestionTypes { get; }
+
+        DbSet<TranslateRole> TranslateRoles { get; }
+
+        DbSet<TranslateUserType> TranslateUserTypes { get; }
+
+        DbSet<User> Users { get; }
+
+        DbSet<UserAction> UserActions { get; }
+
+        DbSet<UserType> UserTypes { get; }
+
 
         IQueryable<FilterByUserResponse> GetFilteredUsers(Guid? RegionId,
         Guid? DistrictId,

@@ -1,7 +1,7 @@
 ﻿using Application.Common.Extensions;
 using Application.UseCases.Permissions.Responses;
 using Application.UseCases.Roles.Responses;
-using Domein.Entities.Identity;
+using Domein.Common.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NewProject.JWT.Interfaces;
@@ -71,6 +71,7 @@ public class JwtToken : IJwtToken
             RefreshToken = GenerateRefreshTokenAsync(userName),
             Permissions = permissions
         };
+
 
         refreshTokenService.AddOrUpdateRefreshToken(new UserRefreshToken()
         {

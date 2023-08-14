@@ -3,7 +3,7 @@ using Application.Common.Extensions;
 using Application.UseCases.Users.Commands.LoginUser;
 using Application.UseCases.Users.Responses;
 using AutoMapper;
-using Domein.Entities.Identity;
+using Domein.Common.Identity;
 using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 using NewProject.JWT.Interfaces;

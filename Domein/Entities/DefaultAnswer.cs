@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domein.Entities;
+
 [Table("default_answers")]
 public partial class DefaultAnswer
 {
@@ -22,4 +23,7 @@ public partial class DefaultAnswer
     [ForeignKey("QuestionId")]
     [InverseProperty("DefaultAnswers")]
     public virtual Question Question { get; set; }
+
+    [InverseProperty("Owner")]
+    public virtual ICollection<TranslateDefaultAnswer> TranslateDefaultAnswers { get; set; } = new List<TranslateDefaultAnswer>();
 }

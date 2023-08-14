@@ -30,6 +30,9 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
     public virtual DbSet<Doc> Docs { get; set; }
 
+    public virtual DbSet<DocChangeLog> DocChangeLogs { get; set; }
+
+    public virtual DbSet<Language> Languages { get; set; }
 
     public virtual DbSet<Permission> Permissions { get; set; }
 
@@ -44,13 +47,28 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
     public virtual DbSet<Region> Regions { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
-    public virtual DbSet<DocChangeLog> DocChangeLogs { get; set; }
 
     public virtual DbSet<SysTable> SysTables { get; set; }
 
-    public virtual DbSet<UserAction> UserActions { get; set; }
+    public virtual DbSet<TranslateCategory> TranslateCategories { get; set; }
+
+    public virtual DbSet<TranslateClientType> TranslateClientTypes { get; set; }
+
+    public virtual DbSet<TranslateDefaultAnswer> TranslateDefaultAnswers { get; set; }
+
+    public virtual DbSet<TranslatePermission> TranslatePermissions { get; set; }
+
+    public virtual DbSet<TranslateQuestion> TranslateQuestions { get; set; }
+
+    public virtual DbSet<TranslateQuestionType> TranslateQuestionTypes { get; set; }
+
+    public virtual DbSet<TranslateRole> TranslateRoles { get; set; }
+
+    public virtual DbSet<TranslateUserType> TranslateUserTypes { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<UserAction> UserActions { get; set; }
 
     public virtual DbSet<UserType> UserTypes { get; set; }
 
@@ -151,11 +169,20 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Doc).WithMany(p => p.DocChangeLogs).HasConstraintName("doc_fk");
+            entity.HasOne(d => d.Doc).WithMany(p => p.DocChangeLogs)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("doc_fk");
 
             entity.HasOne(d => d.Table).WithMany(p => p.DocChangeLogs).HasConstraintName("table_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.DocChangeLogs).HasConstraintName("user_fk");
+        });
+
+        modelBuilder.Entity<Language>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("translate_bindings_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<Permission>(entity =>
@@ -245,6 +272,94 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
+        modelBuilder.Entity<TranslateCategory>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("tr_categories_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Langauge).WithMany(p => p.TranslateCategories).HasConstraintName("language_fk");
+
+            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateCategories).HasConstraintName("owner_fk");
+        });
+
+        modelBuilder.Entity<TranslateClientType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("en_client_type_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Language).WithMany(p => p.TranslateClientTypes).HasConstraintName("language_fk");
+
+            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateClientTypes).HasConstraintName("owner_fk");
+        });
+
+        modelBuilder.Entity<TranslateDefaultAnswer>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("en_default_answers_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Language).WithMany(p => p.TranslateDefaultAnswers).HasConstraintName("language_fk");
+
+            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateDefaultAnswers).HasConstraintName("owner_fk");
+        });
+
+        modelBuilder.Entity<TranslatePermission>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("translate_permissions_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Language).WithMany(p => p.TranslatePermissions).HasConstraintName("language_fk");
+
+            entity.HasOne(d => d.Owner).WithMany(p => p.TranslatePermissions).HasConstraintName("owner_fk");
+        });
+
+        modelBuilder.Entity<TranslateQuestion>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("translate_question_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Language).WithMany(p => p.TranslateQuestions).HasConstraintName("language_fk");
+
+            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateQuestions).HasConstraintName("owner_fk");
+        });
+
+        modelBuilder.Entity<TranslateQuestionType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("en_question_type_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Language).WithMany(p => p.TranslateQuestionTypes).HasConstraintName("langauge_fk");
+
+            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateQuestionTypes).HasConstraintName("owner_fk");
+        });
+
+        modelBuilder.Entity<TranslateRole>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("translate_role_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Language).WithMany(p => p.TranslateRoles).HasConstraintName("language_fk");
+
+            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateRoles).HasConstraintName("owner_fk");
+        });
+
+        modelBuilder.Entity<TranslateUserType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("translate_user_type_pkey");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Language).WithMany(p => p.TranslateUserTypes).HasConstraintName("language_id");
+
+            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateUserTypes).HasConstraintName("owner_fk");
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("user_id_pr");
@@ -296,28 +411,23 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
         OnModelCreatingPartial(modelBuilder);
     }
 
-
-    [DbFunction("filter_docs_by_user")]
     public IQueryable<FilterByUserResponse> GetFilteredUsers(
-    Guid? RegionId,
-    Guid? DistrictId,
-    Guid? QuarterId,
-    bool ByRegion,
-    bool ByDistrict,
-    bool ByQuarter
-    )
-    => FromExpression(() => GetFilteredUsers(
-        RegionId,
-        DistrictId,
-        QuarterId,
-         ByRegion,
-        ByDistrict,
-        ByQuarter
-        )
-    );
-
-
-
+Guid? RegionId,
+Guid? DistrictId,
+Guid? QuarterId,
+bool ByRegion,
+bool ByDistrict,
+bool ByQuarter
+)
+=> FromExpression(() => GetFilteredUsers(
+ RegionId,
+ DistrictId,
+ QuarterId,
+  ByRegion,
+ ByDistrict,
+ ByQuarter
+ )
+);
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

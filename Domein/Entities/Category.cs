@@ -18,6 +18,9 @@ public partial class Category
     [InverseProperty("Category")]
     public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
 
+    [InverseProperty("Owner")]
+    public virtual ICollection<TranslateCategory> TranslateCategories { get; set; } = new List<TranslateCategory>();
+
     [ForeignKey("CategoryId")]
     [InverseProperty("Categories")]
     public virtual ICollection<Client> Clients { get; set; } = new List<Client>();

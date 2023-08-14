@@ -1,5 +1,4 @@
 ﻿using Application.Common.Abstraction;
-using Application.Common.Extensions;
 using Domein.Entities;
 using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
@@ -20,9 +19,8 @@ namespace Application.Common.Logging
 
         public async Task Log(Guid DocId, string action)
         {
-            int TableId = ExtensionMethods.Tables
-            .GetValueOrDefault("DocTable");
-            var table = await _context.SysTables.SingleOrDefaultAsync(x => x.TableId == TableId);
+
+            var table = await _context.SysTables.SingleOrDefaultAsync(x => x.TableName == "Doc");
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == _currentUserService.Username);
             DocChangeLog docChangeLog = new()
             {

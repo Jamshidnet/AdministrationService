@@ -20,7 +20,7 @@ public partial class UserAction
     [Column("table_id")]
     public Guid? TableId { get; set; }
 
-    [Column("action_time")]
+    [Column("action_time", TypeName = "timestamp without time zone")]
     public DateTime? ActionTime { get; set; }
 
     [ForeignKey("TableId")]

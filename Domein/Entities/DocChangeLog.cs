@@ -26,7 +26,6 @@ public partial class DocChangeLog
     [StringLength(50)]
     public string ActionName { get; set; }
 
-
     [ForeignKey("DocId")]
     [InverseProperty("DocChangeLogs")]
     public virtual Doc Doc { get; set; }

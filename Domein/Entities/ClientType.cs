@@ -17,4 +17,7 @@ public partial class ClientType
 
     [InverseProperty("ClientType")]
     public virtual ICollection<Client> Clients { get; set; } = new List<Client>();
+
+    [InverseProperty("Owner")]
+    public virtual ICollection<TranslateClientType> TranslateClientTypes { get; set; } = new List<TranslateClientType>();
 }

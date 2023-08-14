@@ -40,4 +40,7 @@ public partial class Question
     [ForeignKey("QuestionTypeId")]
     [InverseProperty("Questions")]
     public virtual QuestionType QuestionType { get; set; }
+
+    [InverseProperty("Owner")]
+    public virtual ICollection<TranslateQuestion> TranslateQuestions { get; set; } = new List<TranslateQuestion>();
 }

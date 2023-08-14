@@ -45,9 +45,4 @@ public partial class Doc
     [ForeignKey("UserId")]
     [InverseProperty("Docs")]
     public virtual User User { get; set; }
-
-    public object ToListAsync()
-    {
-        throw new NotImplementedException();
-    }
 }

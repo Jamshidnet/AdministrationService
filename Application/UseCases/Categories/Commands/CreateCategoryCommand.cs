@@ -6,7 +6,7 @@ using NewProject.Abstraction;
 namespace Application.UseCases.Categories.Commands;
 
 
-public record CreateCategoryCommand(string CategoryName) : IRequest<Guid>;
+public record CreateCategoryCommand(string CategoryName, string EnCategoryName) : IRequest<Guid>;
 
 public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Guid>
 {
@@ -21,8 +21,11 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
     public async Task<Guid> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
         Category category = _mapper.Map<Category>(request);
+
+
         category.Id = Guid.NewGuid();
         await _dbContext.Categories.AddAsync(category);
+
         await _dbContext.SaveChangesAsync();
         return category.Id;
     }

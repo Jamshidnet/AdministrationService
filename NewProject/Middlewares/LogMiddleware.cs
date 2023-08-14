@@ -1,11 +1,9 @@
 ﻿using Application.Common.Abstraction;
-using Application.Common.Extensions;
 using Domein.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,17 +32,14 @@ public class ChangeLoggingMiddleware : IMiddleware
 
     public async Task Log(string action, string tableName)
     {
-        int TableId = ExtensionMethods.Tables
-            .GetValueOrDefault($"{tableName}Table");
-
         var table = await _context.SysTables
-            .SingleOrDefaultAsync(x => x.TableId == TableId)
+            .SingleOrDefaultAsync(x => x.TableName == tableName)
             ?? throw new Exception(
-                " there is no table with this table id . ");
+                " there is no table with this table id. ");
+
         string UserName = currentUserService.Username;
         var user = _context.Users
             .SingleOrDefault(x => x.Username == UserName);
-
 
         UserAction Logitems = new()
         {

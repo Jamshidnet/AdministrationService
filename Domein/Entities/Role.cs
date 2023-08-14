@@ -15,6 +15,9 @@ public partial class Role
     [StringLength(20)]
     public string RoleName { get; set; }
 
+    [InverseProperty("Owner")]
+    public virtual ICollection<TranslateRole> TranslateRoles { get; set; } = new List<TranslateRole>();
+
     [ForeignKey("RoleId")]
     [InverseProperty("Roles")]
     public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission>();

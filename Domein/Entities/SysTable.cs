@@ -13,6 +13,10 @@ public partial class SysTable
     [Column("table_id")]
     public int? TableId { get; set; }
 
+    [Column("table_name")]
+    [StringLength(50)]
+    public string TableName { get; set; }
+
     [InverseProperty("Table")]
     public virtual ICollection<DocChangeLog> DocChangeLogs { get; set; } = new List<DocChangeLog>();
 
