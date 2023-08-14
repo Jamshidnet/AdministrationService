@@ -28,11 +28,11 @@ namespace Application.Common.Mapping
                 .FirstOrDefault(t => t.LangaugeId.ToString() == _user.Language)
                 .TranslateText ?? c.CategoryName));
 
-            //CreateMap<Category, GetListCategoryResponse>()
-            //    .ForMember(cr => cr.CategoryName, cfg => cfg
-            //    .MapFrom(c => c.TranslateCategories
-            //    .FirstOrDefault(t => t.Langauge.Id.ToString() == _user.Language)
-            //    .TranslateText ?? c.CategoryName));
+            CreateMap<Category, GetListCategoryResponse>()
+                .ForMember(cr => cr.CategoryName, cfg => cfg
+                .MapFrom(c => c.TranslateCategories
+                .FirstOrDefault(t => t.Langauge.Id.ToString() == _user.Language)
+                .TranslateText ?? c.CategoryName));
 
             CreateMap<TranslateCategoryResponse, TranslateCategory>();
                // .ForMember(des => des.Id, y=>Guid.NewGuid());
