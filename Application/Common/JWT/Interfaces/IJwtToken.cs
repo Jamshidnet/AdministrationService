@@ -1,5 +1,4 @@
-﻿using Application.UseCases.Roles.Responses;
-using Application.UseCases.Users.Responses;
+﻿using Application.UseCases.Users.Responses;
 using NewProject.JWT.Models;
 using System.Security.Claims;
 

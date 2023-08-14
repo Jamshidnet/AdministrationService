@@ -24,9 +24,10 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
     public async Task<Guid> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
         Category category = _mapper.Map<Category>(request);
-        TranslateCategory Tcategory = new ();
-        request.categories.ForEach(c => {
-             Tcategory = _mapper.Map<TranslateCategory>(c);
+        TranslateCategory Tcategory = new();
+        request.categories.ForEach(c =>
+        {
+            Tcategory = _mapper.Map<TranslateCategory>(c);
             Tcategory.OwnerId = category.Id;
             Tcategory.Id = Guid.NewGuid();
             _dbContext.TranslateCategories

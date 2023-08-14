@@ -27,7 +27,7 @@ public partial class User
 
     [Column("person_id")]
     public Guid PersonId { get; set; }
-    
+
     [Column("language_id")]
     public Guid LanguageId { get; set; }
 

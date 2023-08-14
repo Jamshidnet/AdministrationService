@@ -22,7 +22,7 @@ public class JwtToken : IJwtToken
         this.refreshTokenService = refreshTokenService;
     }
 
-    public TokenResponse CreateTokenAsync(UserResponse user , CancellationToken cancellationToken = default)
+    public TokenResponse CreateTokenAsync(UserResponse user, CancellationToken cancellationToken = default)
     {
 
         var claims = new List<Claim>()
@@ -32,7 +32,7 @@ public class JwtToken : IJwtToken
         new Claim("LanguageId", user.Language.Id.ToString())
     };
 
-        List<PermissionResponse> permissions = new ();
+        List<PermissionResponse> permissions = new();
 
         foreach (var item in user.Roles)
         {

@@ -16,7 +16,7 @@ namespace Application.Common.Mapping
                 .ForMember(sr => sr.CategoryName, des => des
                 .MapFrom(y => y.categories
                 .FirstOrDefault().TranslateText));
-         
+
 
             CreateMap<UpdateCategoryCommand, Category>();
             CreateMap<Category, GetListCategoryResponse>();
@@ -26,7 +26,7 @@ namespace Application.Common.Mapping
                 .MapFrom(c => c.TranslateCategories
                 .FirstOrDefault(t => t.LangaugeId.ToString() == _user.Language)
                 .TranslateText ?? c.CategoryName));
-                                                        
+
             CreateMap<Category, GetListCategoryResponse>()
                 .ForMember(cr => cr.CategoryName, cfg => cfg
                 .MapFrom(c => c.TranslateCategories
@@ -34,11 +34,11 @@ namespace Application.Common.Mapping
                 .TranslateText ?? c.CategoryName));
 
             CreateMap<TranslateCategoryResponse, TranslateCategory>();
-               // .ForMember(des => des.Id, y=>Guid.NewGuid());
+            // .ForMember(des => des.Id, y=>Guid.NewGuid());
 
         }
 
-        public CategoryMapping(ICurrentUserService user) : base ()
+        public CategoryMapping(ICurrentUserService user) : base()
         {
             _user = user;
         }

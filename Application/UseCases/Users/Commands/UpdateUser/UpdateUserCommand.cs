@@ -11,7 +11,7 @@ namespace Application.UseCases.Users.Commands.UpdateUser;
 public class UpdateUserCommand : IRequest
 {
     public Guid Id { get; set; }
-    
+
     public string FirstName { get; set; }
 
     public string LastName { get; set; }
@@ -21,9 +21,9 @@ public class UpdateUserCommand : IRequest
     public string PhoneNumber { get; set; }
 
     public string Username { get; set; }
-    
+
     public string Password { get; set; }
-    
+
     public Guid[] RoleIds { get; set; }
 
     public Guid LanguageId { get; set; }

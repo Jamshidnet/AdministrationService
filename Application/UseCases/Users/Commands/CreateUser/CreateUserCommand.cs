@@ -4,7 +4,6 @@ using AutoMapper;
 using Domein.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.Users.Commands.CreateUser;
@@ -82,7 +81,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
             PersonId = person.Id,
             Roles = userRole,
             UserTypeId = request.UserTypeId,
-            LanguageId=request.LanguageId
+            LanguageId = request.LanguageId
         };
         await _context.Users.AddAsync(user, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
