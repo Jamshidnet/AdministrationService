@@ -1,0 +1,17 @@
+C:\Users\jturs\source\repos\NewProject\Application\bin\Debug\net7.0\Application.deps.json
+C:\Users\jturs\source\repos\NewProject\Application\bin\Debug\net7.0\Application.runtimeconfig.json
+C:\Users\jturs\source\repos\NewProject\Application\bin\Debug\net7.0\Application.dll
+C:\Users\jturs\source\repos\NewProject\Application\bin\Debug\net7.0\Application.pdb
+C:\Users\jturs\source\repos\NewProject\Application\bin\Debug\net7.0\Domein.dll
+C:\Users\jturs\source\repos\NewProject\Application\bin\Debug\net7.0\Domein.pdb
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\Application.AssemblyInfo.cs
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\Application.csproj.CoreCompileInputs.cache
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\Application.csproj.CopyComplete
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\Application.dll
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\refint\Application.dll
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\Application.pdb
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\Application.genruntimeconfig.cache
+C:\Users\jturs\source\repos\NewProject\Application\obj\Debug\net7.0\ref\Application.dll

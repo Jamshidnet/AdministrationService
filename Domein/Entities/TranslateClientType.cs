@@ -8,6 +8,7 @@ namespace Domein.Entities;
 [Index("OwnerId", "LanguageId", "ColumnName", Name = "unique_cons", IsUnique = true)]
 public partial class TranslateClientType
 {
+
     [Key]
     [Column("id")]
     public Guid Id { get; set; }

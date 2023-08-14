@@ -2,7 +2,6 @@
 using Application.UseCases.Categories.Commands;
 using Application.UseCases.Categories.Responses;
 using AutoMapper;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Domein.Entities;
 
 namespace Application.Common.Mapping
@@ -27,7 +26,7 @@ namespace Application.Common.Mapping
                 .MapFrom(c => c.TranslateCategories
                 .FirstOrDefault(t => t.LangaugeId.ToString() == _user.Language)
                 .TranslateText ?? c.CategoryName));
-
+                                                        
             CreateMap<Category, GetListCategoryResponse>()
                 .ForMember(cr => cr.CategoryName, cfg => cfg
                 .MapFrom(c => c.TranslateCategories

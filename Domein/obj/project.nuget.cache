@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ArkTOxl6qOvmaj4zF4hNTaqi5r9qMFwvQL/oXB1JGnrwPE7AN28LUqTNGTX4LDfA2yCXeWuZftMJVzwhPljIgQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\Domein.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jturs\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.9\\microsoft.entityframeworkcore.abstractions.7.0.9.nupkg.sha512"
+  ],
+  "logs": []
+}
