@@ -24,11 +24,12 @@ public class JwtToken : IJwtToken
 
     public TokenResponse CreateTokenAsync(UserResponse user , CancellationToken cancellationToken = default)
     {
+
         var claims = new List<Claim>()
     {
         new Claim(ClaimTypes.Name, user.Username),
         new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-        new Claim(ClaimTypes.UserData, user.Language.LanguageName)
+        new Claim("LanguageId", user.Language.Id.ToString())
     };
 
         List<PermissionResponse> permissions = new ();

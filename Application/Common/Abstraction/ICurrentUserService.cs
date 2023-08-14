@@ -3,4 +3,5 @@
 public interface ICurrentUserService
 {
     string Username { get; }
+    string Language { get; }
 }

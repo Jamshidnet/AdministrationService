@@ -13,8 +13,6 @@ public class UpdateCategoryCommand : IRequest<CategoryResponse>
 
     public string CategoryName { get; set; }
 
-    public string EnCategoryName { get; set; }
-
 }
 public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, CategoryResponse>
 {
