@@ -53,5 +53,6 @@ public class ChangeLoggingMiddleware : IMiddleware
 
         await _context.UserActions.AddAsync(Logitems);
         await _context.SaveChangesAsync();
+        await _context.DisposeAsync();
     }
 }

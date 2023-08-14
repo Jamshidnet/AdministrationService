@@ -27,7 +27,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<ChangeLoggingMiddleware>();
-        builder.Services.AddScoped<IApplicationDbContext, NewdatabaseContext>();
+        builder.Services.AddTransient<IApplicationDbContext, NewdatabaseContext>();
         builder.Services.AddDbContext<NewdatabaseContext>(
             options =>
             {

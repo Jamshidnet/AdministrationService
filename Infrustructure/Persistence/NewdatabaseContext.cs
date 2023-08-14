@@ -16,6 +16,7 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
     {
     }
 
+   
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Client> Clients { get; set; }
@@ -73,7 +74,8 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
     public virtual DbSet<UserType> UserTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Jam2001!!!;Database=newdatabase");
+        => optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Jam2001!!!;Database=newdatabase")
+        .EnableSensitiveDataLogging(); 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -407,7 +409,7 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
         });
-
+        
         OnModelCreatingPartial(modelBuilder);
     }
 

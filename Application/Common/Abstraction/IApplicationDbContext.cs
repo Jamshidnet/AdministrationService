@@ -61,7 +61,7 @@ namespace NewProject.Abstraction
         DbSet<UserAction> UserActions { get; }
 
         DbSet<UserType> UserTypes { get; }
-
+        ValueTask DisposeAsync();
 
         IQueryable<FilterByUserResponse> GetFilteredUsers(Guid? RegionId,
         Guid? DistrictId,
