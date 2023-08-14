@@ -1,6 +1,7 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Extensions;
 using Application.UseCases.Roles.Responses;
+using Application.UseCases.Users.Responses;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
@@ -14,13 +15,10 @@ namespace Application.UseCases.Users.Commands.RegesterUser;
 public class RegisterUserCommand : IRequest<TokenResponse>
 {
     public string FirstName { get; set; }
-
     public string LastName { get; set; }
-
     public DateTime Birthdate { get; set; }
-
     public string PhoneNumber { get; set; }
-
+    public  Guid LanguageId { get; set; }
     public string Username { get; set; }
     public string Password { get; set; }
     public string ConfirmPassword { get; set; }
@@ -56,13 +54,15 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
         user.Id = Guid.NewGuid();
         user.Person = person;
         user.UserType = await _context.UserTypes.SingleOrDefaultAsync(x => x.TypeName == "NoneSet");
+       // user.LanguageId = request.LanguageId;
         await _context.Users.AddAsync(user, cancellationToken);
         await _context.People.AddAsync(person, cancellationToken);
 
-
+        user.Language = _context.Languages.Find(user.LanguageId);
         await _context.SaveChangesAsync(cancellationToken);
-
-        var tokenResponse = _jwtToken.CreateTokenAsync(user.Username, user.Id.ToString(), _mapper.Map<RoleResponse[]>(user.Roles), cancellationToken);
+       
+        UserResponse userResponse = _mapper.Map<UserResponse>(user);
+        var tokenResponse = _jwtToken.CreateTokenAsync(userResponse, cancellationToken);
 
         return tokenResponse;
     }

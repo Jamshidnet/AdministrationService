@@ -1,6 +1,6 @@
 ﻿using Application.Common.Extensions;
 using Application.UseCases.Permissions.Responses;
-using Application.UseCases.Roles.Responses;
+using Application.UseCases.Users.Responses;
 using Domein.Entities.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -22,17 +22,18 @@ public class JwtToken : IJwtToken
         this.refreshTokenService = refreshTokenService;
     }
 
-    public TokenResponse CreateTokenAsync(string userName, string UserId, ICollection<RoleResponse> Roles, CancellationToken cancellationToken = default)
+    public TokenResponse CreateTokenAsync(UserResponse user , CancellationToken cancellationToken = default)
     {
         var claims = new List<Claim>()
     {
-        new Claim(ClaimTypes.Name, userName),
-        new Claim(ClaimTypes.NameIdentifier,UserId)
+        new Claim(ClaimTypes.Name, user.Username),
+        new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+        new Claim(ClaimTypes.UserData, user.Language.LanguageName)
     };
 
-        List<PermissionResponse> permissions = new List<PermissionResponse>();
+        List<PermissionResponse> permissions = new ();
 
-        foreach (var item in Roles)
+        foreach (var item in user.Roles)
         {
             foreach (var per in item.Permissions)
             {
@@ -40,9 +41,9 @@ public class JwtToken : IJwtToken
             }
         }
 
-        if (Roles.Count > 0)
+        if (user.Roles.Count > 0)
         {
-            foreach (var role in Roles)
+            foreach (var role in user.Roles)
             {
                 foreach (var permission in role.Permissions)
                 {
@@ -68,7 +69,7 @@ public class JwtToken : IJwtToken
         var responseModel = new TokenResponse
         {
             AccessToken = new JwtSecurityTokenHandler().WriteToken(jwt),
-            RefreshToken = GenerateRefreshTokenAsync(userName),
+            RefreshToken = GenerateRefreshTokenAsync(user.Username),
             Permissions = permissions
         };
 
@@ -77,7 +78,7 @@ public class JwtToken : IJwtToken
         {
             RefreshToken = responseModel.RefreshToken,
             ExpiresTime = DateTime.Now.AddDays(_configuration.GetValue<int>("JWT:RefreshTokenExpiredTimeAtDays")),
-            UserName = userName
+            UserName = user.Username
         }, cancellationToken);
 
         return responseModel;

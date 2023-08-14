@@ -1,6 +1,8 @@
-﻿using Application.UseCases.Quarters.Responses;
+﻿using Application.UseCases.Languages.Response;
+using Application.UseCases.Quarters.Responses;
 using Application.UseCases.Roles.Responses;
 using Application.UseCases.UserTypes.Responses;
+using Domein.Entities;
 
 namespace Application.UseCases.Users.Responses;
 
@@ -21,6 +23,8 @@ public class UserResponse
     public GetListUserTypeResponse UserType { get; set; }
 
     public GetListQuarterResponse Quarter { get; set; }
+
+    public LanguageResponse Language  { get; set; }
 
     public List<RoleResponse> Roles { get; set; }
 }

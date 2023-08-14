@@ -16,4 +16,5 @@ public class CurrentUserService : ICurrentUserService
     }
 
     public string Username => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
+    public string Language => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.UserData);
 }

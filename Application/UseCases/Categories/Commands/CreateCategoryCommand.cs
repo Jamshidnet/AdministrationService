@@ -6,7 +6,7 @@ using NewProject.Abstraction;
 namespace Application.UseCases.Categories.Commands;
 
 
-public record CreateCategoryCommand(string CategoryName, string EnCategoryName) : IRequest<Guid>;
+public record CreateCategoryCommand(string CategoryName ) : IRequest<Guid>;
 
 public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Guid>
 {

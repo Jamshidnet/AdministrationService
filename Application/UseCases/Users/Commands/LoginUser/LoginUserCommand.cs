@@ -28,7 +28,7 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, TokenRe
 
         var authenUser = await _userRefreshToken.AuthenAsync(request);
 
-        var tokenResponse = _jwtToken.CreateTokenAsync(authenUser.Username, authenUser.Id.ToString(), authenUser.Roles, cancellationToken);
+        var tokenResponse = _jwtToken.CreateTokenAsync(authenUser, cancellationToken);
 
         return tokenResponse;
     }

@@ -13,6 +13,8 @@ public class GetListUserResponse
 
     public string Username { get; set; }
 
+    public string Language { get; set; }
+
     public string UserTypeName { get; set; }
 
     public string QuarterName { get; set; }
