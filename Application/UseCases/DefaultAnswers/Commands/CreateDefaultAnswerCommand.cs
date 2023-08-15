@@ -1,4 +1,5 @@
 ﻿using Application.Common.Exceptions;
+using Application.Common.Models;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
@@ -7,7 +8,7 @@ using NewProject.Abstraction;
 namespace Application.UseCases.DefaultAnswers.Commands;
 
 
-public record CreateDefaultAnswerCommand(string AnswerText, Guid QuestionId) : IRequest<Guid>;
+public record CreateDefaultAnswerCommand(List<CreateCommandTranslate> defaultAnswers, Guid QuestionId) : IRequest<Guid>;
 
 public class CreateDefaultAnswerCommandHandler : IRequestHandler<CreateDefaultAnswerCommand, Guid>
 {
@@ -22,11 +23,25 @@ public class CreateDefaultAnswerCommandHandler : IRequestHandler<CreateDefaultAn
     public async Task<Guid> Handle(CreateDefaultAnswerCommand request, CancellationToken cancellationToken)
     {
         await FilterIfQuestionExsists(request.QuestionId);
-        DefaultAnswer answer = _mapper.Map<DefaultAnswer>(request);
-        answer.Id = Guid.NewGuid();
-        await _dbContext.DefaultAnswers.AddAsync(answer);
+        DefaultAnswer defaultAnswer = _mapper.Map<DefaultAnswer>(request);
+        TranslateDefaultAnswer TdefaultAnswer = new();
+
+        defaultAnswer.Id = Guid.NewGuid();
+
+        request.defaultAnswers.ForEach(c =>
+        {
+            TdefaultAnswer = _mapper.Map<TranslateDefaultAnswer>(c);
+            TdefaultAnswer.OwnerId = defaultAnswer.Id;
+            TdefaultAnswer.ColumnName = "DefaultAnswerName";
+            TdefaultAnswer.Id = Guid.NewGuid();
+            _dbContext.TranslateDefaultAnswers
+            .Add(TdefaultAnswer);
+        });
+
+        await _dbContext.DefaultAnswers.AddAsync(defaultAnswer);
+
         await _dbContext.SaveChangesAsync();
-        return answer.Id;
+        return defaultAnswer.Id;
     }
 
     private async Task FilterIfQuestionExsists(Guid questionId)

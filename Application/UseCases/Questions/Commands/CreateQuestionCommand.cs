@@ -1,5 +1,6 @@
 ﻿using Application.Common.Abstraction;
 using Application.Common.Exceptions;
+using Application.Common.Models;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
@@ -9,7 +10,7 @@ using NewProject.Abstraction;
 namespace Application.UseCases.Questions.Commands;
 
 
-public record CreateQuestionCommand(string QuestionText, Guid CategoryId, Guid QuestionTypeId) : IRequest<Guid>;
+public record CreateQuestionCommand(List<CreateCommandTranslate> questions, Guid CategoryId, Guid QuestionTypeId) : IRequest<Guid>;
 
 public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionCommand, Guid>
 {
@@ -30,16 +31,25 @@ public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionComman
            ?? throw new NotFoundException(
                " a user with the username that exists within the incoming claim couldn't found in database. ");
 
+        Question question = _mapper.Map<Question>(request);
+        question.CreatorUserId = user.Id;
+        question.Id = Guid.NewGuid();
 
-        Question region = _mapper.Map<Question>(request);
+        TranslateQuestion Tquestions = new();
 
-        region.Id = Guid.NewGuid();
-        region.CreatorUserId = user.Id;
+        request.questions.ForEach(c =>
+        {
+            Tquestions = _mapper.Map<TranslateQuestion>(c);
+            Tquestions.OwnerId = question.Id;
+            Tquestions.ColumnName = "QuestionsName";
+            Tquestions.Id = Guid.NewGuid();
+            _dbContext.TranslateQuestions
+            .Add(Tquestions);
+        });
 
-
-        await _dbContext.Questions.AddAsync(region);
+        await _dbContext.Questions.AddAsync(question);
         await _dbContext.SaveChangesAsync();
-        return region.Id;
+        return question.Id;
     }
     private async Task FilterIfCategoryExsists(Guid categoryId)
     {

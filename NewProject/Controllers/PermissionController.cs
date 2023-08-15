@@ -44,7 +44,7 @@ namespace NewProject.Controllers
 
         [HttpPost("[action]")]
         [Authorize(Roles = "CreatePermission")]
-        public async ValueTask<List<PermissionResponse>> CreatePermission(CreatePermissionCommand command)
+        public async ValueTask<Guid> CreatePermission(CreatePermissionCommand command)
             => await _mediator.Send(command);
 
 

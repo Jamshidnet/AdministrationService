@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.Docs.Responses;
 using Domein.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace NewProject.Abstraction
 {
@@ -63,6 +64,7 @@ namespace NewProject.Abstraction
         DbSet<UserType> UserTypes { get; }
         ValueTask DisposeAsync();
 
+        EntityEntry Entry(object entity);
         IQueryable<FilterByUserResponse> GetFilteredUsers(Guid? RegionId,
         Guid? DistrictId,
         Guid? QuarterId,

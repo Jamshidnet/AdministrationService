@@ -1,4 +1,6 @@
 ﻿using Application.Common.Abstraction;
+using Application.Common.Models;
+using AutoMapper;
 using Domein.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -6,24 +8,26 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Roles.Commands;
 
-public record CreateRoleCommand : IRequest<Guid>
-{
-    public string Name { get; set; }
-    public List<Guid> PermissionsIds { get; set; }
-}
+public record CreateRoleCommand(List<CreateCommandTranslate> roles, List<Guid> PermissionsIds) : IRequest<Guid>;
 
 public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, Guid>
 {
+
     private readonly IApplicationDbContext _context;
     private readonly ICurrentUserService _currentUser;
-    public CreateRoleCommandHandler(IApplicationDbContext context, ICurrentUserService currentUser)
+    private readonly IMapper _mapper;
+
+    public CreateRoleCommandHandler(IApplicationDbContext context, ICurrentUserService currentUser, IMapper mapper)
     {
         _context = context;
         _currentUser = currentUser;
+        _mapper = mapper;
     }
 
     public async Task<Guid> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
+
+
         var permissions = await _context.Permissions.ToListAsync(cancellationToken);
 
         var Newpermissons = new List<Permission>();
@@ -36,16 +40,27 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, Guid>
             });
 
         }
-        var roleEntity = new Role
+
+        Role role = _mapper.Map<Role>(request);
+        TranslateRole Trole = new();
+
+        role.Id = Guid.NewGuid();
+
+        request.roles.ForEach(c =>
         {
-            Id = Guid.NewGuid(),
-            RoleName = request.Name,
-            Permissions = Newpermissons
-        };
+            Trole = _mapper.Map<TranslateRole>(c);
+            Trole.OwnerId = role.Id;
+            Trole.ColumnName = "RoleName";
+            Trole.Id = Guid.NewGuid();
+            _context.TranslateRoles
+            .Add(Trole);
+        });
 
-        await _context.Roles.AddAsync(roleEntity, cancellationToken);
+        role.RoleName = request.roles.First().TranslateText;
+            role.Permissions = Newpermissons;
+
+        await _context.Roles.AddAsync(role, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
-        return roleEntity.Id;
-
+        return role.Id;
     }
 }

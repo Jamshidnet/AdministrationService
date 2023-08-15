@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Application.Common.Models;
+using AutoMapper;
 using Domein.Entities;
 using MediatR;
 using NewProject.Abstraction;
@@ -6,7 +7,7 @@ using NewProject.Abstraction;
 namespace Application.UseCases.UserTypes.Commands;
 
 
-public record CreateUserTypeCommand(string TypeName) : IRequest<Guid>;
+public record CreateUserTypeCommand(List<CreateCommandTranslate> userTypes) : IRequest<Guid>;
 
 public class CreateUserTypeCommandHandler : IRequestHandler<CreateUserTypeCommand, Guid>
 {
@@ -21,9 +22,25 @@ public class CreateUserTypeCommandHandler : IRequestHandler<CreateUserTypeComman
     public async Task<Guid> Handle(CreateUserTypeCommand request, CancellationToken cancellationToken)
     {
         UserType userType = _mapper.Map<UserType>(request);
+        TranslateUserType TuserType = new();
+
         userType.Id = Guid.NewGuid();
+
+        request.userTypes.ForEach(c =>
+        {
+            TuserType = _mapper.Map<TranslateUserType>(c);
+            TuserType.OwnerId = userType.Id;
+            TuserType.ColumnName = "UserTypeName";
+            TuserType.Id = Guid.NewGuid();
+            _dbContext.TranslateUserTypes
+            .Add(TuserType);
+        });
+
         await _dbContext.UserTypes.AddAsync(userType);
+
         await _dbContext.SaveChangesAsync();
         return userType.Id;
     }
 }
+
+

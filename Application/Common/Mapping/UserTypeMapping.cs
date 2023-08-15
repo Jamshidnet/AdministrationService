@@ -1,4 +1,5 @@
-﻿using Application.UseCases.Users.Commands.UpdateUser;
+﻿using Application.Common.Models;
+using Application.UseCases.Users.Commands.UpdateUser;
 using Application.UseCases.UserTypes.Commands;
 using Application.UseCases.UserTypes.Responses;
 using AutoMapper;
@@ -15,5 +16,11 @@ public class UserTypeMapping : Profile
             .ForMember(x => x.Users, u => u.Ignore());
         CreateMap<UserType, UserTypeResponse>();
         CreateMap<UserType, GetListUserTypeResponse>();
+
+
+        CreateMap<CreateCommandTranslate, TranslateUserType>();
+        CreateMap<UpdateCommandTranslate, TranslateUserType>();
+
+
     }
 }

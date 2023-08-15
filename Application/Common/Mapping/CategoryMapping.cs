@@ -1,4 +1,5 @@
 ﻿using Application.Common.Abstraction;
+using Application.Common.Models;
 using Application.UseCases.Categories.Commands;
 using Application.UseCases.Categories.Responses;
 using AutoMapper;
@@ -33,8 +34,8 @@ namespace Application.Common.Mapping
                 .FirstOrDefault(t => t.Langauge.Id.ToString() == _user.Language)
                 .TranslateText ?? c.CategoryName));
 
-            CreateMap<CreateCategoryTranslateResponse, TranslateCategory>();
-            CreateMap<UpdateCategoryTranslateResponse, TranslateCategory>();
+            CreateMap<CreateCommandTranslate, TranslateCategory>();
+            CreateMap<UpdateCommandTranslate, TranslateCategory>();
             // .ForMember(des => des.Id, y=>Guid.NewGuid());
 
 

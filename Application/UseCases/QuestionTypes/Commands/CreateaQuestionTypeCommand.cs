@@ -1,10 +1,12 @@
-﻿using AutoMapper;
+﻿using Application.Common.Models;
+using AutoMapper;
 using Domein.Entities;
 using MediatR;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.QuestionTypes.Commands;
-public record CreateQuestionTypeCommand(string QuestionTypeName) : IRequest<Guid>;
+
+public record CreateQuestionTypeCommand(List<CreateCommandTranslate> questionTypes) : IRequest<Guid>;
 
 public class CreateQuestionTypeCommandHandler : IRequestHandler<CreateQuestionTypeCommand, Guid>
 {
@@ -19,9 +21,24 @@ public class CreateQuestionTypeCommandHandler : IRequestHandler<CreateQuestionTy
     public async Task<Guid> Handle(CreateQuestionTypeCommand request, CancellationToken cancellationToken)
     {
         QuestionType questionType = _mapper.Map<QuestionType>(request);
+        TranslateQuestionType TquestionType = new();
+
         questionType.Id = Guid.NewGuid();
+
+        request.questionTypes.ForEach(c =>
+        {
+            TquestionType = _mapper.Map<TranslateQuestionType>(c);
+            TquestionType.OwnerId = questionType.Id;
+            TquestionType.ColumnName = "QuestionTypeName";
+            TquestionType.Id = Guid.NewGuid();
+            _dbContext.TranslateQuestionTypes
+            .Add(TquestionType);
+        });
+
         await _dbContext.QuestionTypes.AddAsync(questionType);
+
         await _dbContext.SaveChangesAsync();
         return questionType.Id;
     }
 }
+

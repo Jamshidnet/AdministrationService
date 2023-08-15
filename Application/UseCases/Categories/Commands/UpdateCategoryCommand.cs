@@ -1,13 +1,15 @@
 ﻿using Application.Common.Exceptions;
+using Application.Common.Models;
 using Application.UseCases.Categories.Responses;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.Categories.Commands;
 
-public record UpdateCategoryCommand(List<UpdateCategoryTranslateResponse> categories ) : IRequest<CategoryResponse>;
+public record UpdateCategoryCommand(List<UpdateCommandTranslate> categories ) : IRequest<CategoryResponse>;
 
 public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, CategoryResponse>
 {
@@ -23,13 +25,15 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
 
     public async Task<CategoryResponse> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var foundCatagory = await _context.Categories.FindAsync(request.categories.First().Id);
+        var en = request.categories.First();
+        var category = _context.Categories.Find(en.OwnerId)
+            ?? throw new NotFoundException(" there is no category with this owner id. ");
 
-        _mapper.Map(request.categories.First(), foundCatagory);
-
-        foundCatagory.TranslateCategories = _mapper.Map<TranslateCategory[]>(request.categories); 
-
-        return _mapper.Map<CategoryResponse>(foundCatagory);
+        category.CategoryName = en.TranslateText;
+        _mapper.Map(request.categories, category.TranslateCategories);
+        _context.Categories.Update(category);
+       await  _context.SaveChangesAsync(cancellationToken);
+        return _mapper.Map<CategoryResponse>(category);
     }
 
     private async Task FilterIfCategoryExsists(Guid categoryId)

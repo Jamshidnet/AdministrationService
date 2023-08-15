@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Permissions.Responses;
+﻿using Application.Common.Models;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
@@ -6,37 +6,39 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Permissions.Commands.CreatePermission;
 
-public class CreatePermissionCommand : IRequest<List<PermissionResponse>>
-{
-    public string[] Name { get; set; }
-}
-public class CreatePermissionCommandHanler : IRequestHandler<CreatePermissionCommand, List<PermissionResponse>>
+public record CreatePermissionCommand(List<CreateCommandTranslate> permissions) : IRequest<Guid>;
+
+public class CreatePermissionCommandHandler : IRequestHandler<CreatePermissionCommand, Guid>
 {
     private IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
-    public CreatePermissionCommandHanler(IApplicationDbContext dbContext, IMapper mapper)
+    public CreatePermissionCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
     }
 
-    public async Task<List<PermissionResponse>> Handle(CreatePermissionCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreatePermissionCommand request, CancellationToken cancellationToken)
     {
+        Permission permission = _mapper.Map<Permission>(request);
+        TranslatePermission Tpermission = new();
 
-        var _permissions = new List<Permission>();
+        permission.Id = Guid.NewGuid();
 
-        foreach (string item in request.Name)
+        request.permissions.ForEach(c =>
         {
-            _permissions.Add(new()
-            {
-                Id = Guid.NewGuid(),
-                PermissionName = item
-            });
-        }
+            Tpermission = _mapper.Map<TranslatePermission>(c);
+            Tpermission.OwnerId = permission.Id;
+            Tpermission.ColumnName = "PermissionName";
+            Tpermission.Id = Guid.NewGuid();
+            _dbContext.TranslatePermissions
+            .Add(Tpermission);
+        });
 
-        await _dbContext.Permissions.AddRangeAsync(_permissions, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        var result = _mapper.Map<List<PermissionResponse>>(_permissions);
-        return result;
+        await _dbContext.Permissions.AddAsync(permission);
+
+        await _dbContext.SaveChangesAsync();
+        return permission.Id;
     }
 }
+

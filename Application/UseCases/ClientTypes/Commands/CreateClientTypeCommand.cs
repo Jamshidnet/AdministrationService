@@ -1,11 +1,12 @@
-﻿using AutoMapper;
+﻿using Application.Common.Models;
+using AutoMapper;
 using Domein.Entities;
 using MediatR;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.ClientTypes.Commands;
 
-public record CreateClientTypeCommand(string TypeName) : IRequest<Guid>;
+public record CreateClientTypeCommand(List<CreateCommandTranslate> clientTypes) : IRequest<Guid>;
 
 public class CreateClientTypeCommandHandler : IRequestHandler<CreateClientTypeCommand, Guid>
 {
@@ -19,10 +20,24 @@ public class CreateClientTypeCommandHandler : IRequestHandler<CreateClientTypeCo
 
     public async Task<Guid> Handle(CreateClientTypeCommand request, CancellationToken cancellationToken)
     {
-        ClientType questionType = _mapper.Map<ClientType>(request);
-        questionType.Id = Guid.NewGuid();
-        await _dbContext.ClientTypes.AddAsync(questionType);
+        ClientType clientType = _mapper.Map<ClientType>(request);
+        TranslateClientType TclientType = new();
+
+        clientType.Id = Guid.NewGuid();
+
+        request.clientTypes.ForEach(c =>
+        {
+            TclientType = _mapper.Map<TranslateClientType>(c);
+            TclientType.OwnerId = clientType.Id;
+            TclientType.ColumnName = "ClientTypeName";
+            TclientType.Id = Guid.NewGuid();
+            _dbContext.TranslateClientTypes
+            .Add(TclientType);
+        });
+
+        await _dbContext.ClientTypes.AddAsync(clientType);
+
         await _dbContext.SaveChangesAsync();
-        return questionType.Id;
+        return clientType.Id;
     }
 }
