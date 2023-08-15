@@ -11,8 +11,10 @@ public record CreateUserTypeCommand(List<CreateCommandTranslate> userTypes) : IR
 
 public class CreateUserTypeCommandHandler : IRequestHandler<CreateUserTypeCommand, Guid>
 {
+
     private IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
+
     public CreateUserTypeCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
@@ -21,6 +23,7 @@ public class CreateUserTypeCommandHandler : IRequestHandler<CreateUserTypeComman
 
     public async Task<Guid> Handle(CreateUserTypeCommand request, CancellationToken cancellationToken)
     {
+
         UserType userType = _mapper.Map<UserType>(request);
         TranslateUserType TuserType = new();
 
@@ -34,7 +37,7 @@ public class CreateUserTypeCommandHandler : IRequestHandler<CreateUserTypeComman
             TuserType.Id = Guid.NewGuid();
             _dbContext.TranslateUserTypes
             .Add(TuserType);
-        });
+        }); 
 
         await _dbContext.UserTypes.AddAsync(userType);
 
@@ -42,5 +45,4 @@ public class CreateUserTypeCommandHandler : IRequestHandler<CreateUserTypeComman
         return userType.Id;
     }
 }
-
 

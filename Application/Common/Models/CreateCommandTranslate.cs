@@ -4,6 +4,6 @@
     {
         public string TranslateText { get; set; }
 
-        public Guid? LangaugeId { get; set; }
+        public Guid LanguageId { get; set; }
     }
 }

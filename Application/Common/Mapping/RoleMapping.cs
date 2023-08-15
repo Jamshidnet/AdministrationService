@@ -1,4 +1,6 @@
-﻿using Application.UseCases.Roles.Responses;
+﻿using Application.Common.Models;
+using Application.UseCases.Roles.Commands;
+using Application.UseCases.Roles.Responses;
 using AutoMapper;
 using Domein.Entities;
 
@@ -10,5 +12,15 @@ public class RoleMapping : Profile
     {
         CreateMap<Role, RoleResponse>();
         CreateMap<Role, GetListRoleResponse>();
+
+        CreateMap<CreateRoleCommand, Role>()
+            .ForMember(y => y.RoleName, t => t.MapFrom(q => q.roles.First().TranslateText));
+
+
+        CreateMap<CreateCommandTranslate, TranslateRole>();
+
+        CreateMap<UpdateCommandTranslate, TranslateRole>();
+
+
     }
 }

@@ -24,11 +24,11 @@ public partial class TranslateCategory
     public string ColumnName { get; set; }
 
     [Column("langauge_id")]
-    public Guid? LangaugeId { get; set; }
+    public Guid? LanguageId { get; set; }
 
     [ForeignKey("LangaugeId")]
     [InverseProperty("TranslateCategories")]
-    public virtual Language Langauge { get; set; }
+    public virtual Language Language { get; set; }
 
     [ForeignKey("OwnerId")]
     [InverseProperty("TranslateCategories")]

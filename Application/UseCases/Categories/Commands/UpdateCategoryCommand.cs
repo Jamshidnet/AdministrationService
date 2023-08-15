@@ -32,7 +32,7 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
         category.CategoryName = en.TranslateText;
         _mapper.Map(request.categories, category.TranslateCategories);
         _context.Categories.Update(category);
-       await  _context.SaveChangesAsync(cancellationToken);
+       await  _context.SaveChangesAsync(cancellationToken); 
         return _mapper.Map<CategoryResponse>(category);
     }
 

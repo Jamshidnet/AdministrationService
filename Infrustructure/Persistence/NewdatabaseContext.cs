@@ -283,7 +283,7 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Langauge).WithMany(p => p.TranslateCategories).HasConstraintName("language_fk");
+            entity.HasOne(d => d.Language).WithMany(p => p.TranslateCategories).HasConstraintName("language_fk");
 
             entity.HasOne(d => d.Owner).WithMany(p => p.TranslateCategories).HasConstraintName("owner_fk");
         });

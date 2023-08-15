@@ -1,4 +1,5 @@
-﻿using Application.UseCases.Questions.Commands;
+﻿using Application.Common.Models;
+using Application.UseCases.Questions.Commands;
 using Application.UseCases.Questions.Responses;
 using AutoMapper;
 using Domein.Entities;
@@ -9,8 +10,11 @@ public class QuestionMapping : Profile
 {
     public QuestionMapping()
     {
-        CreateMap<CreateQuestionCommand, Question>();
+        CreateMap<CreateQuestionCommand, Question>()
+            .ForMember(y => y.QuestionText, q => q.MapFrom(t => t.questions.First().TranslateText));
+
         CreateMap<UpdateQuestionCommand, Question>();
+
         CreateMap<Question, GetListQuestionResponse>()
         .ForMember(x => x.QuestionType, y => y.MapFrom(z => z.QuestionType.QuestionTypeName))
         .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username))
@@ -19,5 +23,12 @@ public class QuestionMapping : Profile
 
         CreateMap<Question, QuestionResponse>()
        .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username));
+
+
+
+        CreateMap<CreateCommandTranslate, TranslateQuestion>();
+
+        CreateMap<UpdateCommandTranslate, TranslateQuestion>();
+
     }
 }

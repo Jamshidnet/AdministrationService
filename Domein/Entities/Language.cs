@@ -14,7 +14,7 @@ public partial class Language
     [StringLength(50)]
     public string LanguageName { get; set; }
 
-    [InverseProperty("Langauge")]
+    [InverseProperty("Language")]
     public virtual ICollection<TranslateCategory> TranslateCategories { get; set; } = new List<TranslateCategory>();
 
     [InverseProperty("Language")]
