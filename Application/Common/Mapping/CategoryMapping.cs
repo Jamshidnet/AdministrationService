@@ -33,8 +33,12 @@ namespace Application.Common.Mapping
                 .FirstOrDefault(t => t.Langauge.Id.ToString() == _user.Language)
                 .TranslateText ?? c.CategoryName));
 
-            CreateMap<TranslateCategoryResponse, TranslateCategory>();
+            CreateMap<CreateCategoryTranslateResponse, TranslateCategory>();
+            CreateMap<UpdateCategoryTranslateResponse, TranslateCategory>();
             // .ForMember(des => des.Id, y=>Guid.NewGuid());
+
+
+
 
         }
 

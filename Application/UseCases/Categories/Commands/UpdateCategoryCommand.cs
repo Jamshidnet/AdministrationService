@@ -7,17 +7,14 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Categories.Commands;
 
-public class UpdateCategoryCommand : IRequest<CategoryResponse>
-{
-    public Guid Id { get; set; }
+public record UpdateCategoryCommand(List<UpdateCategoryTranslateResponse> categories ) : IRequest<CategoryResponse>;
 
-    public string CategoryName { get; set; }
-
-}
 public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, CategoryResponse>
 {
+
     private IApplicationDbContext _context;
     private readonly IMapper _mapper;
+
     public UpdateCategoryCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
         _context = dbContext;
@@ -26,13 +23,13 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
 
     public async Task<CategoryResponse> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var foundCategory = await _context.Categories.FindAsync(new object[] { request.Id }, cancellationToken)
-            ?? throw new NotFoundException(nameof(Category), request.Id);
-        _mapper.Map(request, foundCategory);
-        _context.Categories.Update(foundCategory);
-        await _context.SaveChangesAsync(cancellationToken);
+        var foundCatagory = await _context.Categories.FindAsync(request.categories.First().Id);
 
-        return _mapper.Map<CategoryResponse>(foundCategory);
+        _mapper.Map(request.categories.First(), foundCatagory);
+
+        foundCatagory.TranslateCategories = _mapper.Map<TranslateCategory[]>(request.categories); 
+
+        return _mapper.Map<CategoryResponse>(foundCatagory);
     }
 
     private async Task FilterIfCategoryExsists(Guid categoryId)

@@ -7,7 +7,7 @@ using NewProject.Abstraction;
 namespace Application.UseCases.Categories.Commands;
 
 
-public record CreateCategoryCommand(List<TranslateCategoryResponse> categories) : IRequest<Guid>;
+public record CreateCategoryCommand(List<CreateCategoryTranslateResponse> categories) : IRequest<Guid>;
 
 public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Guid>
 {
