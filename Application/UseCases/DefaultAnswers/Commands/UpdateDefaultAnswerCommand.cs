@@ -24,7 +24,7 @@ public class UpdateDefaultAnswerCommandHandler : IRequestHandler<UpdateDefaultAn
     private readonly IMapper _mapper;
     private readonly ICurrentUserService _userService;
     public UpdateDefaultAnswerCommandHandler(
-        IApplicationDbContext dbContext, 
+        IApplicationDbContext dbContext,
         IMapper mapper,
         ICurrentUserService userService)
     {

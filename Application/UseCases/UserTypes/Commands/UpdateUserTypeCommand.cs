@@ -23,8 +23,8 @@ public class UpdateUserTypeCommandHandler : IRequestHandler<UpdateUserTypeComman
     private readonly IMapper _mapper;
     private readonly ICurrentUserService _userService;
     public UpdateUserTypeCommandHandler(
-        IApplicationDbContext dbContext, 
-        IMapper mapper, 
+        IApplicationDbContext dbContext,
+        IMapper mapper,
         ICurrentUserService userService)
     {
         _context = dbContext;
@@ -48,8 +48,8 @@ public class UpdateUserTypeCommandHandler : IRequestHandler<UpdateUserTypeComman
 
     private async Task<UserType> FilterIfUserTypeExsists(Guid clientID)
     {
-        return await _context.UserTypes.FindAsync(clientID) 
-            ??throw new NotFoundException("There is no client with given Id. ");
+        return await _context.UserTypes.FindAsync(clientID)
+            ?? throw new NotFoundException("There is no client with given Id. ");
     }
 
 }

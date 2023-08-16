@@ -18,7 +18,7 @@ public class GetAllPermissionQueryHandler : IRequestHandler<GetAllPermissionQuer
         _mapper = mapper;
     }
 
-    public async  Task<List<PermissionResponse>> Handle(GetAllPermissionQuery request, CancellationToken cancellationToken)
+    public async Task<List<PermissionResponse>> Handle(GetAllPermissionQuery request, CancellationToken cancellationToken)
     {
         var permissions = await _dbContext.Permissions.ToListAsync();
 

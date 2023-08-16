@@ -2,6 +2,6 @@
 
 public interface ICurrentUserService
 {
-     string Username { get; }
-     string LanguageId { get; }
+    string Username { get; }
+    string LanguageId { get; }
 }

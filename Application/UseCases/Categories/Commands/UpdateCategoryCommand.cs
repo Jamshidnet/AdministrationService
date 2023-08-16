@@ -1,13 +1,10 @@
 ﻿using Application.Common.Abstraction;
 using Application.Common.Exceptions;
-using Application.Common.Models;
 using Application.UseCases.Categories.Responses;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.Categories.Commands;
@@ -37,14 +34,14 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
 
         transCategory.TranslateText = request.CategoryName;
         _context.TranslateCategories.Update(transCategory);
-       await  _context.SaveChangesAsync(cancellationToken); 
+        await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<CategoryResponse>(category);
     }
 
     private async Task<Category> FilterIfCategoryExsists(Guid categoryId)
     {
-       return await _context.Categories.FindAsync(categoryId)
-            ?? throw new NotFoundException("There is no category with given Id. ");
+        return await _context.Categories.FindAsync(categoryId)
+             ?? throw new NotFoundException("There is no category with given Id. ");
     }
 
 }

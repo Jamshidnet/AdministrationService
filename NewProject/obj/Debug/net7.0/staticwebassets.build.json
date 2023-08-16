@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "OxNldKyCy2tZt5YO2cFEBSQ0Xp2FCWI8sEF3nPfmqgs=",
-  "Source": "NewProject",
-  "BasePath": "_content/NewProject",
+  "Hash": "3YZwBXNeeFt1s6RJeqrcofnV77XyvRC0Flxce+8KtP8=",
+  "Source": "PublicAffairsPortal.WebUI",
+  "BasePath": "_content/PublicAffairsPortal.WebUI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

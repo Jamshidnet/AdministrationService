@@ -18,7 +18,7 @@ public class UpdateRoleCommand : IRequest<RoleResponse>
 
 public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, RoleResponse>
 {
-    
+
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
     private readonly ICurrentUserService _userService;

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewProject", "NewProject\NewProject.csproj", "{D24D7AD7-4202-4C8F-AA7E-D1C68A01E215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAffairsPortal.WebUI", "NewProject\PublicAffairsPortal.WebUI.csproj", "{D24D7AD7-4202-4C8F-AA7E-D1C68A01E215}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{36AFE25D-177E-491D-A944-B5B6FFA1A583}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAffairsPortal.Application", "Application\PublicAffairsPortal.Application.csproj", "{36AFE25D-177E-491D-A944-B5B6FFA1A583}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domein", "Domein\Domein.csproj", "{8C5E344F-2D27-4C14-8C09-B983E98819A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAffairsPortal.Domein", "Domein\PublicAffairsPortal.Domein.csproj", "{8C5E344F-2D27-4C14-8C09-B983E98819A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrustructure", "Infrustructure\Infrustructure.csproj", "{D173D252-8971-4235-A0F2-E4750B231178}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAffairsPortal.Infrustructure", "Infrustructure\PublicAffairsPortal.Infrustructure.csproj", "{D173D252-8971-4235-A0F2-E4750B231178}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

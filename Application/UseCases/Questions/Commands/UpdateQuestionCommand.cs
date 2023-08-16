@@ -1,6 +1,5 @@
 ﻿using Application.Common.Abstraction;
 using Application.Common.Exceptions;
-using Application.UseCases.Categories.Responses;
 using Application.UseCases.Questions.Responses;
 using AutoMapper;
 using Domein.Entities;
@@ -39,7 +38,7 @@ public class UpdateQuestionCommandHandler : IRequestHandler<UpdateQuestionComman
     {
         var foundQuestion = await _context.Questions.FindAsync(new object[] { request.Id }, cancellationToken)
             ?? throw new NotFoundException(nameof(Question), request.Id);
-        
+
         _mapper.Map(request, foundQuestion);
 
         var transQuestion = await _context.TranslateQuestions

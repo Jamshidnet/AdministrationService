@@ -32,7 +32,7 @@ namespace Application.Common.Mapping
             CreateMap<CreateCommandTranslate, TranslateCategory>();
 
             CreateMap<UpdateCommandTranslate, TranslateCategory>();
-             
+
         }
     }
 }

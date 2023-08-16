@@ -57,7 +57,7 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, Guid>
         });
 
         role.RoleName = request.roles.First().TranslateText;
-            role.Permissions = Newpermissons;
+        role.Permissions = Newpermissons;
 
         await _context.Roles.AddAsync(role, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);

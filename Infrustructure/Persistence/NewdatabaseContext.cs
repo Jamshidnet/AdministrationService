@@ -1,9 +1,7 @@
 ﻿using Application.UseCases.Docs.Responses;
-using DocumentFormat.OpenXml.Vml.Office;
 using Domein.Entities;
 using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
-using System.Runtime.CompilerServices;
 
 namespace Infrustructure.Persistence;
 
@@ -79,7 +77,7 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
         => optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Jam2001!!!;Database=newdatabase")
         .EnableSensitiveDataLogging();
 
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>
@@ -417,7 +415,7 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
     }
 
-    
+
 
     public IQueryable<FilterByUserResponse> GetFilteredUsers(
 Guid? RegionId,

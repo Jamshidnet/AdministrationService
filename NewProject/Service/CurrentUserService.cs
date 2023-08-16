@@ -1,8 +1,6 @@
 ﻿using Application.Common.Abstraction;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
-using System;
 
 namespace NewProject.Service;
 
@@ -19,8 +17,8 @@ public class CurrentUserService : ICurrentUserService
 
     public string Username => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
 
-   
+
     public string LanguageId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.UserData);
-     
+
 
 }

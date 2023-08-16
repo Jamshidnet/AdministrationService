@@ -2100,17 +2100,17 @@
           "lib/netstandard1.6/XLParser.dll": {}
         }
       },
-      "Domein/1.0.0": {
+      "PublicAffairsPortal.Domein/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Abstractions": "7.0.9"
         },
         "compile": {
-          "bin/placeholder/Domein.dll": {}
+          "bin/placeholder/PublicAffairsPortal.Domein.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Domein.dll": {}
+          "bin/placeholder/PublicAffairsPortal.Domein.dll": {}
         }
       }
     }
@@ -6574,10 +6574,10 @@
         "xlparser.nuspec"
       ]
     },
-    "Domein/1.0.0": {
+    "PublicAffairsPortal.Domein/1.0.0": {
       "type": "project",
-      "path": "../Domein/Domein.csproj",
-      "msbuildProject": "../Domein/Domein.csproj"
+      "path": "../Domein/PublicAffairsPortal.Domein.csproj",
+      "msbuildProject": "../Domein/PublicAffairsPortal.Domein.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6585,7 +6585,6 @@
       "AutoMapper >= 12.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
       "ClosedXML >= 0.102.0",
-      "Domein >= 1.0.0",
       "FluentValidation >= 11.6.0",
       "MediatR >= 12.1.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.9",
@@ -6594,6 +6593,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.9",
       "Microsoft.Extensions.DependencyInjection >= 7.0.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.4",
+      "PublicAffairsPortal.Domein >= 1.0.0",
       "System.IdentityModel.Tokens.Jwt >= 6.32.1",
       "X.PagedList >= 8.4.7",
       "iTextSharp >= 5.5.13.3"
@@ -6606,9 +6606,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jturs\\source\\repos\\NewProject\\Application\\Application.csproj",
-      "projectName": "Application",
-      "projectPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Application\\Application.csproj",
+      "projectUniqueName": "C:\\Users\\jturs\\source\\repos\\NewProject\\Application\\PublicAffairsPortal.Application.csproj",
+      "projectName": "PublicAffairsPortal.Application",
+      "projectPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Application\\PublicAffairsPortal.Application.csproj",
       "packagesPath": "C:\\Users\\jturs\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Application\\obj\\",
       "projectStyle": "PackageReference",
@@ -6632,8 +6632,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\Domein.csproj": {
-              "projectPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\Domein.csproj"
+            "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\PublicAffairsPortal.Domein.csproj": {
+              "projectPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\PublicAffairsPortal.Domein.csproj"
             }
           }
         }

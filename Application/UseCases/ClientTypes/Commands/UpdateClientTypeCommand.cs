@@ -1,6 +1,5 @@
 ﻿using Application.Common.Abstraction;
 using Application.Common.Exceptions;
-using Application.UseCases.Categories.Responses;
 using Application.UseCases.ClientTypes.Responses;
 using AutoMapper;
 using Domein.Entities;

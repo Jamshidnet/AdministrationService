@@ -1,15 +1,12 @@
 ﻿using Application.Common.Abstraction;
 using Application.Common.Logging;
 using Application.Common.Mapping;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using NewProject.Abstraction;
 using NewProject.JWT;
 using NewProject.Service;
-using System;
 using System.Text.Json.Serialization;
 
 namespace NewProject;
@@ -37,7 +34,7 @@ public static class ConfigureService
         services.AddHttpContextAccessor();
         services.AddSwaggerGen();
         services.AddAutoMapper(typeof(CategoryMapping));
-     
+
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Example API", Version = "v1" });

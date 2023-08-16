@@ -1,6 +1,5 @@
 ﻿using Application.Common.Mapping.ValueResolvers;
 using Application.Common.Models;
-using Application.UseCases.Categories.Responses;
 using Application.UseCases.Users.Commands.UpdateUser;
 using Application.UseCases.UserTypes.Commands;
 using Application.UseCases.UserTypes.Responses;

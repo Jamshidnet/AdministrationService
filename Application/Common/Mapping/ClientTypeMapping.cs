@@ -1,7 +1,5 @@
 ﻿using Application.Common.Mapping.ValueResolvers;
 using Application.Common.Models;
-using Application.UseCases.Categories.Responses;
-using Application.UseCases.Clients.Commands;
 using Application.UseCases.ClientTypes.Commands;
 using Application.UseCases.ClientTypes.Responses;
 using AutoMapper;

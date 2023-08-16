@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infrustructure\Infrustructure.csproj" />
+    <ProjectReference Include="..\Infrustructure\PublicAffairsPortal.Infrustructure.csproj" />
   </ItemGroup>
 
 </Project>

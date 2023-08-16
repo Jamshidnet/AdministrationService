@@ -37,7 +37,7 @@ public class CreateUserTypeCommandHandler : IRequestHandler<CreateUserTypeComman
             TuserType.Id = Guid.NewGuid();
             _dbContext.TranslateUserTypes
             .Add(TuserType);
-        }); 
+        });
 
         await _dbContext.UserTypes.AddAsync(userType);
 

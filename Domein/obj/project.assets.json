@@ -45,9 +45,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\Domein.csproj",
-      "projectName": "Domein",
-      "projectPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\Domein.csproj",
+      "projectUniqueName": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\PublicAffairsPortal.Domein.csproj",
+      "projectName": "PublicAffairsPortal.Domein",
+      "projectPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\PublicAffairsPortal.Domein.csproj",
       "packagesPath": "C:\\Users\\jturs\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\obj\\",
       "projectStyle": "PackageReference",

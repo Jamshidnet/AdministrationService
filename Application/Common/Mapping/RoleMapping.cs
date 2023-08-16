@@ -1,6 +1,5 @@
 ﻿using Application.Common.Mapping.ValueResolvers;
 using Application.Common.Models;
-using Application.UseCases.Categories.Responses;
 using Application.UseCases.Roles.Commands;
 using Application.UseCases.Roles.Responses;
 using AutoMapper;
