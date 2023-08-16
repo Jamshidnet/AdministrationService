@@ -21,12 +21,12 @@ namespace Application.Common.Mapping
                 .ForMember(x => x.Id, option => option.UseDestinationValue());
 
             CreateMap<Category, CategoryResponse>()
-           .ForMember(cr => cr.CategoryName, cfg => cfg
-             .MapFrom<CategoryValueResolver<CategoryResponse>>());
+                .ForMember(cr => cr.CategoryName, cfg => cfg
+                .MapFrom<CategoryValueResolver<CategoryResponse>>());
 
             CreateMap<Category, GetListCategoryResponse>()
                 .ForMember(cr => cr.CategoryName, cfg => cfg
-             .MapFrom<CategoryValueResolver<GetListCategoryResponse>>());
+                .MapFrom<CategoryValueResolver<GetListCategoryResponse>>());
 
             CreateMap<CreateCommandTranslate, TranslateCategory>();
 

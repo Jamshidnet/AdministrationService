@@ -2,9 +2,7 @@
 using Application.Common.Models;
 using Application.UseCases.Categories.Responses;
 using AutoMapper;
-using Domein.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.Categories.Commands;
