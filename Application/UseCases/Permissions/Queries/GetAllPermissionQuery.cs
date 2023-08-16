@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.Permissions.Responses;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.Permissions.Queries;
@@ -17,13 +18,13 @@ public class GetAllPermissionQueryHandler : IRequestHandler<GetAllPermissionQuer
         _mapper = mapper;
     }
 
-    public Task<List<PermissionResponse>> Handle(GetAllPermissionQuery request, CancellationToken cancellationToken)
+    public async  Task<List<PermissionResponse>> Handle(GetAllPermissionQuery request, CancellationToken cancellationToken)
     {
-        var permissions = _dbContext.Permissions.AsQueryable();
+        var permissions = await _dbContext.Permissions.ToListAsync();
 
         var permissionResponses = _mapper.Map<List<PermissionResponse>>(permissions);
 
-        return Task.FromResult(permissionResponses);
+        return permissionResponses;
     }
 }
 

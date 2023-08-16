@@ -29,7 +29,7 @@ public class JwtToken : IJwtToken
     {
         new Claim(ClaimTypes.Name, user.Username),
         new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-        new Claim("LanguageId", user.Language.Id.ToString())
+        new Claim(ClaimTypes.UserData, user.Language.Id.ToString())
     };
 
         List<PermissionResponse> permissions = new();

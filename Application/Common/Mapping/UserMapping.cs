@@ -1,4 +1,5 @@
-﻿using Application.UseCases.Users.Commands.CreateUser;
+﻿using Application.Common.Abstraction;
+using Application.UseCases.Users.Commands.CreateUser;
 using Application.UseCases.Users.Commands.RegesterUser;
 using Application.UseCases.Users.Commands.UpdateUser;
 using Application.UseCases.Users.Responses;
@@ -9,8 +10,20 @@ namespace Application.Common.Mapping;
 
 public class UserMapping : Profile
 {
+
+    ICurrentUserService _user;
+
+    public UserMapping(ICurrentUserService user) : base()
+    {
+        _user = user;
+    }
+
     public UserMapping()
     {
+
+
+
+
         CreateMap<User, GetListUserResponse>()
               .ForMember(d => d.PhoneNumber, cfg => cfg.MapFrom(ent => ent.Person.PhoneNumber))
             .ForMember(d => d.FirstName, cfg => cfg.MapFrom(ent => ent.Person.FirstName))

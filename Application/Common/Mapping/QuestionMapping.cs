@@ -1,4 +1,7 @@
-﻿using Application.Common.Models;
+﻿using Application.Common.Mapping.ValueResolvers;
+using Application.Common.Models;
+using Application.UseCases.Categories.Responses;
+using Application.UseCases.Permissions.Responses;
 using Application.UseCases.Questions.Commands;
 using Application.UseCases.Questions.Responses;
 using AutoMapper;
@@ -18,12 +21,20 @@ public class QuestionMapping : Profile
         CreateMap<Question, GetListQuestionResponse>()
         .ForMember(x => x.QuestionType, y => y.MapFrom(z => z.QuestionType.QuestionTypeName))
         .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username))
-        .ForMember(x => x.Category, y => y.MapFrom(z => z.Category.CategoryName));
+        .ForMember(x => x.Category, y => y.MapFrom(z => z.Category.CategoryName))
+        .ForMember(cr => cr.QuestionText, cfg => cfg
+        .MapFrom<QuestionValueResolver<GetListQuestionResponse>>());
 
 
         CreateMap<Question, QuestionResponse>()
-       .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username));
+       .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username))
+        .ForMember(cr => cr.QuestionText, cfg => cfg
+        .MapFrom<QuestionValueResolver<QuestionResponse>>());
 
+
+        CreateMap<Category, GetListCategoryResponse>()
+     .ForMember(cr => cr.CategoryName, cfg => cfg
+  .MapFrom<CategoryValueResolver<GetListCategoryResponse>>());
 
 
         CreateMap<CreateCommandTranslate, TranslateQuestion>();

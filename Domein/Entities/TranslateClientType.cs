@@ -14,9 +14,11 @@ public partial class TranslateClientType
     public Guid Id { get; set; }
 
     [Column("owner_id")]
+    [ForeignKey("Owner")]
     public Guid? OwnerId { get; set; }
 
     [Column("language_id")]
+    [ForeignKey("Language")]
     public Guid? LanguageId { get; set; }
 
     [Column("column_name")]
@@ -27,11 +29,9 @@ public partial class TranslateClientType
     [StringLength(100)]
     public string TranslateText { get; set; }
 
-    [ForeignKey("LanguageId")]
     [InverseProperty("TranslateClientTypes")]
     public virtual Language Language { get; set; }
 
-    [ForeignKey("OwnerId")]
     [InverseProperty("TranslateClientTypes")]
     public virtual ClientType Owner { get; set; }
 }

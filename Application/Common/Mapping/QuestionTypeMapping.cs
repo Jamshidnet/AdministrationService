@@ -1,4 +1,6 @@
-﻿using Application.Common.Models;
+﻿using Application.Common.Mapping.ValueResolvers;
+using Application.Common.Models;
+using Application.UseCases.Categories.Responses;
 using Application.UseCases.QuestionTypes.Commands;
 using Application.UseCases.QuestionTypes.Responses;
 using AutoMapper;
@@ -14,8 +16,15 @@ public class QuestionTypeMapping : Profile
         CreateMap<CreateQuestionTypeCommand, QuestionType>()
             .ForMember(x => x.QuestionTypeName, y => y.MapFrom(z => z.questionTypes.First().TranslateText));
         CreateMap<UpdateQuestionTypeCommand, QuestionType>();
-        CreateMap<QuestionType, QuestionTypeResponse>();
-        CreateMap<QuestionType, GetLIstQuestionTypeResponse>();
+
+
+        CreateMap<QuestionType, QuestionTypeResponse>()
+             .ForMember(cr => cr.QuestionTypeName, cfg => cfg
+               .MapFrom<QuestionTypeValueResolver<QuestionTypeResponse>>());
+
+        CreateMap<QuestionType, GetLIstQuestionTypeResponse>()
+            .ForMember(cr => cr.QuestionTypeName, cfg => cfg
+         .MapFrom<QuestionTypeValueResolver<GetLIstQuestionTypeResponse>>());
 
         CreateMap<CreateCommandTranslate, TranslateQuestionType>();
 

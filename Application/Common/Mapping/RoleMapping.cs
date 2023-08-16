@@ -1,4 +1,6 @@
-﻿using Application.Common.Models;
+﻿using Application.Common.Mapping.ValueResolvers;
+using Application.Common.Models;
+using Application.UseCases.Categories.Responses;
 using Application.UseCases.Roles.Commands;
 using Application.UseCases.Roles.Responses;
 using AutoMapper;
@@ -10,8 +12,13 @@ public class RoleMapping : Profile
 {
     public RoleMapping()
     {
-        CreateMap<Role, RoleResponse>();
-        CreateMap<Role, GetListRoleResponse>();
+        CreateMap<Role, RoleResponse>()
+           .ForMember(cr => cr.RoleName, cfg => cfg
+             .MapFrom<RoleValueResolver<RoleResponse>>());
+
+        CreateMap<Role, GetListRoleResponse>()
+            .ForMember(cr => cr.RoleName, cfg => cfg
+         .MapFrom<RoleValueResolver<GetListRoleResponse>>());
 
         CreateMap<CreateRoleCommand, Role>()
             .ForMember(y => y.RoleName, t => t.MapFrom(q => q.roles.First().TranslateText));

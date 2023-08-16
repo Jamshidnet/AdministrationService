@@ -3,6 +3,7 @@ using Application.UseCases.Categories.Responses;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.Categories.Queries;
@@ -15,6 +16,7 @@ public class GetByIdCategoryQueryHandler : IRequestHandler<GetByIdCategoryQuery,
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
+
     public GetByIdCategoryQueryHandler(IApplicationDbContext context, IMapper mapper)
     {
         _context = context;
@@ -26,6 +28,8 @@ public class GetByIdCategoryQueryHandler : IRequestHandler<GetByIdCategoryQuery,
     {
         var entity = await _context.Categories.FindAsync(new object[] { request.Id }, cancellationToken)
             ?? throw new NotFoundException(nameof(Category), request.Id);
+
+
 
         var result = _mapper.Map<CategoryResponse>(entity);
         return result;

@@ -87,7 +87,6 @@ C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\NewProject.Ge
 C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\NewProject.AssemblyInfoInputs.cache
 C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\NewProject.AssemblyInfo.cs
 C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\NewProject.csproj.CoreCompileInputs.cache
-C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\NewProject.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\NewProject.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\staticwebassets\msbuild.NewProject.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\staticwebassets\msbuild.build.NewProject.props
@@ -103,3 +102,4 @@ C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\refint\NewPro
 C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\NewProject.pdb
 C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\NewProject.genruntimeconfig.cache
 C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\ref\NewProject.dll
+C:\Users\jturs\source\repos\NewProject\NewProject\obj\Debug\net7.0\NewProject.MvcApplicationPartsAssemblyInfo.cs

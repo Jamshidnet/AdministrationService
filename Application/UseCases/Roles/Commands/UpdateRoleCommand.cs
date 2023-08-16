@@ -40,7 +40,7 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand>
 
         }
         entity.RoleName = request.Name;
-
+        _context.Roles.Update(entity);
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

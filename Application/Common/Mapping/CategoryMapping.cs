@@ -1,54 +1,36 @@
-﻿using Application.Common.Abstraction;
+﻿using Application.Common.Mapping.ValueResolvers;
 using Application.Common.Models;
 using Application.UseCases.Categories.Commands;
 using Application.UseCases.Categories.Responses;
 using AutoMapper;
 using Domein.Entities;
 
+
 namespace Application.Common.Mapping
 {
     public class CategoryMapping : Profile
     {
-        ICurrentUserService _user;
         public CategoryMapping()
         {
-
             CreateMap<CreateCategoryCommand, Category>()
                 .ForMember(sr => sr.CategoryName, des => des
                 .MapFrom(y => y.categories
                 .FirstOrDefault().TranslateText));
 
-
             CreateMap<UpdateCategoryCommand, Category>()
                 .ForMember(x => x.Id, option => option.UseDestinationValue());
-            CreateMap<Category, GetListCategoryResponse>();
 
             CreateMap<Category, CategoryResponse>()
-                .ForMember(cr => cr.CategoryName, cfg => cfg
-                .MapFrom(c => c.TranslateCategories
-                .FirstOrDefault(t => t.LanguageId.ToString() == _user.Language)
-                .TranslateText ?? c.CategoryName));
+           .ForMember(cr => cr.CategoryName, cfg => cfg
+             .MapFrom<CategoryValueResolver<CategoryResponse>>());
 
             CreateMap<Category, GetListCategoryResponse>()
                 .ForMember(cr => cr.CategoryName, cfg => cfg
-                .MapFrom(c => c.TranslateCategories
-                .FirstOrDefault(t => t.Language.Id.ToString() == _user.Language)
-                .TranslateText ?? c.CategoryName));
+             .MapFrom<CategoryValueResolver<GetListCategoryResponse>>());
 
             CreateMap<CreateCommandTranslate, TranslateCategory>();
 
             CreateMap<UpdateCommandTranslate, TranslateCategory>();
-                //.ForMember(x => x.Id, opt => opt.Ignore()); // mana shundanmasmi 
-            // .ForMember(des => des.Id, y=>Guid.NewGuid());
-
-
-
-
-        }
-
-        public CategoryMapping(ICurrentUserService user) : base()
-        {
-            _user = user;
         }
     }
 }
