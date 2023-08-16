@@ -1,8 +1,10 @@
-﻿using Application.Common.Exceptions;
+﻿using Application.Common.Abstraction;
+using Application.Common.Exceptions;
 using Application.UseCases.UserTypes.Responses;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.UserTypes.Commands;
@@ -19,29 +21,35 @@ public class UpdateUserTypeCommandHandler : IRequestHandler<UpdateUserTypeComman
 {
     private IApplicationDbContext _context;
     private readonly IMapper _mapper;
-    public UpdateUserTypeCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    private readonly ICurrentUserService _userService;
+    public UpdateUserTypeCommandHandler(
+        IApplicationDbContext dbContext, 
+        IMapper mapper, 
+        ICurrentUserService userService)
     {
         _context = dbContext;
         _mapper = mapper;
+        _userService = userService;
     }
 
     public async Task<UserTypeResponse> Handle(UpdateUserTypeCommand request, CancellationToken cancellationToken)
     {
-        var foundUserType = await _context.UserTypes.FindAsync(new object[] { request.Id }, cancellationToken)
-            ?? throw new NotFoundException(nameof(UserType), request.Id);
+        var userType = await FilterIfUserTypeExsists(request.Id);
 
-        // _mapper.Map(request, foundUserType);
-        foundUserType.TypeName = request.TypeName;
-        _context.UserTypes.Update(foundUserType);
+        var transUserType = await _context.TranslateUserTypes
+             .FirstOrDefaultAsync(x => x.OwnerId == userType.Id
+                                  && x.LanguageId.ToString() == _userService.LanguageId);
+
+        transUserType.TranslateText = request.TypeName;
+        _context.TranslateUserTypes.Update(transUserType);
         await _context.SaveChangesAsync(cancellationToken);
-
-        return _mapper.Map<UserTypeResponse>(foundUserType);
+        return _mapper.Map<UserTypeResponse>(userType);
     }
 
-    private async Task FilterIfUserTypeExsists(Guid clientID)
+    private async Task<UserType> FilterIfUserTypeExsists(Guid clientID)
     {
-        if (await _context.UserTypes.FindAsync(clientID) is null)
-            throw new NotFoundException("There is no client with given Id. ");
+        return await _context.UserTypes.FindAsync(clientID) 
+            ??throw new NotFoundException("There is no client with given Id. ");
     }
 
 }

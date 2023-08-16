@@ -1,4 +1,7 @@
-﻿using Application.Common.Exceptions;
+﻿using Application.Common.Abstraction;
+using Application.Common.Exceptions;
+using Application.UseCases.Roles.Responses;
+using AutoMapper;
 using Domein.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -6,41 +9,58 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Roles.Commands;
 
-public class UpdateRoleCommand : IRequest
+public class UpdateRoleCommand : IRequest<RoleResponse>
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
     public List<Guid> PermissionsIds { get; set; }
 }
 
-public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand>
+public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, RoleResponse>
 {
+    
     private readonly IApplicationDbContext _context;
+    private readonly IMapper _mapper;
+    private readonly ICurrentUserService _userService;
 
-    public UpdateRoleCommandHandler(IApplicationDbContext context)
+    public UpdateRoleCommandHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService userService)
     {
         _context = context;
+        _mapper = mapper;
+        _userService = userService;
     }
 
-    public async Task Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
+    public async Task<RoleResponse> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
     {
         var permissions = await _context.Permissions.ToListAsync(cancellationToken);
-        var entity = await _context.Roles.FindAsync(new object[] { request.Id }, cancellationToken);
-        if (entity is null)
-            throw new NotFoundException(nameof(Role), request.Id);
+        var role = await FilterIfRoleExsists(request.Id);
 
         if (request?.PermissionsIds?.Count >= 0)
         {
-            entity.Permissions.Clear();
+            //role.Permissions.Clear();
             permissions.ForEach(p =>
             {
                 if (request.PermissionsIds.Any(id => p.Id == id))
-                    entity.Permissions.Add(p);
+                    role.Permissions.Add(p);
             });
-
         }
-        entity.RoleName = request.Name;
-        _context.Roles.Update(entity);
+
+        var transRole = await _context.TranslateRoles
+             .FirstOrDefaultAsync(x => x.OwnerId == role.Id
+                                  && x.LanguageId.ToString() == _userService.LanguageId);
+
+        transRole.TranslateText = request.Name;
+        _context.Roles.Update(role);
+        _context.TranslateRoles.Update(transRole);
         await _context.SaveChangesAsync(cancellationToken);
+        return _mapper.Map<RoleResponse>(role);
     }
+
+    private async Task<Role> FilterIfRoleExsists(Guid Id)
+    {
+        return await _context.Roles.FindAsync(Id)
+            ?? throw new NotFoundException(" There is no role with this id. ");
+
+    }
+
 }

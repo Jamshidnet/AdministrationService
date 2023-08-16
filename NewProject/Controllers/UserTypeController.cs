@@ -14,17 +14,15 @@ namespace NewProject.Controllers;
 [ApiController]
 public class UserTypeController : ApiBaseController
 {
-
-
     [Authorize(Roles = "GetUserTypeById")]
     [HttpGet("[action]")]
     public async ValueTask<UserTypeResponse> GetUserTypeById(Guid UserId)
    => await _mediator.Send(new GetByIdUserTypeQuery(UserId));
 
 
-    [Authorize(Roles = "GetAllUser")]
+    [Authorize(Roles = "GetAllUserType")]
     [HttpGet("[action]")]
-    public async ValueTask<IEnumerable<GetListUserTypeResponse>> GetAllUser(int PageNumber = 1, int PageSize = 10)
+    public async ValueTask<IEnumerable<GetListUserTypeResponse>> GetAllUserType(int PageNumber = 1, int PageSize = 10)
     {
         IPagedList<GetListUserTypeResponse> query = (await _mediator
              .Send(new GetAllUserTypeQuery()))
@@ -32,23 +30,23 @@ public class UserTypeController : ApiBaseController
         return query;
     }
 
-    [Authorize(Roles = "CreateUser")]
+    [Authorize(Roles = "CreateUserType")]
     [HttpPost("[action]")]
-    public async ValueTask<Guid> CreateUser(CreateUserTypeCommand command)
+    public async ValueTask<Guid> CreateUserType(CreateUserTypeCommand command)
         => await _mediator.Send(command);
 
 
-    [Authorize(Roles = "UpdateUser")]
+    [Authorize(Roles = "UpdateUserType")]
     [HttpPut("[action]")]
-    public async ValueTask<IActionResult> UpdateUser(UpdateUserTypeCommand command)
+    public async ValueTask<IActionResult> UpdateUserType(UpdateUserTypeCommand command)
     {
         await _mediator.Send(command);
         return NoContent();
     }
 
-    [Authorize(Roles = "DeleteUser")]
+    [Authorize(Roles = "DeleteUserType")]
     [HttpDelete("[action]")]
-    public async ValueTask<IActionResult> DeleteUser(DeleteUserTypeCommand command)
+    public async ValueTask<IActionResult> DeleteUserType(DeleteUserTypeCommand command)
     {
         await _mediator.Send(command);
         return NoContent();

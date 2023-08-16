@@ -17,8 +17,9 @@ namespace Application.Common.Mapping
                 .MapFrom(y => y.categories
                 .FirstOrDefault().TranslateText));
 
-            CreateMap<UpdateCategoryCommand, Category>()
-                .ForMember(x => x.Id, option => option.UseDestinationValue());
+            //CreateMap<UpdateCategoryCommand, Category>()
+            //    .ForMember(x => x.TranslateCategories, des => des.MapFrom(y => y.categories))
+            //    .ForMember(x => x.CategoryName, des => des.MapFrom(y => y.categories.First().TranslateText));
 
             CreateMap<Category, CategoryResponse>()
                 .ForMember(cr => cr.CategoryName, cfg => cfg
@@ -31,6 +32,7 @@ namespace Application.Common.Mapping
             CreateMap<CreateCommandTranslate, TranslateCategory>();
 
             CreateMap<UpdateCommandTranslate, TranslateCategory>();
+             
         }
     }
 }

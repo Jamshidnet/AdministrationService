@@ -1,37 +1,48 @@
-﻿using Application.Common.Exceptions;
+﻿using Application.Common.Abstraction;
+using Application.Common.Exceptions;
+using Application.UseCases.Permissions.Responses;
+using AutoMapper;
 using Domein.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.Permissions.Commands.UpdatePermission
 {
-    public class UpdatePermissionCommand : IRequest
+    public class UpdatePermissionCommand : IRequest<PermissionResponse>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
     }
-    public class UpdatePermissionCommandHandler : IRequestHandler<UpdatePermissionCommand>
+    public class UpdatePermissionCommandHandler : IRequestHandler<UpdatePermissionCommand, PermissionResponse>
     {
         public readonly IApplicationDbContext _dbContext;
-
-        public UpdatePermissionCommandHandler(IApplicationDbContext dbcontext)
+        private readonly IMapper _mapper;
+        private readonly ICurrentUserService _userService;
+        public UpdatePermissionCommandHandler(IApplicationDbContext dbcontext, IMapper mapper, ICurrentUserService userService)
         {
             _dbContext = dbcontext;
+            _mapper = mapper;
+            _userService = userService;
         }
 
-        public async Task Handle(UpdatePermissionCommand request, CancellationToken cancellationToken)
+        public async Task<PermissionResponse> Handle(UpdatePermissionCommand request, CancellationToken cancellationToken)
         {
-            var permission = await _dbContext.Permissions.FindAsync(request.Id, cancellationToken);
+            var permission = await FilterIfPermissionExsists(request.Id);
 
-            if (permission is null)
-            {
-                throw new NotFoundException(nameof(Permission), request.Id);
-            }
+            var transPermission = await _dbContext.TranslatePermissions
+                 .FirstOrDefaultAsync(x => x.OwnerId == permission.Id
+                                      && x.LanguageId.ToString() == _userService.LanguageId);
 
-            permission?.Roles?.Clear();
-            permission.PermissionName = request.Name;
-            _dbContext.Permissions.Update(permission);
+            transPermission.TranslateText = request.Name;
+            _dbContext.TranslatePermissions.Update(transPermission);
             await _dbContext.SaveChangesAsync(cancellationToken);
+            return _mapper.Map<PermissionResponse>(permission);
+        }
+        private async Task<Permission> FilterIfPermissionExsists(Guid clientID)
+        {
+            return await _dbContext.Permissions.FindAsync(clientID)
+                ?? throw new NotFoundException("There is no client with given Id. ");
         }
     }
 }

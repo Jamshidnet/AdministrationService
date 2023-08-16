@@ -29,7 +29,7 @@ namespace NewProject.Controllers
             return query;
         }
 
-        [Authorize(Roles = "CreateRole")]
+       // [Authorize(Roles = "CreateRole")]
         [HttpPost("[action]")]
         public async ValueTask<Guid> CreateRole(CreateRoleCommand command)
             => await _mediator.Send(command);

@@ -37,7 +37,7 @@ public class CategoryController : ApiBaseController
 
 
     [HttpPut("[action]")]
-    /*[Authorize(Roles = "UpdateCategory")]*/
+    [Authorize(Roles = "UpdateCategory")]
     public async ValueTask<IActionResult> UpdateCategory(UpdateCategoryCommand command)
     {
         await _mediator.Send(command);

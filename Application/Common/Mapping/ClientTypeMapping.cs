@@ -17,7 +17,6 @@ namespace Application.Common.Mapping
             CreateMap<CreateClientTypeCommand, ClientType>()
                 .ForMember(x => x.TypeName, y => y.MapFrom(y => y.clientTypes.First().TranslateText));
 
-            CreateMap<UpdateClientCommand, ClientType>();
 
 
             CreateMap<ClientType, ClientTypeResponse>()

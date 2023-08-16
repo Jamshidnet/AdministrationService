@@ -1,8 +1,10 @@
-﻿using Application.Common.Exceptions;
+﻿using Application.Common.Abstraction;
+using Application.Common.Exceptions;
 using Application.UseCases.QuestionTypes.Responses;
 using AutoMapper;
 using Domein.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NewProject.Abstraction;
 
 namespace Application.UseCases.QuestionTypes.Commands;
@@ -19,27 +21,32 @@ public class UpdateQuestionTypeCommandHandler : IRequestHandler<UpdateQuestionTy
 {
     private IApplicationDbContext _context;
     private readonly IMapper _mapper;
-    public UpdateQuestionTypeCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    private readonly ICurrentUserService _userService;
+    public UpdateQuestionTypeCommandHandler(IApplicationDbContext dbContext, IMapper mapper, ICurrentUserService userService)
     {
         _context = dbContext;
         _mapper = mapper;
+        _userService = userService;
     }
 
     public async Task<QuestionTypeResponse> Handle(UpdateQuestionTypeCommand request, CancellationToken cancellationToken)
     {
-        var foundQuestionType = await _context.QuestionTypes.FindAsync(new object[] { request.Id }, cancellationToken)
-            ?? throw new NotFoundException(nameof(QuestionType), request.Id);
-        _mapper.Map(request, foundQuestionType);
-        _context.QuestionTypes.Update(foundQuestionType);
-        await _context.SaveChangesAsync(cancellationToken);
+        var questionType = await FilterIfQuestionTypeExsists(request.Id);
 
-        return _mapper.Map<QuestionTypeResponse>(foundQuestionType);
+        var transQuestionType = await _context.TranslateQuestionTypes
+             .FirstOrDefaultAsync(x => x.OwnerId == questionType.Id
+                                  && x.LanguageId.ToString() == _userService.LanguageId);
+
+        transQuestionType.TranslateText = request.QuestionTypeName;
+        _context.TranslateQuestionTypes.Update(transQuestionType);
+        await _context.SaveChangesAsync(cancellationToken);
+        return _mapper.Map<QuestionTypeResponse>(questionType);
     }
 
-    private async Task FilterIfQuestionTypeExsists(Guid categoryId)
+    private async Task<QuestionType> FilterIfQuestionTypeExsists(Guid categoryId)
     {
-        if (await _context.QuestionTypes.FindAsync(categoryId) is null)
-            throw new NotFoundException("There is no category with given Id. ");
+        return await _context.QuestionTypes.FindAsync(categoryId)
+            ?? throw new NotFoundException("There is no category with given Id. ");
     }
 
 }
