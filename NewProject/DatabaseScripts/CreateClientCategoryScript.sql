@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS public.client_category
         REFERENCES public.categories (id) MATCH SIMPLE,
     CONSTRAINT client_fk FOREIGN KEY (client_id)
         REFERENCES public.clients (id) MATCH SIMPLE
-)
+);

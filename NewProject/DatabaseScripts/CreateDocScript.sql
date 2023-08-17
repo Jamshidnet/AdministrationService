@@ -7,10 +7,12 @@ CREATE TABLE IF NOT EXISTS public.docs
     taken_date date,
     longitude numeric(100,0),
     latitude numeric(100,0),
-    device character varying(70) COLLATE pg_catalog."default",
+    device character varying(70),
     CONSTRAINT docs_pkey PRIMARY KEY (id),
     CONSTRAINT cleint_doc_fk FOREIGN KEY (client_id)
-        REFERENCES public.clients (id) MATCH SIMPLE,
+        REFERENCES public.clients (id) MATCH SIMPLE
+        ON DELETE CASCADE,
     CONSTRAINT user_doc_fk FOREIGN KEY (user_id)
         REFERENCES public.users (id) MATCH SIMPLE
-)
+        ON DELETE CASCADE
+);
