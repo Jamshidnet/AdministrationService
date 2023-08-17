@@ -22,14 +22,6 @@ public static class ConfigureService
         _ = services.AddAuthorization();
         _ = services.AddScoped<IDocChangeLogger, LoggingService>();
         _ = services.AddScoped<ICurrentUserService, CurrentUserService>();
-        //services.AddAutoMapper(typeof(UserMapping));
-        //services.AddSingleton(provider => new MapperConfiguration(cfg =>
-        //{
-        //    cfg.AddProfile(new CategoryMapping(provider.GetService<ICurrentUserService>()));
-        //    cfg.AddProfile(new UserMapping(provider.GetService<ICurrentUserService>()));
-        //    cfg.AddProfile(new UserTypeMapping(provider.GetService<ICurrentUserService>()));
-        //}).CreateMapper());
-
         _ = services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtSettings(configuration);
         _ = services.AddHttpContextAccessor();
         _ = services.AddSwaggerGen();
@@ -64,33 +56,7 @@ public static class ConfigureService
                     new string[] {}
                 }
             });
-            //  c.OperationFilter<SecurityRequirementsOperationFilter>();
-
         });
-
-        //Log.Logger = new LoggerConfiguration()
-        //   .WriteTo.PostgreSQL(
-        //       connectionString:configuration.GetConnectionString("dbconnect"),
-        //       tableName: "UserLogs",
-        //       schemaName: "public",
-        //       needAutoCreateTable: true,
-        //columnOptions: new ColumnOptions
-        //{
-        //           AdditionalColumns = new Collection<SqlColumn>
-        //           {
-        //        new SqlColumn { ColumnName = "AffectedTableName", DataType = NpgsqlTypes.NpgsqlDbType.Varchar },
-        //        new SqlColumn { ColumnName = "ActionTime", DataType = NpgsqlTypes.NpgsqlDbType.Timestamp },
-        //        new SqlColumn { ColumnName = "ActionName", DataType = NpgsqlTypes.NpgsqlDbType.Varchar },
-        //        new SqlColumn { ColumnName = "UserId", DataType = NpgsqlTypes.NpgsqlDbType.Varchar }
-        //    }
-        //       })
-        //   .CreateLogger();
-
-        //services.AddLogging(loggingBuilder =>
-        //{
-        //    loggingBuilder.AddSerilog(dispose: true);
-        //});
-
 
         return services;
     }

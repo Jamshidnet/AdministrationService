@@ -18,7 +18,6 @@ public class GlobaExceptionHandlerAttribute : ExceptionFilterAttribute
             { typeof(ValidationException), HandleValidationException },
             { typeof(NotFoundException), HandleNotFoundException },
             { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
-         //   { typeof(AlreadyExsistsException), HandleAlreadyExistsException },
             { typeof(Exception), HandleSystemException }
         };
     }
@@ -119,22 +118,6 @@ public class GlobaExceptionHandlerAttribute : ExceptionFilterAttribute
 
         context.ExceptionHandled = true;
     }
-
-    //private void HandleAlreadyExistsException(ExceptionContext context)
-    //{
-    //    var exception = (AlreadyExsistsException)context.Exception;
-
-    //    var details = new ProblemDetails()
-    //    {
-    //        Title = "The specified resource already exists.",
-    //        Detail = exception.Message
-    //    };
-
-    //    context.Result = new BadRequestObjectResult(details);
-
-    //    context.ExceptionHandled = true;
-
-    //}
 
     private void HandleSystemException(ExceptionContext context)
     {

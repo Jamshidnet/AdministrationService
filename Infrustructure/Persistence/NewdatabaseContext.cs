@@ -73,12 +73,6 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
     public virtual DbSet<UserType> UserTypes { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        _ = optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Jam2001!!!;Database=newdatabase")
-            .EnableSensitiveDataLogging();
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         _ = modelBuilder.Entity<Category>(entity =>
@@ -418,25 +412,25 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
 
 
 
-    public IQueryable<FilterByUserResponse> GetFilteredUsers(
-Guid? RegionId,
-Guid? DistrictId,
-Guid? QuarterId,
-bool ByRegion,
-bool ByDistrict,
-bool ByQuarter
-)
-    {
-        return FromExpression(() => GetFilteredUsers(
-     RegionId,
-     DistrictId,
-     QuarterId,
-      ByRegion,
-     ByDistrict,
-     ByQuarter
-     )
-    );
-    }
+            public IQueryable<FilterByUserResponse> GetFilteredUsers(
+                Guid? RegionId,
+                Guid? DistrictId,
+                Guid? QuarterId,
+                bool ByRegion,
+                bool ByDistrict,
+                bool ByQuarter
+                )
+        {
+            return FromExpression(() => GetFilteredUsers(
+                 RegionId,
+                 DistrictId,
+                 QuarterId,
+                  ByRegion,
+                 ByDistrict,
+                 ByQuarter
+                 )
+                );
+        }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

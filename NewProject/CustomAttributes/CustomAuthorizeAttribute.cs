@@ -17,11 +17,9 @@ namespace NewProject.CustomAttributes
 
         public void OnAuthorizationn(HttpActionContext actionContext)
         {
-            /*base.OnAuthorization(actionContext);*/
 
             if (actionContext.Response == null)
             {
-                // Get the token from the request headers
                 var token = actionContext.Request.Headers.Authorization?.Parameter;
 
                 if (!string.IsNullOrEmpty(token))

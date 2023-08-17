@@ -18,12 +18,8 @@ public class Program
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         var builder = WebApplication.CreateBuilder(args);
         _ = builder.Services.AddApplication();
-        // Add services to the container.
         _ = builder.Services.AddApi(builder.Configuration);
-        //  builder.Services.AddScoped<CustomAuthorizeAttribute>();
         _ = builder.Services.AddControllers();
-        // builder.Services.AddAuthorization();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         _ = builder.Services.AddEndpointsApiExplorer();
         _ = builder.Services.AddSwaggerGen();
         _ = builder.Services.AddScoped<ChangeLoggingMiddleware>();
@@ -37,7 +33,6 @@ public class Program
             ); ;
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             _ = app.UseSwagger();
