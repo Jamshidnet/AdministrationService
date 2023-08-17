@@ -20,12 +20,8 @@ public class DeleteDocCommandHandler : IRequestHandler<DeleteDocCommand>
 
     public async Task Handle(DeleteDocCommand request, CancellationToken cancellationToken)
     {
-        var doc = await _context.Docs.FindAsync(request.DocId, cancellationToken);
-
-        if (doc is null)
-        {
-            throw new NotFoundException(nameof(Docs), request.DocId);
-        }
+        var doc = await _context.Docs.FindAsync(request.DocId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Docs), request.DocId);
         _ = _context.Docs.Remove(doc);
 
         await _logger.Log(doc.Id, "Delete");
