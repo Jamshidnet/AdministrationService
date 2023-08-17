@@ -4,11 +4,9 @@ using Application.Common.Mapping;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Extensions;
 using Microsoft.OpenApi.Models;
 using NewProject.JWT;
 using NewProject.Service;
-using PublicAffairsPortal.Application.Common.JWT.Service;
 using System.Text.Json.Serialization;
 
 namespace NewProject;
@@ -48,7 +46,7 @@ public static class ConfigureService
                 In = ParameterLocation.Header,
                 Scheme = "bearer",
                 Description = "Please insert JWT token into field"
-                
+
             });
 
             c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -60,14 +58,14 @@ public static class ConfigureService
                         {
                             Type = ReferenceType.SecurityScheme,
                             Id = "Bearer"
-                         
+
                         }
                     },
                     new string[] {}
                 }
             });
-          //  c.OperationFilter<SecurityRequirementsOperationFilter>();
-           
+            //  c.OperationFilter<SecurityRequirementsOperationFilter>();
+
         });
 
         //Log.Logger = new LoggerConfiguration()

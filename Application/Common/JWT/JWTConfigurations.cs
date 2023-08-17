@@ -14,7 +14,7 @@ public static class JWTConfigurations
     {
         builder.AddJwtBearer(opt =>
         {
-           
+
             opt.SaveToken = true;
             opt.TokenValidationParameters = new TokenValidationParameters
             {

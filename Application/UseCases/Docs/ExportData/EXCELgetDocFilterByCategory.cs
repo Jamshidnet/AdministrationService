@@ -82,10 +82,10 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
                 Dictionary<string, int> counts = new();
                 categories.ForEach(x =>
                 {
-                        var matchedDocs = item.Where(d => d.ClientAnswers
-                            .Any(a => a.Question.CategoryId == x.Id)).ToList();
+                    var matchedDocs = item.Where(d => d.ClientAnswers
+                        .Any(a => a.Question.CategoryId == x.Id)).ToList();
 
-                        counts.Add(x.CategoryName, matchedDocs.Count);
+                    counts.Add(x.CategoryName, matchedDocs.Count);
                 });
 
                 DataRow row = dt.NewRow();

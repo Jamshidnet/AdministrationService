@@ -17,7 +17,7 @@ public class UpdateQuestionCommand : IRequest<QuestionResponse>
 
     public Guid? QuestionTypeId { get; set; }
 
-    public Guid  CategoryId { get; set; }
+    public Guid CategoryId { get; set; }
 }
 
 public class UpdateQuestionCommandHandler : IRequestHandler<UpdateQuestionCommand, QuestionResponse>

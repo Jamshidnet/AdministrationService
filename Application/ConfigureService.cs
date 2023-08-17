@@ -1,4 +1,4 @@
-﻿    using Application.Common.JWT.Service;
+﻿using Application.Common.JWT.Service;
 using Microsoft.Extensions.DependencyInjection;
 using NewProject.JWT.Interfaces;
 using System.Reflection;
