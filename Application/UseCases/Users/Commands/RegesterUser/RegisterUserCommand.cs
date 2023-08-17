@@ -36,6 +36,11 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
         _context = context;
         _mapper = mapper;
     }
+
+    /// <summary>
+    /// New user is given by default "NewUser" Role which can operate only a few get requests. 
+    /// </summary>
+
     public async Task<TokenResponse> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
 
@@ -53,7 +58,6 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
         user.Id = Guid.NewGuid();
         user.Person = person;
         user.UserType = await _context.UserTypes.SingleOrDefaultAsync(x => x.TypeName == "NoneSet");
-        // user.LanguageId = request.LanguageId;
         _ = await _context.Users.AddAsync(user, cancellationToken);
         _ = await _context.People.AddAsync(person, cancellationToken);
 

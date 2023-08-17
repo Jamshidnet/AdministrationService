@@ -21,12 +21,12 @@ public partial class Client
     public virtual ClientType ClientType { get; set; }
 
     [InverseProperty("Client")]
-    public virtual ICollection<Doc> Docs { get; set; } 
+    public virtual ICollection<Doc> Docs { get; set; } = new List<Doc>();
     [ForeignKey("PersonId")]
     [InverseProperty("Clients")]
     public virtual Person Person { get; set; }
 
     [ForeignKey("ClientId")]
     [InverseProperty("Clients")]
-    public virtual ICollection<Category> Categories { get; set; } 
+    public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 }

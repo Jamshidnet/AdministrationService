@@ -28,19 +28,19 @@ public partial class Question
     public virtual Category Category { get; set; }
 
     [InverseProperty("Question")]
-    public virtual ICollection<ClientAnswer> ClientAnswers { get; set; } 
+    public virtual ICollection<ClientAnswer> ClientAnswers { get; set; } = new List<ClientAnswer>();
 
     [ForeignKey("CreatorUserId")]
     [InverseProperty("Questions")]
     public virtual User CreatorUser { get; set; }
 
     [InverseProperty("Question")]
-    public virtual ICollection<DefaultAnswer> DefaultAnswers { get; set; } 
+    public virtual ICollection<DefaultAnswer> DefaultAnswers { get; set; } = new List<DefaultAnswer>();
 
     [ForeignKey("QuestionTypeId")]
     [InverseProperty("Questions")]
     public virtual QuestionType QuestionType { get; set; }
 
     [InverseProperty("Owner")]
-    public virtual ICollection<TranslateQuestion> TranslateQuestions { get; set; }
+    public virtual ICollection<TranslateQuestion> TranslateQuestions { get; set; } = new List<TranslateQuestion>();
 }

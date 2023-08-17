@@ -16,13 +16,13 @@ public partial class Role
     public string RoleName { get; set; }
 
     [InverseProperty("Owner")]
-    public virtual ICollection<TranslateRole> TranslateRoles { get; set; } 
+    public virtual ICollection<TranslateRole> TranslateRoles { get; set; } = new List<TranslateRole>();
 
     [ForeignKey("RoleId")]
     [InverseProperty("Roles")]
-    public virtual ICollection<Permission> Permissions { get; set; }
+    public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission>();
 
     [ForeignKey("RoleId")]
     [InverseProperty("Roles")]
-    public virtual ICollection<User> Users { get; set; }
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

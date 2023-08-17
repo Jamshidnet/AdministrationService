@@ -31,11 +31,11 @@ public partial class Person
     public Guid? QuarterId { get; set; }
 
     [InverseProperty("Person")]
-    public virtual ICollection<Client> Clients { get; set; }
+    public virtual ICollection<Client> Clients { get; set; } = new List<Client>();
     [ForeignKey("QuarterId")]
     [InverseProperty("People")]
     public virtual Quarter Quarter { get; set; }
 
     [InverseProperty("Person")]
-    public virtual ICollection<User> Users { get; set; } 
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

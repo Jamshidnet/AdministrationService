@@ -23,5 +23,5 @@ public partial class Quarter
     public virtual District District { get; set; }
 
     [InverseProperty("Quarter")]
-    public virtual ICollection<Person> People { get; set; } 
+    public virtual ICollection<Person> People { get; set; } = new List<Person>();
 }

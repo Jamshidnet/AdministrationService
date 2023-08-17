@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Domein.Entities;
 
 [Table("translate_categories")]
-[Index("OwnerId", "ColumnName", "LangaugeId", Name = "value_unique", IsUnique = true)]
+[Index("OwnerId", "ColumnName", "LanguageId", Name = "value_unique", IsUnique = true)]
 public partial class TranslateCategory
 {
     [Key]

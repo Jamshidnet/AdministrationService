@@ -18,8 +18,8 @@ public partial class SysTable
     public string TableName { get; set; }
 
     [InverseProperty("Table")]
-    public virtual ICollection<DocChangeLog> DocChangeLogs { get; set; } 
+    public virtual ICollection<DocChangeLog> DocChangeLogs { get; set; } = new List<DocChangeLog>();
 
     [InverseProperty("Table")]
-    public virtual ICollection<UserAction> UserActions { get; set; } 
+    public virtual ICollection<UserAction> UserActions { get; set; } = new List<UserAction>();
 }
