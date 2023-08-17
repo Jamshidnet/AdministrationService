@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domein.Entities;
 
 [Table("translate_categories")]
-/*[Index("OwnerId", "ColumnName", "LangaugeId", Name = "value_unique", IsUnique = true)]*/
+[Index("OwnerId", "ColumnName", "LangaugeId", Name = "value_unique", IsUnique = true)]
 public partial class TranslateCategory
 {
     [Key]

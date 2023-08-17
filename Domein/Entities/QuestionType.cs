@@ -16,8 +16,8 @@ public partial class QuestionType
     public string QuestionTypeName { get; set; }
 
     [InverseProperty("QuestionType")]
-    public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
+    public virtual ICollection<Question> Questions { get; set; } 
 
     [InverseProperty("Owner")]
-    public virtual ICollection<TranslateQuestionType> TranslateQuestionTypes { get; set; } = new List<TranslateQuestionType>();
+    public virtual ICollection<TranslateQuestionType> TranslateQuestionTypes { get; set; } 
 }

@@ -15,28 +15,27 @@ public partial class Language
     public string LanguageName { get; set; }
 
     [InverseProperty("Language")]
-    public virtual ICollection<TranslateCategory> TranslateCategories { get; set; } = new List<TranslateCategory>();
+    public virtual ICollection<TranslateCategory> TranslateCategories { get; set; } 
 
     [InverseProperty("Language")]
-    public virtual ICollection<TranslateClientType> TranslateClientTypes { get; set; } = new List<TranslateClientType>();
+    public virtual ICollection<TranslateClientType> TranslateClientTypes { get; set; } 
+    [InverseProperty("Language")]
+    public virtual ICollection<TranslateDefaultAnswer> TranslateDefaultAnswers { get; set; } 
 
     [InverseProperty("Language")]
-    public virtual ICollection<TranslateDefaultAnswer> TranslateDefaultAnswers { get; set; } = new List<TranslateDefaultAnswer>();
+    public virtual ICollection<TranslatePermission> TranslatePermissions { get; set; } 
 
     [InverseProperty("Language")]
-    public virtual ICollection<TranslatePermission> TranslatePermissions { get; set; } = new List<TranslatePermission>();
+    public virtual ICollection<TranslateQuestionType> TranslateQuestionTypes { get; set; } 
 
     [InverseProperty("Language")]
-    public virtual ICollection<TranslateQuestionType> TranslateQuestionTypes { get; set; } = new List<TranslateQuestionType>();
+    public virtual ICollection<TranslateQuestion> TranslateQuestions { get; set; } 
 
     [InverseProperty("Language")]
-    public virtual ICollection<TranslateQuestion> TranslateQuestions { get; set; } = new List<TranslateQuestion>();
+    public virtual ICollection<TranslateRole> TranslateRoles { get; set; } 
 
     [InverseProperty("Language")]
-    public virtual ICollection<TranslateRole> TranslateRoles { get; set; } = new List<TranslateRole>();
-
-    [InverseProperty("Language")]
-    public virtual ICollection<TranslateUserType> TranslateUserTypes { get; set; } = new List<TranslateUserType>();
+    public virtual ICollection<TranslateUserType> TranslateUserTypes { get; set; } 
 
     [InverseProperty("Language")]
     public virtual ICollection<User> Users { get; set; } = new List<User>();

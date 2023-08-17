@@ -16,8 +16,8 @@ public partial class UserType
     public string TypeName { get; set; }
 
     [InverseProperty("Owner")]
-    public virtual ICollection<TranslateUserType> TranslateUserTypes { get; set; } = new List<TranslateUserType>();
+    public virtual ICollection<TranslateUserType> TranslateUserTypes { get; set; } 
 
     [InverseProperty("UserType")]
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+    public virtual ICollection<User> Users { get; set; } 
 }

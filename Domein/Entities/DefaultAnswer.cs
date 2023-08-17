@@ -18,12 +18,12 @@ public partial class DefaultAnswer
     public string AnswerText { get; set; }
 
     [InverseProperty("DefaultAnswer")]
-    public virtual ICollection<ClientAnswer> ClientAnswers { get; set; } = new List<ClientAnswer>();
+    public virtual ICollection<ClientAnswer> ClientAnswers { get; set; }
 
     [ForeignKey("QuestionId")]
     [InverseProperty("DefaultAnswers")]
     public virtual Question Question { get; set; }
 
     [InverseProperty("Owner")]
-    public virtual ICollection<TranslateDefaultAnswer> TranslateDefaultAnswers { get; set; } = new List<TranslateDefaultAnswer>();
+    public virtual ICollection<TranslateDefaultAnswer> TranslateDefaultAnswers { get; set; } 
 }

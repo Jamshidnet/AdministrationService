@@ -41,10 +41,10 @@ public partial class User
     public Guid? UserTypeId { get; set; }
 
     [InverseProperty("User")]
-    public virtual ICollection<DocChangeLog> DocChangeLogs { get; set; } = new List<DocChangeLog>();
+    public virtual ICollection<DocChangeLog> DocChangeLogs { get; set; } 
 
     [InverseProperty("User")]
-    public virtual ICollection<Doc> Docs { get; set; } = new List<Doc>();
+    public virtual ICollection<Doc> Docs { get; set; }
 
     [ForeignKey("PersonId")]
     [InverseProperty("Users")]
@@ -56,10 +56,10 @@ public partial class User
 
 
     [InverseProperty("CreatorUser")]
-    public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
+    public virtual ICollection<Question> Questions { get; set; } 
 
     [InverseProperty("User")]
-    public virtual ICollection<UserAction> UserActions { get; set; } = new List<UserAction>();
+    public virtual ICollection<UserAction> UserActions { get; set; } 
 
     [ForeignKey("UserTypeId")]
     [InverseProperty("Users")]
@@ -67,5 +67,5 @@ public partial class User
 
     [ForeignKey("UserId")]
     [InverseProperty("Users")]
-    public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+    public virtual ICollection<Role> Roles { get; set; } 
 }

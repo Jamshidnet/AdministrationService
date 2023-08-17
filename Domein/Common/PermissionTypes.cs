@@ -2,28 +2,20 @@
 {
     public enum PermissionTypes
     {
-        #region AnswerPermissions
-        GetAnswerById,
-        GetAllAnswer,
-        CreateAnswer,
-        UpdateAnswer,
-        DeleteAnswer,
+        #region PermissionPermissions
+        GetPermissionById,
+        GetAllPermission,
+        CreatePermission,
+        UpdatePermission,
+        DeletePermission,
         #endregion
 
-        #region UserPermissions
-        GetUserById,
-        GetAllUser,
-        CreateUser,
-        UpdateUser,
-        DeleteUser,
-        #endregion
-
-        #region ClientPermissions
-        GetClientById,
-        GetAllClient,
-        CreateClient,
-        UpdateClient,
-        DeleteClient,
+        #region CategoryPermissions
+        GetCategoryById,
+        GetAllCategory,
+        CreateCategory,
+        UpdateCategory,
+        DeleteCategory,
         #endregion
 
         #region QuestionPermissions
@@ -42,6 +34,22 @@
         DeleteDistrict,
         #endregion
 
+        #region QuarterPermissions
+        GetQuarterById,
+        GetAllQuarter,
+        CreateQuarter,
+        UpdateQuarter,
+        DeleteQuarter,
+        #endregion
+
+        #region AnswerPermissions
+        GetAnswerById,
+        GetAllAnswer,
+        CreateAnswer,
+        UpdateAnswer,
+        DeleteAnswer,
+        #endregion
+
         #region RegionPermissions
         GetRegionById,
         GetAllRegion,
@@ -50,38 +58,28 @@
         DeleteRegion,
         #endregion
 
+        #region ClientPermissions
+        GetClientById,
+        GetAllClient,
+        CreateClient,
+        UpdateClient,
+        DeleteClient,
+        #endregion
+
+        #region UserPermissions
+        GetUserById,
+        GetAllUser,
+        CreateUser,
+        UpdateUser,
+        DeleteUser,
+        #endregion
+
         #region RolePermissions
         GetRoleById,
         GetAllRole,
         CreateRole,
         UpdateRole,
         DeleteRole,
-        #endregion
-
-        #region PermissionPermissions
-        GetPermissionById,
-        GetAllPermission,
-        CreatePermission,
-        UpdatePermission,
-        DeletePermission,
-        #endregion
-
-
-        #region CategoryPermissions
-        GetCategoryById,
-        GetAllCategory,
-        CreateCategory,
-        UpdateCategory,
-        DeleteCategory,
-        #endregion
-
-
-        #region QuarterPermissions
-        GetQuarterById,
-        GetAllQuarter,
-        CreateQuarter,
-        UpdateQuarter,
-        DeleteQuarter,
         #endregion
 
     }

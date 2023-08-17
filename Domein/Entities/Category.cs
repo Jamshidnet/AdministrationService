@@ -16,12 +16,12 @@ public partial class Category
     public string CategoryName { get; set; }
 
     [InverseProperty("Category")]
-    public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
+    public virtual ICollection<Question> Questions { get; set; }
 
     [InverseProperty("Owner")]
-    public virtual ICollection<TranslateCategory> TranslateCategories { get; set; } = new List<TranslateCategory>();
+    public virtual ICollection<TranslateCategory> TranslateCategories { get; set; } 
 
     [ForeignKey("CategoryId")]
     [InverseProperty("Categories")]
-    public virtual ICollection<Client> Clients { get; set; } = new List<Client>();
+    public virtual ICollection<Client> Clients { get; set; }
 }

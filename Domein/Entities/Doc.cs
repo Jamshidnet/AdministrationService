@@ -37,10 +37,10 @@ public partial class Doc
     public virtual Client Client { get; set; }
 
     [InverseProperty("Doc")]
-    public virtual ICollection<ClientAnswer> ClientAnswers { get; set; } = new List<ClientAnswer>();
+    public virtual ICollection<ClientAnswer> ClientAnswers { get; set; } 
 
     [InverseProperty("Doc")]
-    public virtual ICollection<DocChangeLog> DocChangeLogs { get; set; } = new List<DocChangeLog>();
+    public virtual ICollection<DocChangeLog> DocChangeLogs { get; set; }
 
     [ForeignKey("UserId")]
     [InverseProperty("Docs")]

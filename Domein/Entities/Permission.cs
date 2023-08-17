@@ -16,8 +16,7 @@ public partial class Permission
     public string PermissionName { get; set; }
 
     [InverseProperty("Owner")]
-    public virtual ICollection<TranslatePermission> TranslatePermissions { get; set; } = new List<TranslatePermission>();
-
+    public virtual ICollection<TranslatePermission> TranslatePermissions { get; set; }
     [ForeignKey("PermissionId")]
     [InverseProperty("Permissions")]
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
