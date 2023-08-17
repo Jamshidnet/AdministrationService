@@ -19,7 +19,9 @@ public class QuestionController : ApiBaseController
     [HttpGet("[action]")]
     [Authorize(Roles = "GetQuestionById")]
     public async ValueTask<QuestionResponse> GetQuestionById(Guid QuestionId)
-        => await _mediator.Send(new GetByIdQuestionQuery(QuestionId));
+    {
+        return await _mediator.Send(new GetByIdQuestionQuery(QuestionId));
+    }
 
     [HttpGet("[action]")]
     [Authorize(Roles = "GetAllQuestion")]
@@ -34,14 +36,15 @@ public class QuestionController : ApiBaseController
     [HttpPost("[action]")]
     [Authorize(Roles = "CreateQuestion")]
     public async ValueTask<Guid> CreateQuestion(CreateQuestionCommand command)
-        => await _mediator.Send(command);
-
+    {
+        return await _mediator.Send(command);
+    }
 
     [HttpPut("[action]")]
     [Authorize(Roles = "UpdateQuestion")]
     public async ValueTask<IActionResult> UpdateQuestion(UpdateQuestionCommand command)
     {
-        await _mediator.Send(command);
+        _ = await _mediator.Send(command);
         return NoContent();
     }
 

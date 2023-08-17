@@ -10,10 +10,10 @@ public class RegionMapping : Profile
     public RegionMapping()
     {
 
-        CreateMap<CreateRegionCommand, Region>();
-        CreateMap<UpdateRegionCommand, Region>();
-        CreateMap<Region, RegionResponse>();
-        CreateMap<Region, GetListRegionResponse>();
+        _ = CreateMap<CreateRegionCommand, Region>();
+        _ = CreateMap<UpdateRegionCommand, Region>();
+        _ = CreateMap<Region, RegionResponse>();
+        _ = CreateMap<Region, GetListRegionResponse>();
 
     }
 

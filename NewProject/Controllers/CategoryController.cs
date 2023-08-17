@@ -18,7 +18,9 @@ public class CategoryController : ApiBaseController
     [HttpGet("[action]")]
     [Authorize(Roles = "GetCategoryById")]
     public async ValueTask<CategoryResponse> GetCategoryById(Guid CategoryId)
-   => await _mediator.Send(new GetByIdCategoryQuery(CategoryId));
+    {
+        return await _mediator.Send(new GetByIdCategoryQuery(CategoryId));
+    }
 
     [HttpGet("[action]")]
     [Authorize(Roles = "GetAllCategory")]
@@ -33,14 +35,15 @@ public class CategoryController : ApiBaseController
     [HttpPost("[action]")]
     [Authorize(Roles = "CreateCategory")]
     public async ValueTask<Guid> CreateCategory(CreateCategoryCommand command)
-        => await _mediator.Send(command);
-
+    {
+        return await _mediator.Send(command);
+    }
 
     [HttpPut("[action]")]
     [Authorize(Roles = "UpdateCategory")]
     public async ValueTask<IActionResult> UpdateCategory(UpdateCategoryCommand command)
     {
-        await _mediator.Send(command);
+        _ = await _mediator.Send(command);
         return NoContent();
     }
 

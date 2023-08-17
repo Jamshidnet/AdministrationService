@@ -16,12 +16,12 @@ public static class ConfigureService
     public static IServiceCollection AddApi(this IServiceCollection services, IConfiguration configuration)
     {
 
-        services.AddControllers().AddJsonOptions(x =>
+        _ = services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-        services.AddEndpointsApiExplorer();
-        services.AddAuthorization();
-        services.AddScoped<IDocChangeLogger, LoggingService>();
-        services.AddScoped<ICurrentUserService, CurrentUserService>();
+        _ = services.AddEndpointsApiExplorer();
+        _ = services.AddAuthorization();
+        _ = services.AddScoped<IDocChangeLogger, LoggingService>();
+        _ = services.AddScoped<ICurrentUserService, CurrentUserService>();
         //services.AddAutoMapper(typeof(UserMapping));
         //services.AddSingleton(provider => new MapperConfiguration(cfg =>
         //{
@@ -30,12 +30,12 @@ public static class ConfigureService
         //    cfg.AddProfile(new UserTypeMapping(provider.GetService<ICurrentUserService>()));
         //}).CreateMapper());
 
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtSettings(configuration);
-        services.AddHttpContextAccessor();
-        services.AddSwaggerGen();
-        services.AddAutoMapper(typeof(CategoryMapping));
+        _ = services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtSettings(configuration);
+        _ = services.AddHttpContextAccessor();
+        _ = services.AddSwaggerGen();
+        _ = services.AddAutoMapper(typeof(CategoryMapping));
 
-        services.AddSwaggerGen(c =>
+        _ = services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Public Affairs Portal API" });
 

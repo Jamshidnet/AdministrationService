@@ -52,15 +52,15 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, Guid>
             Trole.OwnerId = role.Id;
             Trole.ColumnName = "RoleName";
             Trole.Id = Guid.NewGuid();
-            _context.TranslateRoles
+            _ = _context.TranslateRoles
             .Add(Trole);
         });
 
         role.RoleName = request.roles.First().TranslateText;
         role.Permissions = Newpermissons;
 
-        await _context.Roles.AddAsync(role, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = await _context.Roles.AddAsync(role, cancellationToken);
+        _ = await _context.SaveChangesAsync(cancellationToken);
         return role.Id;
     }
 }

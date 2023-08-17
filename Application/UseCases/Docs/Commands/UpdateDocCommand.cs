@@ -42,15 +42,15 @@ public class UpdateDocCommandHandler : IRequestHandler<UpdateDocCommand, DocResp
 
         var client = _mapper.Map<Client>(request.client);
 
-        _context.Clients.Update(client);
+        _ = _context.Clients.Update(client);
 
         foundDoc.Client = client;
-        _mapper.Map(request.ClientAnswers, foundDoc.ClientAnswers);
+        _ = _mapper.Map(request.ClientAnswers, foundDoc.ClientAnswers);
 
-        _context.Docs.Update(foundDoc);
+        _ = _context.Docs.Update(foundDoc);
         await _logger.Log(foundDoc.Id, "Update");
 
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<DocResponse>(foundDoc);
     }
     private async Task FilterIfDocExsists(Guid docId)

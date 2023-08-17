@@ -12,22 +12,20 @@ namespace Application.Common.Mapping
 
         public ClientTypeMapping()
         {
-            CreateMap<CreateClientTypeCommand, ClientType>()
+            _ = CreateMap<CreateClientTypeCommand, ClientType>()
                 .ForMember(x => x.TypeName, y => y.MapFrom(y => y.clientTypes.First().TranslateText));
 
-
-
-            CreateMap<ClientType, ClientTypeResponse>()
+            _ = CreateMap<ClientType, ClientTypeResponse>()
            .ForMember(cr => cr.TypeName, cfg => cfg
              .MapFrom<ClientTypeValueResolver<ClientTypeResponse>>());
 
-            CreateMap<ClientType, GetListClientTypeResponse>()
+            _ = CreateMap<ClientType, GetListClientTypeResponse>()
                 .ForMember(cr => cr.TypeName, cfg => cfg
              .MapFrom<ClientTypeValueResolver<GetListClientTypeResponse>>());
 
-            CreateMap<CreateCommandTranslate, TranslateClientType>();
+            _ = CreateMap<CreateCommandTranslate, TranslateClientType>();
 
-            CreateMap<UpdateCommandTranslate, TranslateClientType>();
+            _ = CreateMap<UpdateCommandTranslate, TranslateClientType>();
 
 
         }

@@ -43,12 +43,12 @@ public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionComman
             Tquestions.OwnerId = question.Id;
             Tquestions.ColumnName = "QuestionsName";
             Tquestions.Id = Guid.NewGuid();
-            _dbContext.TranslateQuestions
+            _ = _dbContext.TranslateQuestions
             .Add(Tquestions);
         });
 
-        await _dbContext.Questions.AddAsync(question);
-        await _dbContext.SaveChangesAsync();
+        _ = await _dbContext.Questions.AddAsync(question);
+        _ = await _dbContext.SaveChangesAsync();
         return question.Id;
     }
     private async Task FilterIfCategoryExsists(Guid categoryId)

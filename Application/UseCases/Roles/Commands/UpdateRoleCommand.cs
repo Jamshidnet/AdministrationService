@@ -50,9 +50,9 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, RoleR
                                   && x.LanguageId.ToString() == _userService.LanguageId);
 
         transRole.TranslateText = request.Name;
-        _context.Roles.Update(role);
-        _context.TranslateRoles.Update(transRole);
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = _context.Roles.Update(role);
+        _ = _context.TranslateRoles.Update(transRole);
+        _ = await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<RoleResponse>(role);
     }
 

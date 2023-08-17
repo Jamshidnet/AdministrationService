@@ -17,8 +17,9 @@ public class UserTypeController : ApiBaseController
     [Authorize(Roles = "GetUserTypeById")]
     [HttpGet("[action]")]
     public async ValueTask<UserTypeResponse> GetUserTypeById(Guid UserId)
-   => await _mediator.Send(new GetByIdUserTypeQuery(UserId));
-
+    {
+        return await _mediator.Send(new GetByIdUserTypeQuery(UserId));
+    }
 
     [Authorize(Roles = "GetAllUserType")]
     [HttpGet("[action]")]
@@ -33,14 +34,15 @@ public class UserTypeController : ApiBaseController
     [Authorize(Roles = "CreateUserType")]
     [HttpPost("[action]")]
     public async ValueTask<Guid> CreateUserType(CreateUserTypeCommand command)
-        => await _mediator.Send(command);
-
+    {
+        return await _mediator.Send(command);
+    }
 
     [Authorize(Roles = "UpdateUserType")]
     [HttpPut("[action]")]
     public async ValueTask<IActionResult> UpdateUserType(UpdateUserTypeCommand command)
     {
-        await _mediator.Send(command);
+        _ = await _mediator.Send(command);
         return NoContent();
     }
 

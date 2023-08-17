@@ -12,33 +12,33 @@ public class QuestionMapping : Profile
 {
     public QuestionMapping()
     {
-        CreateMap<CreateQuestionCommand, Question>()
-            .ForMember(y => y.QuestionText, q => q.MapFrom(t => t.questions.First().TranslateText));
+        _ = CreateMap<CreateQuestionCommand, Question>()
+                .ForMember(y => y.QuestionText, q => q.MapFrom(t => t.questions.First().TranslateText));
 
-        CreateMap<UpdateQuestionCommand, Question>();
+        _ = CreateMap<UpdateQuestionCommand, Question>();
 
-        CreateMap<Question, GetListQuestionResponse>()
-        .ForMember(x => x.QuestionType, y => y.MapFrom(z => z.QuestionType.QuestionTypeName))
-        .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username))
-        .ForMember(x => x.Category, y => y.MapFrom(z => z.Category.CategoryName))
-        .ForMember(cr => cr.QuestionText, cfg => cfg
-        .MapFrom<QuestionValueResolver<GetListQuestionResponse>>());
-
-
-        CreateMap<Question, QuestionResponse>()
-       .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username))
-        .ForMember(cr => cr.QuestionText, cfg => cfg
-        .MapFrom<QuestionValueResolver<QuestionResponse>>());
+        _ = CreateMap<Question, GetListQuestionResponse>()
+                .ForMember(x => x.QuestionType, y => y.MapFrom(z => z.QuestionType.QuestionTypeName))
+                .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username))
+                .ForMember(x => x.Category, y => y.MapFrom(z => z.Category.CategoryName))
+                .ForMember(cr => cr.QuestionText, cfg => cfg
+                .MapFrom<QuestionValueResolver<GetListQuestionResponse>>());
 
 
-        CreateMap<Category, GetListCategoryResponse>()
-     .ForMember(cr => cr.CategoryName, cfg => cfg
-  .MapFrom<CategoryValueResolver<GetListCategoryResponse>>());
+        _ = CreateMap<Question, QuestionResponse>()
+               .ForMember(x => x.CreatorUser, y => y.MapFrom(z => z.CreatorUser.Username))
+                .ForMember(cr => cr.QuestionText, cfg => cfg
+                .MapFrom<QuestionValueResolver<QuestionResponse>>());
 
 
-        CreateMap<CreateCommandTranslate, TranslateQuestion>();
+        _ = CreateMap<Category, GetListCategoryResponse>()
+                .ForMember(cr => cr.CategoryName, cfg => cfg
+                .MapFrom<CategoryValueResolver<GetListCategoryResponse>>());
 
-        CreateMap<UpdateCommandTranslate, TranslateQuestion>();
+
+        _ = CreateMap<CreateCommandTranslate, TranslateQuestion>();
+
+        _ = CreateMap<UpdateCommandTranslate, TranslateQuestion>();
 
     }
 }

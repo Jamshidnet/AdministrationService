@@ -35,10 +35,9 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
     private readonly IMapper _mapper;
 
     public CreateUserCommandHandler(IApplicationDbContext context, IMapper mapper)
-           => (_context, _mapper) = (context, mapper);
-
-
-
+    {
+        (_context, _mapper) = (context, mapper);
+    }
 
     public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
@@ -66,10 +65,10 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
             LastName = request.LastName,
             Birthdate = DateOnly.FromDateTime(request.Birthdate),
             PhoneNumber = request.PhoneNumber,
-            QuarterId = request.QuarterId
+            QuarterId = request.QuarterId,
+            Id = Guid.NewGuid()
         };
-        person.Id = Guid.NewGuid();
-        await _context.People.AddAsync(person);
+        _ = await _context.People.AddAsync(person);
 
         Guid salt = Guid.NewGuid();
         User user = new()
@@ -83,8 +82,8 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
             UserTypeId = request.UserTypeId,
             LanguageId = request.LanguageId
         };
-        await _context.Users.AddAsync(user, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = await _context.Users.AddAsync(user, cancellationToken);
+        _ = await _context.SaveChangesAsync(cancellationToken);
         return user.Id;
 
 

@@ -17,22 +17,22 @@ public class Program
     {
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         var builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddApplication();
+        _ = builder.Services.AddApplication();
         // Add services to the container.
-        builder.Services.AddApi(builder.Configuration);
+        _ = builder.Services.AddApi(builder.Configuration);
         //  builder.Services.AddScoped<CustomAuthorizeAttribute>();
-        builder.Services.AddControllers();
+        _ = builder.Services.AddControllers();
         // builder.Services.AddAuthorization();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        builder.Services.AddScoped<ChangeLoggingMiddleware>();
-        builder.Services.AddTransient<IApplicationDbContext, NewdatabaseContext>();
-        builder.Services.AddDbContext<NewdatabaseContext>(
+        _ = builder.Services.AddEndpointsApiExplorer();
+        _ = builder.Services.AddSwaggerGen();
+        _ = builder.Services.AddScoped<ChangeLoggingMiddleware>();
+        _ = builder.Services.AddTransient<IApplicationDbContext, NewdatabaseContext>();
+        _ = builder.Services.AddDbContext<NewdatabaseContext>(
             options =>
             {
-                options.UseNpgsql(builder.Configuration.GetConnectionString("dbconnect"));
-                options.UseLazyLoadingProxies();
+                _ = options.UseNpgsql(builder.Configuration.GetConnectionString("dbconnect"));
+                _ = options.UseLazyLoadingProxies();
             }
             ); ;
         var app = builder.Build();
@@ -40,22 +40,22 @@ public class Program
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            _ = app.UseSwagger();
+            _ = app.UseSwaggerUI(c =>
             {
                 c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
             });
-            app.UseSwaggerUI();
+            _ = app.UseSwaggerUI();
 
         }
 
-        app.UseHttpsRedirection();
+        _ = app.UseHttpsRedirection();
 
-        app.UseAuthentication();
-        app.UseAuthorization();
+        _ = app.UseAuthentication();
+        _ = app.UseAuthorization();
 
-        app.UseMiddleware<ChangeLoggingMiddleware>();
-        app.MapControllers();
+        _ = app.UseMiddleware<ChangeLoggingMiddleware>();
+        _ = app.MapControllers();
 
         app.Run();
     }

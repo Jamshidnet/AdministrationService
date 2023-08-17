@@ -26,7 +26,7 @@ public class DeleteDocCommandHandler : IRequestHandler<DeleteDocCommand>
         {
             throw new NotFoundException(nameof(Docs), request.DocId);
         }
-        _context.Docs.Remove(doc);
+        _ = _context.Docs.Remove(doc);
 
         await _logger.Log(doc.Id, "Delete");
 

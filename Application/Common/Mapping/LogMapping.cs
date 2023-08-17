@@ -8,8 +8,8 @@ public class LogMapping : Profile
 {
     public LogMapping()
     {
-        CreateMap<UserAction, UserActionResponse>();
-        CreateMap<DocChangeLog, DocChangeResponse>();
+        _ = CreateMap<UserAction, UserActionResponse>();
+        _ = CreateMap<DocChangeLog, DocChangeResponse>();
     }
 
 }

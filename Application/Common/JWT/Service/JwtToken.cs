@@ -49,11 +49,7 @@ public class JwtToken : IJwtToken
                 foreach (var permission in role.Permissions)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, permission.PermissionName));
-
                 }
-
-                // claims.Add(new Claim(ClaimTypes.Role, role.RoleName));
-
             }
         }
 
@@ -75,7 +71,7 @@ public class JwtToken : IJwtToken
         };
 
 
-        refreshTokenService.AddOrUpdateRefreshToken(new UserRefreshToken()
+        _ = refreshTokenService.AddOrUpdateRefreshToken(new UserRefreshToken()
         {
             RefreshToken = responseModel.RefreshToken,
             ExpiresTime = DateTime.Now.AddDays(_configuration.GetValue<int>("JWT:RefreshTokenExpiredTimeAtDays")),
@@ -106,10 +102,8 @@ public class JwtToken : IJwtToken
         var tokenHandler = new JwtSecurityTokenHandler();
         var principal = tokenHandler.ValidateToken(token, tokenValidationParametrs, out SecurityToken securityToken);
         JwtSecurityToken jwtSecurityToken = securityToken as JwtSecurityToken;
-        if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-        {
-            throw new SecurityTokenException("Invalid token");
-        }
-        return ValueTask.FromResult(principal);
+        return jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase)
+            ? throw new SecurityTokenException("Invalid token")
+            : ValueTask.FromResult(principal);
     }
 }

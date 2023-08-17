@@ -16,12 +16,7 @@ public class CategoryValueResolver<T> : IValueResolver<Category, T, string>
     {
         var res = source.TranslateCategories.AsQueryable()
                     .FirstOrDefault(t => t.LanguageId.ToString() == _currentUser.LanguageId);
-        if (res is null)
-        {
-            return source.CategoryName;
-        }
-
-        else return res.TranslateText;
+        return res is null ? source.CategoryName : res.TranslateText;
     }
 }
 

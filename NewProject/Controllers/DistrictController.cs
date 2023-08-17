@@ -18,7 +18,9 @@ public class DistrictController : ApiBaseController
     [HttpGet("[action]")]
     [Authorize(Roles = "GetDistrictById")]
     public async ValueTask<DistrictResponse> GetDistrictById(Guid DistrictId)
-        => await _mediator.Send(new GetByIdDistrictQuery(DistrictId));
+    {
+        return await _mediator.Send(new GetByIdDistrictQuery(DistrictId));
+    }
 
     [HttpGet("[action]")]
     [Authorize(Roles = "GetAllDistrict")]
@@ -33,13 +35,15 @@ public class DistrictController : ApiBaseController
     [HttpPost("[action]")]
     [Authorize(Roles = "CreateDistrict")]
     public async ValueTask<Guid> CreateDistrict(CreateDistrictCommand command)
-        => await _mediator.Send(command);
+    {
+        return await _mediator.Send(command);
+    }
 
     [Authorize(Roles = "UpdateDistrict")]
     [HttpPut("[action]")]
     public async ValueTask<IActionResult> UpdateDistrict(UpdateDistrictCommand command)
     {
-        await _mediator.Send(command);
+        _ = await _mediator.Send(command);
         return NoContent();
     }
 

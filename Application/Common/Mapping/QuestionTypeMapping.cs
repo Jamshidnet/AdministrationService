@@ -12,21 +12,21 @@ public class QuestionTypeMapping : Profile
     public QuestionTypeMapping()
     {
 
-        CreateMap<CreateQuestionTypeCommand, QuestionType>()
+        _ = CreateMap<CreateQuestionTypeCommand, QuestionType>()
             .ForMember(x => x.QuestionTypeName, y => y.MapFrom(z => z.questionTypes.First().TranslateText));
-        CreateMap<UpdateQuestionTypeCommand, QuestionType>();
+        _ = CreateMap<UpdateQuestionTypeCommand, QuestionType>();
 
 
-        CreateMap<QuestionType, QuestionTypeResponse>()
+        _ = CreateMap<QuestionType, QuestionTypeResponse>()
              .ForMember(cr => cr.QuestionTypeName, cfg => cfg
                .MapFrom<QuestionTypeValueResolver<QuestionTypeResponse>>());
 
-        CreateMap<QuestionType, GetLIstQuestionTypeResponse>()
+        _ = CreateMap<QuestionType, GetLIstQuestionTypeResponse>()
             .ForMember(cr => cr.QuestionTypeName, cfg => cfg
          .MapFrom<QuestionTypeValueResolver<GetLIstQuestionTypeResponse>>());
 
-        CreateMap<CreateCommandTranslate, TranslateQuestionType>();
+        _ = CreateMap<CreateCommandTranslate, TranslateQuestionType>();
 
-        CreateMap<UpdateCommandTranslate, TranslateQuestionType>();
+        _ = CreateMap<UpdateCommandTranslate, TranslateQuestionType>();
     }
 }

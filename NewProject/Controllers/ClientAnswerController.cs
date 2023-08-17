@@ -18,7 +18,9 @@ public class ClientAnswerController : ApiBaseController
     [HttpGet("[action]")]
     [Authorize(Roles = "GetClientAnswerById")]
     public async ValueTask<ClientAnswerResponse> GetClientAnswerById(Guid ClientAnswerId)
-        => await _mediator.Send(new GetByIdClientAnswerQuery(ClientAnswerId));
+    {
+        return await _mediator.Send(new GetByIdClientAnswerQuery(ClientAnswerId));
+    }
 
     [HttpGet("[action]")]
     [Authorize(Roles = "GetAllClientAnswer")]
@@ -33,14 +35,15 @@ public class ClientAnswerController : ApiBaseController
     [HttpPost("[action]")]
     [Authorize(Roles = "CreateClientAnswer")]
     public async ValueTask<Guid> CreateClientAnswer(CreateClientAnswerCommand command)
-            => await _mediator.Send(command);
-
+    {
+        return await _mediator.Send(command);
+    }
 
     [HttpPut("[action]")]
     [Authorize(Roles = "UpdateClientAnswer")]
     public async ValueTask<IActionResult> UpdateClientAnswer(UpdateClientAnswerCommand command)
     {
-        await _mediator.Send(command);
+        _ = await _mediator.Send(command);
         return NoContent();
     }
 

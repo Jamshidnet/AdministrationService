@@ -28,7 +28,9 @@ public class LanguageController : ApiBaseController
     [HttpPost("[action]")]
     //    [Authorize(Roles = "CreateLanguage")]
     public async ValueTask<Guid> CreateLanguage(CreateLanguageCommand command)
-        => await _mediator.Send(command);
+    {
+        return await _mediator.Send(command);
+    }
 
     [HttpDelete("[action]")]
     //  [Authorize(Roles = "DeleteLanguage")]

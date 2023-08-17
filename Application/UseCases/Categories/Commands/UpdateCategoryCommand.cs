@@ -33,8 +33,8 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
                                   && x.LanguageId.ToString() == _userService.LanguageId);
 
         transCategory.TranslateText = request.CategoryName;
-        _context.TranslateCategories.Update(transCategory);
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = _context.TranslateCategories.Update(transCategory);
+        _ = await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<CategoryResponse>(category);
     }
 

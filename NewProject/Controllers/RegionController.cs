@@ -18,7 +18,9 @@ public class RegionController : ApiBaseController
     [Authorize(Roles = "GetRegionById")]
 
     public async ValueTask<RegionResponse> GetRegionById(Guid RegionId)
-        => await _mediator.Send(new GetByIdRegionQuery(RegionId));
+    {
+        return await _mediator.Send(new GetByIdRegionQuery(RegionId));
+    }
 
     [HttpGet("[action]")]
     [Authorize(Roles = "GetAllRegion")]
@@ -33,13 +35,15 @@ public class RegionController : ApiBaseController
     [Authorize(Roles = "CreateRegion")]
     [HttpPost("[action]")]
     public async ValueTask<Guid> CreateRegion(CreateRegionCommand command)
-        => await _mediator.Send(command);
+    {
+        return await _mediator.Send(command);
+    }
 
     [Authorize(Roles = "UpdateRegion")]
     [HttpPut("[action]")]
     public async ValueTask<IActionResult> UpdateRegion(UpdateRegionCommand command)
     {
-        await _mediator.Send(command);
+        _ = await _mediator.Send(command);
         return NoContent();
     }
     [Authorize(Roles = "DeleteRegion")]

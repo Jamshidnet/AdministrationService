@@ -74,30 +74,31 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
     public virtual DbSet<UserType> UserTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Jam2001!!!;Database=newdatabase")
-        .EnableSensitiveDataLogging();
-
+    {
+        _ = optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Jam2001!!!;Database=newdatabase")
+            .EnableSensitiveDataLogging();
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Category>(entity =>
+        _ = modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("primarykey_of_categories");
+            _ = entity.HasKey(e => e.Id).HasName("primarykey_of_categories");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
-        modelBuilder.Entity<Client>(entity =>
+        _ = modelBuilder.Entity<Client>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("client_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("client_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.ClientType).WithMany(p => p.Clients).HasConstraintName("client_type_id_fkey");
+            _ = entity.HasOne(d => d.ClientType).WithMany(p => p.Clients).HasConstraintName("client_type_id_fkey");
 
-            entity.HasOne(d => d.Person).WithMany(p => p.Clients).HasConstraintName("person_client_fk");
+            _ = entity.HasOne(d => d.Person).WithMany(p => p.Clients).HasConstraintName("person_client_fk");
 
-            entity.HasMany(d => d.Categories).WithMany(p => p.Clients)
+            _ = entity.HasMany(d => d.Categories).WithMany(p => p.Clients)
                 .UsingEntity<Dictionary<string, object>>(
                     "ClientCategory",
                     r => r.HasOne<Category>().WithMany()
@@ -108,149 +109,149 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
                         .HasConstraintName("client_fk"),
                     j =>
                     {
-                        j.HasKey("ClientId", "CategoryId").HasName("client_category_pkey");
-                        j.ToTable("client_category");
-                        j.IndexerProperty<Guid>("ClientId").HasColumnName("client_id");
-                        j.IndexerProperty<Guid>("CategoryId").HasColumnName("category_id");
+                        _ = j.HasKey("ClientId", "CategoryId").HasName("client_category_pkey");
+                        _ = j.ToTable("client_category");
+                        _ = j.IndexerProperty<Guid>("ClientId").HasColumnName("client_id");
+                        _ = j.IndexerProperty<Guid>("CategoryId").HasColumnName("category_id");
                     });
         });
 
-        modelBuilder.Entity<ClientAnswer>(entity =>
+        _ = modelBuilder.Entity<ClientAnswer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("client_answer_pk");
+            _ = entity.HasKey(e => e.Id).HasName("client_answer_pk");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.DefaultAnswer).WithMany(p => p.ClientAnswers)
+            _ = entity.HasOne(d => d.DefaultAnswer).WithMany(p => p.ClientAnswers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("default_answer_fk");
 
-            entity.HasOne(d => d.Doc).WithMany(p => p.ClientAnswers).HasConstraintName("doc_fk");
+            _ = entity.HasOne(d => d.Doc).WithMany(p => p.ClientAnswers).HasConstraintName("doc_fk");
 
-            entity.HasOne(d => d.Question).WithMany(p => p.ClientAnswers).HasConstraintName("question_fk");
+            _ = entity.HasOne(d => d.Question).WithMany(p => p.ClientAnswers).HasConstraintName("question_fk");
         });
 
-        modelBuilder.Entity<ClientType>(entity =>
+        _ = modelBuilder.Entity<ClientType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("UserType_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("UserType_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
-        modelBuilder.Entity<DefaultAnswer>(entity =>
+        _ = modelBuilder.Entity<DefaultAnswer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("default_answers_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("default_answers_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Question).WithMany(p => p.DefaultAnswers).HasConstraintName("question_fk");
+            _ = entity.HasOne(d => d.Question).WithMany(p => p.DefaultAnswers).HasConstraintName("question_fk");
         });
 
-        modelBuilder.Entity<District>(entity =>
+        _ = modelBuilder.Entity<District>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("primarykey_of_districts");
+            _ = entity.HasKey(e => e.Id).HasName("primarykey_of_districts");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Region).WithMany(p => p.Districts).HasConstraintName("districts_region_id_fkey");
+            _ = entity.HasOne(d => d.Region).WithMany(p => p.Districts).HasConstraintName("districts_region_id_fkey");
         });
 
-        modelBuilder.Entity<Doc>(entity =>
+        _ = modelBuilder.Entity<Doc>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("docs_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("docs_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Client).WithMany(p => p.Docs).HasConstraintName("cleint_doc_fk");
+            _ = entity.HasOne(d => d.Client).WithMany(p => p.Docs).HasConstraintName("cleint_doc_fk");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Docs).HasConstraintName("user_doc_fk");
+            _ = entity.HasOne(d => d.User).WithMany(p => p.Docs).HasConstraintName("user_doc_fk");
         });
 
-        modelBuilder.Entity<DocChangeLog>(entity =>
+        _ = modelBuilder.Entity<DocChangeLog>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("doc_change_log_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("doc_change_log_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Doc).WithMany(p => p.DocChangeLogs)
+            _ = entity.HasOne(d => d.Doc).WithMany(p => p.DocChangeLogs)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("doc_fk");
 
-            entity.HasOne(d => d.Table).WithMany(p => p.DocChangeLogs).HasConstraintName("table_id");
+            _ = entity.HasOne(d => d.Table).WithMany(p => p.DocChangeLogs).HasConstraintName("table_id");
 
-            entity.HasOne(d => d.User).WithMany(p => p.DocChangeLogs).HasConstraintName("user_fk");
+            _ = entity.HasOne(d => d.User).WithMany(p => p.DocChangeLogs).HasConstraintName("user_fk");
         });
 
-        modelBuilder.Entity<Language>(entity =>
+        _ = modelBuilder.Entity<Language>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("translate_bindings_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("translate_bindings_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
-        modelBuilder.Entity<Permission>(entity =>
+        _ = modelBuilder.Entity<Permission>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("primarykey_of_permissions");
+            _ = entity.HasKey(e => e.Id).HasName("primarykey_of_permissions");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
-        modelBuilder.Entity<Person>(entity =>
+        _ = modelBuilder.Entity<Person>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("person_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("person_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Quarter).WithMany(p => p.People)
+            _ = entity.HasOne(d => d.Quarter).WithMany(p => p.People)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("quarter_fk");
         });
 
-        modelBuilder.Entity<Quarter>(entity =>
+        _ = modelBuilder.Entity<Quarter>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("primarykey_of_quarters");
+            _ = entity.HasKey(e => e.Id).HasName("primarykey_of_quarters");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.District).WithMany(p => p.Quarters).HasConstraintName("quarters_district_id_fkey");
+            _ = entity.HasOne(d => d.District).WithMany(p => p.Quarters).HasConstraintName("quarters_district_id_fkey");
         });
 
-        modelBuilder.Entity<Question>(entity =>
+        _ = modelBuilder.Entity<Question>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("primarykey_of_questions");
+            _ = entity.HasKey(e => e.Id).HasName("primarykey_of_questions");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Category).WithMany(p => p.Questions).HasConstraintName("questions_category_id_fkey");
+            _ = entity.HasOne(d => d.Category).WithMany(p => p.Questions).HasConstraintName("questions_category_id_fkey");
 
-            entity.HasOne(d => d.CreatorUser).WithMany(p => p.Questions).HasConstraintName("questions_creator_user_id_fkey");
+            _ = entity.HasOne(d => d.CreatorUser).WithMany(p => p.Questions).HasConstraintName("questions_creator_user_id_fkey");
 
-            entity.HasOne(d => d.QuestionType).WithMany(p => p.Questions)
+            _ = entity.HasOne(d => d.QuestionType).WithMany(p => p.Questions)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("questions_question_type_id_fkey");
         });
 
-        modelBuilder.Entity<QuestionType>(entity =>
+        _ = modelBuilder.Entity<QuestionType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("question_type_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("question_type_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
-        modelBuilder.Entity<Region>(entity =>
+        _ = modelBuilder.Entity<Region>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("primarykey_of_regions");
+            _ = entity.HasKey(e => e.Id).HasName("primarykey_of_regions");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
-        modelBuilder.Entity<Role>(entity =>
+        _ = modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("primarykey_of_roles");
+            _ = entity.HasKey(e => e.Id).HasName("primarykey_of_roles");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasMany(d => d.Permissions).WithMany(p => p.Roles)
+            _ = entity.HasMany(d => d.Permissions).WithMany(p => p.Roles)
                 .UsingEntity<Dictionary<string, object>>(
                     "RolePermission",
                     r => r.HasOne<Permission>().WithMany()
@@ -261,121 +262,121 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
                         .HasConstraintName("role_permissions_role_id_fkey"),
                     j =>
                     {
-                        j.HasKey("RoleId", "PermissionId").HasName("primarykey_of_role_permissions");
-                        j.ToTable("role_permissions");
-                        j.IndexerProperty<Guid>("RoleId").HasColumnName("role_id");
-                        j.IndexerProperty<Guid>("PermissionId").HasColumnName("permission_id");
+                        _ = j.HasKey("RoleId", "PermissionId").HasName("primarykey_of_role_permissions");
+                        _ = j.ToTable("role_permissions");
+                        _ = j.IndexerProperty<Guid>("RoleId").HasColumnName("role_id");
+                        _ = j.IndexerProperty<Guid>("PermissionId").HasColumnName("permission_id");
                     });
         });
 
-        modelBuilder.Entity<SysTable>(entity =>
+        _ = modelBuilder.Entity<SysTable>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("sys_tables_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("sys_tables_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
-        modelBuilder.Entity<TranslateCategory>(entity =>
+        _ = modelBuilder.Entity<TranslateCategory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("tr_categories_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("tr_categories_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Language).WithMany(p => p.TranslateCategories).HasConstraintName("language_fk");
+            _ = entity.HasOne(d => d.Language).WithMany(p => p.TranslateCategories).HasConstraintName("language_fk");
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateCategories).HasConstraintName("owner_fk");
+            _ = entity.HasOne(d => d.Owner).WithMany(p => p.TranslateCategories).HasConstraintName("owner_fk");
         });
 
-        modelBuilder.Entity<TranslateClientType>(entity =>
+        _ = modelBuilder.Entity<TranslateClientType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("en_client_type_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("en_client_type_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Language).WithMany(p => p.TranslateClientTypes).HasConstraintName("language_fk");
+            _ = entity.HasOne(d => d.Language).WithMany(p => p.TranslateClientTypes).HasConstraintName("language_fk");
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateClientTypes).HasConstraintName("owner_fk");
+            _ = entity.HasOne(d => d.Owner).WithMany(p => p.TranslateClientTypes).HasConstraintName("owner_fk");
         });
 
-        modelBuilder.Entity<TranslateDefaultAnswer>(entity =>
+        _ = modelBuilder.Entity<TranslateDefaultAnswer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("en_default_answers_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("en_default_answers_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Language).WithMany(p => p.TranslateDefaultAnswers).HasConstraintName("language_fk");
+            _ = entity.HasOne(d => d.Language).WithMany(p => p.TranslateDefaultAnswers).HasConstraintName("language_fk");
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateDefaultAnswers).HasConstraintName("owner_fk");
+            _ = entity.HasOne(d => d.Owner).WithMany(p => p.TranslateDefaultAnswers).HasConstraintName("owner_fk");
         });
 
-        modelBuilder.Entity<TranslatePermission>(entity =>
+        _ = modelBuilder.Entity<TranslatePermission>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("translate_permissions_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("translate_permissions_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Language).WithMany(p => p.TranslatePermissions).HasConstraintName("language_fk");
+            _ = entity.HasOne(d => d.Language).WithMany(p => p.TranslatePermissions).HasConstraintName("language_fk");
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.TranslatePermissions).HasConstraintName("owner_fk");
+            _ = entity.HasOne(d => d.Owner).WithMany(p => p.TranslatePermissions).HasConstraintName("owner_fk");
         });
 
-        modelBuilder.Entity<TranslateQuestion>(entity =>
+        _ = modelBuilder.Entity<TranslateQuestion>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("translate_question_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("translate_question_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Language).WithMany(p => p.TranslateQuestions).HasConstraintName("language_fk");
+            _ = entity.HasOne(d => d.Language).WithMany(p => p.TranslateQuestions).HasConstraintName("language_fk");
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateQuestions).HasConstraintName("owner_fk");
+            _ = entity.HasOne(d => d.Owner).WithMany(p => p.TranslateQuestions).HasConstraintName("owner_fk");
         });
 
-        modelBuilder.Entity<TranslateQuestionType>(entity =>
+        _ = modelBuilder.Entity<TranslateQuestionType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("en_question_type_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("en_question_type_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Language).WithMany(p => p.TranslateQuestionTypes).HasConstraintName("langauge_fk");
+            _ = entity.HasOne(d => d.Language).WithMany(p => p.TranslateQuestionTypes).HasConstraintName("langauge_fk");
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateQuestionTypes).HasConstraintName("owner_fk");
+            _ = entity.HasOne(d => d.Owner).WithMany(p => p.TranslateQuestionTypes).HasConstraintName("owner_fk");
         });
 
-        modelBuilder.Entity<TranslateRole>(entity =>
+        _ = modelBuilder.Entity<TranslateRole>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("translate_role_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("translate_role_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Language).WithMany(p => p.TranslateRoles).HasConstraintName("language_fk");
+            _ = entity.HasOne(d => d.Language).WithMany(p => p.TranslateRoles).HasConstraintName("language_fk");
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateRoles).HasConstraintName("owner_fk");
+            _ = entity.HasOne(d => d.Owner).WithMany(p => p.TranslateRoles).HasConstraintName("owner_fk");
         });
 
-        modelBuilder.Entity<TranslateUserType>(entity =>
+        _ = modelBuilder.Entity<TranslateUserType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("translate_user_type_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("translate_user_type_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Language).WithMany(p => p.TranslateUserTypes).HasConstraintName("language_id");
+            _ = entity.HasOne(d => d.Language).WithMany(p => p.TranslateUserTypes).HasConstraintName("language_id");
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.TranslateUserTypes).HasConstraintName("owner_fk");
+            _ = entity.HasOne(d => d.Owner).WithMany(p => p.TranslateUserTypes).HasConstraintName("owner_fk");
         });
 
-        modelBuilder.Entity<User>(entity =>
+        _ = modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("user_id_pr");
+            _ = entity.HasKey(e => e.Id).HasName("user_id_pr");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Person).WithMany(p => p.Users).HasConstraintName("user_person_id");
+            _ = entity.HasOne(d => d.Person).WithMany(p => p.Users).HasConstraintName("user_person_id");
 
-            entity.HasOne(d => d.UserType).WithMany(p => p.Users)
+            _ = entity.HasOne(d => d.UserType).WithMany(p => p.Users)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("user_type_fk");
 
-            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
+            _ = entity.HasMany(d => d.Roles).WithMany(p => p.Users)
                 .UsingEntity<Dictionary<string, object>>(
                     "UserRole",
                     r => r.HasOne<Role>().WithMany()
@@ -386,29 +387,29 @@ public partial class NewdatabaseContext : DbContext, IApplicationDbContext
                         .HasConstraintName("user_roles_user_id_fkey"),
                     j =>
                     {
-                        j.HasKey("UserId", "RoleId").HasName("primarykey_of_user_roles");
-                        j.ToTable("user_roles");
-                        j.IndexerProperty<Guid>("UserId").HasColumnName("user_id");
-                        j.IndexerProperty<Guid>("RoleId").HasColumnName("role_id");
+                        _ = j.HasKey("UserId", "RoleId").HasName("primarykey_of_user_roles");
+                        _ = j.ToTable("user_roles");
+                        _ = j.IndexerProperty<Guid>("UserId").HasColumnName("user_id");
+                        _ = j.IndexerProperty<Guid>("RoleId").HasColumnName("role_id");
                     });
         });
 
-        modelBuilder.Entity<UserAction>(entity =>
+        _ = modelBuilder.Entity<UserAction>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("user_actions_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("user_actions_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Table).WithMany(p => p.UserActions).HasConstraintName("table_action");
+            _ = entity.HasOne(d => d.Table).WithMany(p => p.UserActions).HasConstraintName("table_action");
 
-            entity.HasOne(d => d.User).WithMany(p => p.UserActions).HasConstraintName("user_fk");
+            _ = entity.HasOne(d => d.User).WithMany(p => p.UserActions).HasConstraintName("user_fk");
         });
 
-        modelBuilder.Entity<UserType>(entity =>
+        _ = modelBuilder.Entity<UserType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("user_type_pkey");
+            _ = entity.HasKey(e => e.Id).HasName("user_type_pkey");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            _ = entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         OnModelCreatingPartial(modelBuilder);
@@ -425,15 +426,17 @@ bool ByRegion,
 bool ByDistrict,
 bool ByQuarter
 )
-=> FromExpression(() => GetFilteredUsers(
- RegionId,
- DistrictId,
- QuarterId,
-  ByRegion,
- ByDistrict,
- ByQuarter
- )
-);
+    {
+        return FromExpression(() => GetFilteredUsers(
+     RegionId,
+     DistrictId,
+     QuarterId,
+      ByRegion,
+     ByDistrict,
+     ByQuarter
+     )
+    );
+    }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

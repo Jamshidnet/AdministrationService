@@ -17,11 +17,6 @@ public class DefaultAnswerValueResolver<T> : IValueResolver<DefaultAnswer, T, st
     {
         var res = source.TranslateDefaultAnswers.AsQueryable()
                     .FirstOrDefault(t => t.LanguageId.ToString() == _currentUser.LanguageId);
-        if (res is null)
-        {
-            return source.AnswerText;
-        }
-
-        else return res.TranslateText;
+        return res is null ? source.AnswerText : res.TranslateText;
     }
 }

@@ -16,10 +16,7 @@ public record FilterByBirthDate : IRequest<List<GetListClientResponse>>
     public FilterByBirthDate(DateOnly MinBirthDate, DateOnly? MaxBirthDate = null)
     {
         this.MinBirthDate = MinBirthDate;
-        if (MaxBirthDate != null)
-            this.MaxBirthDate = MaxBirthDate;
-        else
-            this.MaxBirthDate = DateOnly.FromDateTime(DateTime.Now);
+        this.MaxBirthDate = MaxBirthDate != null ? MaxBirthDate : DateOnly.FromDateTime(DateTime.Now);
     }
 
 }

@@ -9,15 +9,15 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddMediatR(option =>
+            _ = services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            _ = services.AddMediatR(option =>
             {
-                option.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                _ = option.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 
             });
 
-            services.AddScoped<IUserRefreshToken, RefreshToken>();
-            services.AddScoped<IJwtToken, JwtToken>();
+            _ = services.AddScoped<IUserRefreshToken, RefreshToken>();
+            _ = services.AddScoped<IJwtToken, JwtToken>();
 
             return services;
         }

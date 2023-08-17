@@ -11,19 +11,19 @@ public class DefaultAnswerMapping : Profile
 {
     public DefaultAnswerMapping()
     {
-        CreateMap<CreateDefaultAnswerCommand, DefaultAnswer>()
+        _ = CreateMap<CreateDefaultAnswerCommand, DefaultAnswer>()
             .ForMember(y => y.AnswerText, z => z.MapFrom(t => t.defaultAnswers
             .First().TranslateText));
 
-        CreateMap<UpdateDefaultAnswerCommand, DefaultAnswer>();
+        _ = CreateMap<UpdateDefaultAnswerCommand, DefaultAnswer>();
 
-        CreateMap<DefaultAnswer, DefaultAnswerResponse>()
+        _ = CreateMap<DefaultAnswer, DefaultAnswerResponse>()
             .ForMember(cr => cr.AnswerText, cfg => cfg
             .MapFrom<DefaultAnswerValueResolver<DefaultAnswerResponse>>());
 
-        CreateMap<CreateCommandTranslate, TranslateDefaultAnswer>();
+        _ = CreateMap<CreateCommandTranslate, TranslateDefaultAnswer>();
 
-        CreateMap<UpdateCommandTranslate, TranslateDefaultAnswer>();
+        _ = CreateMap<UpdateCommandTranslate, TranslateDefaultAnswer>();
     }
 
 }

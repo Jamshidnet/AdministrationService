@@ -18,7 +18,9 @@ public class ClientTypeController : ApiBaseController
     [HttpGet("[action]")]
     [Authorize(Roles = "GetClientTypeById")]
     public async ValueTask<ClientTypeResponse> GetClientTypeById(Guid ClientTypeId)
-   => await _mediator.Send(new GetByIdClientTypeQuery(ClientTypeId));
+    {
+        return await _mediator.Send(new GetByIdClientTypeQuery(ClientTypeId));
+    }
 
     [HttpGet("[action]")]
     [Authorize(Roles = "GetAllClientType")]
@@ -33,14 +35,15 @@ public class ClientTypeController : ApiBaseController
     [HttpPost("[action]")]
     [Authorize(Roles = "CreateClientType")]
     public async ValueTask<Guid> CreateClientType(CreateClientTypeCommand command)
-        => await _mediator.Send(command);
-
+    {
+        return await _mediator.Send(command);
+    }
 
     [HttpPut("[action]")]
     [Authorize(Roles = "UpdateClientType")]
     public async ValueTask<IActionResult> UpdateClientType(UpdateClientTypeCommand command)
     {
-        await _mediator.Send(command);
+        _ = await _mediator.Send(command);
         return NoContent();
     }
 

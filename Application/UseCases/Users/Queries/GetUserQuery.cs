@@ -16,7 +16,9 @@ public class GetByIdUserResponse : IRequestHandler<GetByIdUserQuery, UserRespons
     private readonly IMapper _mapper;
 
     public GetByIdUserResponse(IApplicationDbContext context, IMapper mapper)
-           => (_context, _mapper) = (context, mapper);
+    {
+        (_context, _mapper) = (context, mapper);
+    }
 
     public async Task<UserResponse> Handle(GetByIdUserQuery request, CancellationToken cancellationToken)
     {

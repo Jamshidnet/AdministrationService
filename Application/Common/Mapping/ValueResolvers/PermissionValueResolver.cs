@@ -17,11 +17,6 @@ class PermissionValueResolver<T> : IValueResolver<Permission, T, string>
         var res = source.TranslatePermissions.AsQueryable()
                     .FirstOrDefault(t => t.LanguageId.ToString() == _currentUser.LanguageId);
 
-        if (res is null)
-        {
-            return source.PermissionName;
-        }
-
-        else return res.TranslateText;
+        return res is null ? source.PermissionName : res.TranslateText;
     }
 }

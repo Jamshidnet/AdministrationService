@@ -11,21 +11,21 @@ public class RoleMapping : Profile
 {
     public RoleMapping()
     {
-        CreateMap<Role, RoleResponse>()
+        _ = CreateMap<Role, RoleResponse>()
            .ForMember(cr => cr.RoleName, cfg => cfg
              .MapFrom<RoleValueResolver<RoleResponse>>());
 
-        CreateMap<Role, GetListRoleResponse>()
+        _ = CreateMap<Role, GetListRoleResponse>()
             .ForMember(cr => cr.RoleName, cfg => cfg
          .MapFrom<RoleValueResolver<GetListRoleResponse>>());
 
-        CreateMap<CreateRoleCommand, Role>()
+        _ = CreateMap<CreateRoleCommand, Role>()
             .ForMember(y => y.RoleName, t => t.MapFrom(q => q.roles.First().TranslateText));
 
 
-        CreateMap<CreateCommandTranslate, TranslateRole>();
+        _ = CreateMap<CreateCommandTranslate, TranslateRole>();
 
-        CreateMap<UpdateCommandTranslate, TranslateRole>();
+        _ = CreateMap<UpdateCommandTranslate, TranslateRole>();
 
 
     }

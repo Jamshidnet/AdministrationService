@@ -35,13 +35,13 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
             Tcategory.OwnerId = category.Id;
             Tcategory.ColumnName = "CategoryName";
             Tcategory.Id = Guid.NewGuid();
-            _dbContext.TranslateCategories
+            _ = _dbContext.TranslateCategories
             .Add(Tcategory);
         });
 
-        await _dbContext.Categories.AddAsync(category);
+        _ = await _dbContext.Categories.AddAsync(category);
 
-        await _dbContext.SaveChangesAsync();
+        _ = await _dbContext.SaveChangesAsync();
         return category.Id;
     }
 }

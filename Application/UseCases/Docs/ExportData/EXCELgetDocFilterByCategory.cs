@@ -39,8 +39,7 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
 
         sheet1.Row(1).Style.Font.Bold = true;
         sheet1.Row(1).Style.Font.Shadow = true;
-        //   sheet1.Row(1).Style.Font.Underline = XLFontUnderlineValues.Single;
-        // sheet1.Row(1).Style.Font.VerticalAlignment = XLFontVerticalTextAlignmentValues.Superscript;
+       
         sheet1.Row(1).Style.Font.FontSize = 13;
 
         sheet1.RowHeight = 20;
@@ -65,14 +64,14 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
             TableName = "Documents"
         };
 
-        dt.Columns.Add("Region Name", typeof(string));
-        dt.Columns.Add("District Name", typeof(string));
-        dt.Columns.Add("Quarter Name", typeof(string));
+        _ = dt.Columns.Add("Region Name", typeof(string));
+        _ = dt.Columns.Add("District Name", typeof(string));
+        _ = dt.Columns.Add("Quarter Name", typeof(string));
         var categories = await _context.Categories.ToListAsync(cancellationToken: cancellationToken);
 
         foreach (var item in categories)
         {
-            dt.Columns.Add($"{item.CategoryName} Category", typeof(long));
+            _ = dt.Columns.Add($"{item.CategoryName} Category", typeof(long));
         }
 
         if (filteredDocs.Any())
@@ -97,7 +96,7 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
                 {
                     row[$"{count.Key} Category"] = (long)count.Value;
                 }
-                dt.Rows.Add(row.ItemArray);
+                _ = dt.Rows.Add(row.ItemArray);
             });
         }
 

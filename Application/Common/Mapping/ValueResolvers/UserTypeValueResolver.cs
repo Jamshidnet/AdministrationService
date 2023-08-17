@@ -16,11 +16,6 @@ class UserTypeValueResolver<T> : IValueResolver<UserType, T, string>
     {
         var res = source.TranslateUserTypes.AsQueryable()
                     .FirstOrDefault(t => t.LanguageId.ToString() == _currentUser.LanguageId);
-        if (res is null)
-        {
-            return source.TypeName;
-        }
-
-        else return res.TranslateText;
+        return res is null ? source.TypeName : res.TranslateText;
     }
 }

@@ -19,7 +19,6 @@ public record FilterByDocCount : IRequest<List<DocCountResponse>>
     public Guid? QuarterId { get; set; }
     public bool ByQuarter { get; set; } = false;
 
-
 }
 
 

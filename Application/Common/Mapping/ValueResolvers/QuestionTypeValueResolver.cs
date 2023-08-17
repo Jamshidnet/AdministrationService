@@ -16,11 +16,6 @@ class QuestionTypeValueResolver<T> : IValueResolver<QuestionType, T, string>
     {
         var res = source.TranslateQuestionTypes.AsQueryable()
                     .FirstOrDefault(t => t.LanguageId.ToString() == _currentUser.LanguageId);
-        if (res is null)
-        {
-            return source.QuestionTypeName;
-        }
-
-        else return res.TranslateText;
+        return res is null ? source.QuestionTypeName : res.TranslateText;
     }
 }

@@ -65,6 +65,10 @@ namespace NewProject.Abstraction
         ValueTask DisposeAsync();
 
         EntityEntry Entry(object entity);
+
+       /// <summary>
+       /// This function is responsible for executing a funtion that has been created in Database. 
+       /// </summary>
         IQueryable<FilterByUserResponse> GetFilteredUsers(Guid? RegionId,
         Guid? DistrictId,
         Guid? QuarterId,

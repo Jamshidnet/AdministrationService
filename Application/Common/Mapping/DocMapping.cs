@@ -10,19 +10,19 @@ public class DocMapping : Profile
 {
     public DocMapping()
     {
-        CreateMap<CreateDocCommand, Doc>();
-        CreateMap<UpdateDocCommand, Doc>();
-        CreateMap<Doc, GetListDocResponse>()
+        _ = CreateMap<CreateDocCommand, Doc>();
+        _ = CreateMap<UpdateDocCommand, Doc>();
+        _ = CreateMap<Doc, GetListDocResponse>()
             .ForMember(x => x.UserName, des => des
-                .MapFrom(doc => (doc.User.Person.FirstName + " " + doc.User.Person.LastName)))
+                .MapFrom(doc => doc.User.Person.FirstName + " " + doc.User.Person.LastName))
             .ForMember(x => x.ClientName, des => des
-                .MapFrom(doc => (doc.Client.Person.FirstName + " " + doc.Client.Person.LastName)));
+                .MapFrom(doc => doc.Client.Person.FirstName + " " + doc.Client.Person.LastName));
 
-        CreateMap<Doc, DocResponse>()
+        _ = CreateMap<Doc, DocResponse>()
                .ForMember(x => x.UserName, des => des
-                .MapFrom(doc => (doc.User.Person.FirstName + " " + doc.User.Person.LastName)));
+                .MapFrom(doc => doc.User.Person.FirstName + " " + doc.User.Person.LastName));
 
-        CreateMap<Doc, DocCountResponse>()
+        _ = CreateMap<Doc, DocCountResponse>()
             .ForMember(x => x.Region, y => y.MapFrom(z => z.Client.Person.Quarter.District.Region))
             .ForMember(x => x.District, y => y.MapFrom(z => z.Client.Person.Quarter.District))
             .ForMember(x => x.Quarter, y => y.MapFrom(z => z.Client.Person.Quarter));

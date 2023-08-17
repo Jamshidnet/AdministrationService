@@ -18,12 +18,10 @@ public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryComman
 
     public async Task Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = await _context.Categories.FindAsync(request.CategoryId, cancellationToken);
-        if (category is null)
-        {
-            throw new NotFoundException(nameof(Category), request.CategoryId);
-        }
-        _context.Categories.Remove(category);
+        var category = await _context.Categories.FindAsync(request.CategoryId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Category), request.CategoryId);
+        
+        _ = _context.Categories.Remove(category);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

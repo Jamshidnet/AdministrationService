@@ -7,8 +7,8 @@ namespace Application.UseCases.Users.Commands.LoginUser
         public LoginUserCommandValidator()
         {
 
-            RuleFor(x => x.Username).NotEmpty().NotNull();
-            RuleFor(x => x.Password).NotEmpty().NotNull();
+            _ = RuleFor(x => x.Username).NotEmpty().NotNull();
+            _ = RuleFor(x => x.Password).NotEmpty().NotNull();
         }
     }
 }

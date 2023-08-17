@@ -35,13 +35,13 @@ public class CreateUserTypeCommandHandler : IRequestHandler<CreateUserTypeComman
             TuserType.OwnerId = userType.Id;
             TuserType.ColumnName = "UserTypeName";
             TuserType.Id = Guid.NewGuid();
-            _dbContext.TranslateUserTypes
+            _ = _dbContext.TranslateUserTypes
             .Add(TuserType);
         });
 
-        await _dbContext.UserTypes.AddAsync(userType);
+        _ = await _dbContext.UserTypes.AddAsync(userType);
 
-        await _dbContext.SaveChangesAsync();
+        _ = await _dbContext.SaveChangesAsync();
         return userType.Id;
     }
 }

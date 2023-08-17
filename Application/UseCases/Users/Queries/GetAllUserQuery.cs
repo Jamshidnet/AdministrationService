@@ -13,7 +13,9 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, List<GetL
     private readonly IMapper _mapper;
 
     public GetAllUserQueryHandler(IApplicationDbContext context, IMapper mapper)
-            => (_context, _mapper) = (context, mapper);
+    {
+        (_context, _mapper) = (context, mapper);
+    }
 
     public async Task<List<GetListUserResponse>> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
     {

@@ -31,8 +31,9 @@ namespace Application.Common.Logging
                 TableId = table.Id,
                 DocId = DocId
             };
-            await _context.DocChangeLogs.AddAsync(docChangeLog);
-            await _context.SaveChangesAsync();
+
+            _ = await _context.DocChangeLogs.AddAsync(docChangeLog);
+            _ = await _context.SaveChangesAsync();
 
         }
     }

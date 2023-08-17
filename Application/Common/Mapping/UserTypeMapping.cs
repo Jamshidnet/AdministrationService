@@ -12,26 +12,26 @@ public class UserTypeMapping : Profile
 {
     public UserTypeMapping()
     {
-        CreateMap<CreateUserTypeCommand, UserType>()
+        _ = CreateMap<CreateUserTypeCommand, UserType>()
                .ForMember(sr => sr.TypeName, des => des
                 .MapFrom(y => y.userTypes
                 .FirstOrDefault().TranslateText));
 
-        CreateMap<UpdateUserCommand, UserType>()
+        _ = CreateMap<UpdateUserCommand, UserType>()
             .ForMember(x => x.Users, u => u.Ignore());
 
 
-        CreateMap<UserType, UserTypeResponse>()
+        _ = CreateMap<UserType, UserTypeResponse>()
             .ForMember(cr => cr.TypeName, cfg => cfg
               .MapFrom<UserTypeValueResolver<UserTypeResponse>>());
 
-        CreateMap<UserType, GetListUserTypeResponse>()
+        _ = CreateMap<UserType, GetListUserTypeResponse>()
             .ForMember(cr => cr.TypeName, cfg => cfg
          .MapFrom<UserTypeValueResolver<GetListUserTypeResponse>>());
 
-        CreateMap<CreateCommandTranslate, TranslateUserType>();
+        _ = CreateMap<CreateCommandTranslate, TranslateUserType>();
 
-        CreateMap<UpdateCommandTranslate, TranslateUserType>();
+        _ = CreateMap<UpdateCommandTranslate, TranslateUserType>();
 
 
     }

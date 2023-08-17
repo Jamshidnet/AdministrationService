@@ -20,7 +20,9 @@ public class DocController : ApiBaseController
     [HttpGet("[action]")]
     [Authorize(Roles = "GetDocById")]
     public async ValueTask<DocResponse> GetDocById(Guid DocId)
-   => await _mediator.Send(new GetByIdDocQuery(DocId));
+    {
+        return await _mediator.Send(new GetByIdDocQuery(DocId));
+    }
 
     [HttpGet("[action]")]
     [Authorize(Roles = "GetAllDoc")]
@@ -35,14 +37,15 @@ public class DocController : ApiBaseController
     [HttpPost("[action]")]
     [Authorize(Roles = "CreateDoc")]
     public async ValueTask<Guid> CreateDoc(CreateDocCommand command)
-        => await _mediator.Send(command);
-
+    {
+        return await _mediator.Send(command);
+    }
 
     [HttpPut("[action]")]
     //[Authorize(Roles ="UpdateDoc")]
     public async ValueTask<IActionResult> UpdateDoc(UpdateDocCommand command)
     {
-        await _mediator.Send(command);
+        _ = await _mediator.Send(command);
         return NoContent();
     }
 

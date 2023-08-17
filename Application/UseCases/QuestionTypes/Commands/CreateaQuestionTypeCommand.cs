@@ -31,13 +31,13 @@ public class CreateQuestionTypeCommandHandler : IRequestHandler<CreateQuestionTy
             TquestionType.OwnerId = questionType.Id;
             TquestionType.ColumnName = "QuestionTypeName";
             TquestionType.Id = Guid.NewGuid();
-            _dbContext.TranslateQuestionTypes
+            _ = _dbContext.TranslateQuestionTypes
             .Add(TquestionType);
         });
 
-        await _dbContext.QuestionTypes.AddAsync(questionType);
+        _ = await _dbContext.QuestionTypes.AddAsync(questionType);
 
-        await _dbContext.SaveChangesAsync();
+        _ = await _dbContext.SaveChangesAsync();
         return questionType.Id;
     }
 }

@@ -24,7 +24,7 @@ public class DeleteClientTypeCommandHandler : IRequestHandler<DeleteClientTypeCo
         {
             throw new NotFoundException(nameof(ClientType), request.ClientTypeId);
         }
-        _context.ClientTypes.Remove(clientType);
+        _ = _context.ClientTypes.Remove(clientType);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

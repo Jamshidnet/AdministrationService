@@ -35,8 +35,8 @@ public class CreateClientAnswerCommandHandler : IRequestHandler<CreateClientAnsw
         ClientAnswer clientAnswer = _mapper.Map<ClientAnswer>(request);
 
         clientAnswer.Id = Guid.NewGuid();
-        await _dbContext.ClientAnswers.AddAsync(clientAnswer);
-        await _dbContext.SaveChangesAsync();
+        _ = await _dbContext.ClientAnswers.AddAsync(clientAnswer);
+        _ = await _dbContext.SaveChangesAsync();
         return clientAnswer.Id;
     }
 
@@ -45,11 +45,4 @@ public class CreateClientAnswerCommandHandler : IRequestHandler<CreateClientAnsw
         if (await _dbContext.Docs.FindAsync(docId) is null)
             throw new NotFoundException("There is no doc with given Id. ");
     }
-    private async Task FilterIfDefaultAnswerExsists(Guid? defaultAnswerId)
-    {
-        if (await _dbContext.DefaultAnswers.FindAsync(defaultAnswerId) is null)
-            throw new NotFoundException("There is no default answer with given Id. ");
-
-    }
-
 }

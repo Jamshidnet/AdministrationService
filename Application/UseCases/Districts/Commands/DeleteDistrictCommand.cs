@@ -22,7 +22,7 @@ public class DeleteDistrictCommandHandler : IRequestHandler<DeleteDistrictComman
         {
             throw new NotFoundException(nameof(Districts), request.DistrictId);
         }
-        _context.Districts.Remove(district);
+        _ = _context.Districts.Remove(district);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

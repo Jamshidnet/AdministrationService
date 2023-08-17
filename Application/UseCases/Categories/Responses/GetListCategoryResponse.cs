@@ -6,5 +6,4 @@ public class GetListCategoryResponse
 
     public string CategoryName { get; set; }
 
-
 }

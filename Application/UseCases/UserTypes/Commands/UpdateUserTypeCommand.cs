@@ -41,8 +41,8 @@ public class UpdateUserTypeCommandHandler : IRequestHandler<UpdateUserTypeComman
                                   && x.LanguageId.ToString() == _userService.LanguageId);
 
         transUserType.TranslateText = request.TypeName;
-        _context.TranslateUserTypes.Update(transUserType);
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = _context.TranslateUserTypes.Update(transUserType);
+        _ = await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<UserTypeResponse>(userType);
     }
 

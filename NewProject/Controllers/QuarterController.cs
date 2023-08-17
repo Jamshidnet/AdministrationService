@@ -17,7 +17,9 @@ namespace NewProject.Controllers
         [HttpGet("[action]")]
         [Authorize(Roles = "GetQuarterById")]
         public async ValueTask<QuarterResponse> GetQuarterById(Guid QuarterId)
-       => await _mediator.Send(new GetByIdQuarterQuery(QuarterId));
+        {
+            return await _mediator.Send(new GetByIdQuarterQuery(QuarterId));
+        }
 
         [HttpGet("[action]")]
         [Authorize(Roles = "GetAllQuarter")]
@@ -32,14 +34,15 @@ namespace NewProject.Controllers
         [HttpPost("[action]")]
         [Authorize(Roles = "CreateQuarter")]
         public async ValueTask<Guid> CreateQuarter(CreateQuarterCommand command)
-            => await _mediator.Send(command);
-
+        {
+            return await _mediator.Send(command);
+        }
 
         [HttpPut("[action]")]
         [Authorize(Roles = "UpdateQuarter")]
         public async ValueTask<IActionResult> UpdateQuarter(UpdateQuarterCommand command)
         {
-            await _mediator.Send(command);
+            _ = await _mediator.Send(command);
             return NoContent();
         }
 

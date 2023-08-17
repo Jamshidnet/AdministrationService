@@ -24,7 +24,7 @@ public class DeleteClientCommandHandler : IRequestHandler<DeleteClientCommand>
             throw new NotFoundException(nameof(Clients), request.ClientId);
         }
 
-        _context.Clients.Remove(client);
+        _ = _context.Clients.Remove(client);
 
         var person = await _context.People.FindAsync(client.PersonId);
 
@@ -32,8 +32,8 @@ public class DeleteClientCommandHandler : IRequestHandler<DeleteClientCommand>
         {
             throw new NotFoundException(nameof(Person), client.PersonId);
         }
-        _context.People.Remove(person);
+        _ = _context.People.Remove(person);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = await _context.SaveChangesAsync(cancellationToken);
     }
 }

@@ -22,8 +22,8 @@ namespace Application.UseCases.Languages.Commands
         {
             Language questionType = _mapper.Map<Language>(request);
             questionType.Id = Guid.NewGuid();
-            await _dbContext.Languages.AddAsync(questionType);
-            await _dbContext.SaveChangesAsync();
+            _ = await _dbContext.Languages.AddAsync(questionType);
+            _ = await _dbContext.SaveChangesAsync();
             return questionType.Id;
         }
     }

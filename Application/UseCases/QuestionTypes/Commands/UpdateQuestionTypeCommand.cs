@@ -38,8 +38,8 @@ public class UpdateQuestionTypeCommandHandler : IRequestHandler<UpdateQuestionTy
                                   && x.LanguageId.ToString() == _userService.LanguageId);
 
         transQuestionType.TranslateText = request.QuestionTypeName;
-        _context.TranslateQuestionTypes.Update(transQuestionType);
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = _context.TranslateQuestionTypes.Update(transQuestionType);
+        _ = await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<QuestionTypeResponse>(questionType);
     }
 

@@ -54,11 +54,11 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
         user.Person = person;
         user.UserType = await _context.UserTypes.SingleOrDefaultAsync(x => x.TypeName == "NoneSet");
         // user.LanguageId = request.LanguageId;
-        await _context.Users.AddAsync(user, cancellationToken);
-        await _context.People.AddAsync(person, cancellationToken);
+        _ = await _context.Users.AddAsync(user, cancellationToken);
+        _ = await _context.People.AddAsync(person, cancellationToken);
 
         user.Language = _context.Languages.Find(user.LanguageId);
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = await _context.SaveChangesAsync(cancellationToken);
 
         UserResponse userResponse = _mapper.Map<UserResponse>(user);
         var tokenResponse = _jwtToken.CreateTokenAsync(userResponse, cancellationToken);

@@ -16,11 +16,6 @@ class RoleValueResolver<T> : IValueResolver<Role, T, string>
     {
         var res = source.TranslateRoles.AsQueryable()
                     .FirstOrDefault(t => t.LanguageId.ToString() == _currentUser.LanguageId);
-        if (res is null)
-        {
-            return source.RoleName;
-        }
-
-        else return res.TranslateText;
+        return res is null ? source.RoleName : res.TranslateText;
     }
 }

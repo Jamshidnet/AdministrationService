@@ -24,7 +24,9 @@ public class UserController : ApiBaseController
     [Authorize(Roles = "GetUserById")]
     [HttpGet("[action]")]
     public async ValueTask<UserResponse> GetUserById(Guid UserId)
-        => await _mediator.Send(new GetByIdUserQuery(UserId));
+    {
+        return await _mediator.Send(new GetByIdUserQuery(UserId));
+    }
 
     [Authorize(Roles = "GetAllUser")]
     [HttpGet("[action]")]
@@ -39,17 +41,23 @@ public class UserController : ApiBaseController
     [AllowAnonymous]
     [HttpPost("[action]")]
     public async ValueTask<TokenResponse> RegisterUser(RegisterUserCommand command)
-        => await _mediator.Send(command);
+    {
+        return await _mediator.Send(command);
+    }
 
     [AllowAnonymous]
     [HttpPost("[action]")]
     public async ValueTask<TokenResponse> LoginUser(LoginUserCommand command)
-        => await _mediator.Send(command);
+    {
+        return await _mediator.Send(command);
+    }
 
     [Authorize(Roles = "CreateUser")]
     [HttpPost("[action]")]
     public async ValueTask<Guid> CreateUser(CreateUserCommand command)
-        => await _mediator.Send(command);
+    {
+        return await _mediator.Send(command);
+    }
 
     [Authorize(Roles = "UpdateUser")]
     [HttpPut("[action]")]

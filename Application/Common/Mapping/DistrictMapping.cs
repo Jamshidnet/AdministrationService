@@ -10,10 +10,10 @@ public class DistrictMapping : Profile
     public DistrictMapping()
     {
 
-        CreateMap<CreateDistrictCommand, District>();
-        CreateMap<UpdateDistrictCommand, District>();
-        CreateMap<District, DistrictResponse>();
-        CreateMap<District, GetListDIstrictResponse>()
+        _ = CreateMap<CreateDistrictCommand, District>();
+        _ = CreateMap<UpdateDistrictCommand, District>();
+        _ = CreateMap<District, DistrictResponse>();
+        _ = CreateMap<District, GetListDIstrictResponse>()
             .ForMember(x => x.RegionName, y => y.MapFrom(dis => dis.Region.RegionName));
 
     }

@@ -18,7 +18,9 @@ public class DefaultAnswerController : ApiBaseController
     [HttpGet("[action]")]
     [Authorize(Roles = "GetDefaultAnswerById")]
     public async ValueTask<DefaultAnswerResponse> GetDefaultAnswerById(Guid DefaultAnswerId)
-        => await _mediator.Send(new GetByIdDefaultAnswerQuery(DefaultAnswerId));
+    {
+        return await _mediator.Send(new GetByIdDefaultAnswerQuery(DefaultAnswerId));
+    }
 
     [HttpGet("[action]")]
     [Authorize(Roles = "GetAllDefaultAnswer")]
@@ -33,14 +35,15 @@ public class DefaultAnswerController : ApiBaseController
     [HttpPost("[action]")]
     [Authorize(Roles = "CreateDefaultAnswer")]
     public async ValueTask<Guid> CreateDefaultAnswer(CreateDefaultAnswerCommand command)
-            => await _mediator.Send(command);
-
+    {
+        return await _mediator.Send(command);
+    }
 
     [HttpPut("[action]")]
     [Authorize(Roles = "UpdateDefaultAnswer")]
     public async ValueTask<IActionResult> UpdateDefaultAnswer(UpdateDefaultAnswerCommand command)
     {
-        await _mediator.Send(command);
+        _ = await _mediator.Send(command);
         return NoContent();
     }
 

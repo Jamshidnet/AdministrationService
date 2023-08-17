@@ -26,8 +26,17 @@ public class FilterByUserHandler : IRequestHandler<FilterByUser, List<FilterByUs
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Here Handler function executes a function in database. 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<List<FilterByUserResponse>> Handle(FilterByUser request, CancellationToken cancellationToken)
     {
+
+
+        
         var result = _dbContext.GetFilteredUsers(
                                                  request.RegionId,
                                                  request.DistrictId,

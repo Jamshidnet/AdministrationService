@@ -12,7 +12,7 @@ public static class JWTConfigurations
 {
     public static AuthenticationBuilder AddJwtSettings(this AuthenticationBuilder builder, IConfiguration configuration)
     {
-        builder.AddJwtBearer(opt =>
+        _ = builder.AddJwtBearer(opt =>
         {
 
             opt.SaveToken = true;

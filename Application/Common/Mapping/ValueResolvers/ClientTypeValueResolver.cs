@@ -17,11 +17,6 @@ public class ClientTypeValueResolver<T> : IValueResolver<ClientType, T, string>
     {
         var res = source.TranslateClientTypes.AsQueryable()
                     .FirstOrDefault(t => t.LanguageId.ToString() == _currentUser.LanguageId);
-        if (res is null)
-        {
-            return source.TypeName;
-        }
-
-        else return res.TranslateText;
+        return res is null ? source.TypeName : res.TranslateText;
     }
 }

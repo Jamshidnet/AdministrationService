@@ -17,7 +17,9 @@ namespace NewProject.Controllers
         [Authorize(Roles = "GetRoleById")]
         [HttpGet("[action]")]
         public async ValueTask<RoleResponse> GetRoleById(Guid Id)
-            => await _mediator.Send(new GetByIdRoleQuery(Id));
+        {
+            return await _mediator.Send(new GetByIdRoleQuery(Id));
+        }
 
         [Authorize(Roles = "GetAllRole")]
         [HttpGet("[action]")]
@@ -32,13 +34,15 @@ namespace NewProject.Controllers
         // [Authorize(Roles = "CreateRole")]
         [HttpPost("[action]")]
         public async ValueTask<Guid> CreateRole(CreateRoleCommand command)
-            => await _mediator.Send(command);
+        {
+            return await _mediator.Send(command);
+        }
 
         [Authorize(Roles = "UpdateRole")]
         [HttpPut("[action]")]
         public async ValueTask<IActionResult> UpdateRole(UpdateRoleCommand command)
         {
-            await _mediator.Send(command);
+            _ = await _mediator.Send(command);
             return NoContent();
         }
 

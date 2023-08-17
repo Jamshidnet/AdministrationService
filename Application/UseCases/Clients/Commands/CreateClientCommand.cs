@@ -41,21 +41,19 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, G
             LastName = request.LastName,
             Birthdate = DateOnly.FromDateTime(request.Birthdate),
             PhoneNumber = request.PhoneNumber,
-            QuarterId = request.QuarterId
+            QuarterId = request.QuarterId,
+            Id = Guid.NewGuid()
         };
-        person.Id = Guid.NewGuid();
-        await _dbContext.People.AddAsync(person);
+        _ = await _dbContext.People.AddAsync(person);
 
         Client client = new()
         {
             PersonId = person.Id,
             ClientTypeId = request.ClientTypeId,
+            Id = Guid.NewGuid()
         };
-
-
-        client.Id = Guid.NewGuid();
-        await _dbContext.Clients.AddAsync(client);
-        await _dbContext.SaveChangesAsync();
+        _ = await _dbContext.Clients.AddAsync(client);
+        _ = await _dbContext.SaveChangesAsync();
         return client.Id;
     }
 }

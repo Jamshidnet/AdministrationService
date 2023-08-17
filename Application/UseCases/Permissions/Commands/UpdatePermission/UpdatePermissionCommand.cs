@@ -35,8 +35,8 @@ namespace Application.UseCases.Permissions.Commands.UpdatePermission
                                       && x.LanguageId.ToString() == _userService.LanguageId);
 
             transPermission.TranslateText = request.Name;
-            _dbContext.TranslatePermissions.Update(transPermission);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _ = _dbContext.TranslatePermissions.Update(transPermission);
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
             return _mapper.Map<PermissionResponse>(permission);
         }
         private async Task<Permission> FilterIfPermissionExsists(Guid clientID)

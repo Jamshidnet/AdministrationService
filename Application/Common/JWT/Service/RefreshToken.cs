@@ -28,8 +28,7 @@ namespace Application.Common.JWT.Service
 
             user.RefreshToken = refreshToken.RefreshToken;
             user.ExpiresDate = refreshToken.ExpiresTime;
-            // _context.Users.Update(user);
-            await _context.SaveChangesAsync(cancellationToken);
+            _ = await _context.SaveChangesAsync(cancellationToken);
             return refreshToken;
 
         }
@@ -66,7 +65,7 @@ namespace Application.Common.JWT.Service
             return new UserRefreshToken()
             {
                 RefreshToken = user.RefreshToken,
-                //  ExpiresTime=user.ExpiresDate,
+                ExpiresTime=user.ExpiresDate?? DateTime.Today,
                 UserName = user.Username
             };
         }

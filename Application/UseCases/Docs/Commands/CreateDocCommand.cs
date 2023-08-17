@@ -51,7 +51,7 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
         Doc doc = _mapper.Map<Doc>(request);
         doc.Id = Guid.NewGuid();
         doc.TakenDate = DateOnly.FromDateTime(DateTime.Now);
-        // Guid? clientId;
+        
         if (request.ClientId is null)
         {
             Person person = new()
@@ -60,10 +60,9 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
                 LastName = request.client.LastName,
                 Birthdate = DateOnly.FromDateTime(request.client.Birthdate),
                 PhoneNumber = request.client.PhoneNumber,
-                QuarterId = request.client.QuarterId
+                QuarterId = request.client.QuarterId,
+                Id = Guid.NewGuid()
             };
-
-            person.Id = Guid.NewGuid();
 
             Client client = new()
             {
@@ -72,11 +71,9 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
                 ClientTypeId = request.client.ClientTypeId,
             };
 
-            // doc.ClientId = client.Id;
             doc.Client = client;
-            await _dbContext.Clients.AddAsync(client);
-            await _dbContext.People.AddAsync(person);
-            // clientId  = client.Id;
+            _ = await _dbContext.Clients.AddAsync(client);
+            _ = await _dbContext.People.AddAsync(person);
         }
         else
         {
@@ -100,9 +97,9 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
         doc.ClientAnswers = clientAnswers;
 
         doc.UserId = user.Id;
-        await _dbContext.Docs.AddAsync(doc);
+        _ = await _dbContext.Docs.AddAsync(doc);
         await _dbContext.ClientAnswers.AddRangeAsync(clientAnswers);
-        await _dbContext.SaveChangesAsync();
+        _ = await _dbContext.SaveChangesAsync();
 
         await _logger.Log(doc.Id, "Create");
 

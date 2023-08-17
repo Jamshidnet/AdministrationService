@@ -38,8 +38,8 @@ public class UpdateClientTypeCommandHandler : IRequestHandler<UpdateClientTypeCo
                                   && x.LanguageId.ToString() == _userService.LanguageId);
 
         transClientType.TranslateText = request.TypeName;
-        _context.TranslateClientTypes.Update(transClientType);
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = _context.TranslateClientTypes.Update(transClientType);
+        _ = await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<ClientTypeResponse>(clientType);
     }
 
