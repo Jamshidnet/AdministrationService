@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0sYb0/Dbnc4zzl80/+hbEeWRdgve7JZrZyg+HZNIumxZqHwEnp3NpcK8xFYh1rnP3J1BQLbOgw4GRa3JqitQ1w==",
+  "dgSpecHash": "TKh+gF/EoQfyvn6dF6FIIu1Nv0tef8korXh3B/c7MQzps12821/qtoITvhntIK4cmCrMz9dcBVS303lrIiJdpA==",
   "success": true,
   "projectFilePath": "C:\\Users\\jturs\\source\\repos\\NewProject\\NewProject\\PublicAffairsPortal.WebUI.csproj",
   "expectedPackageFiles": [
@@ -106,8 +106,8 @@
     "C:\\Users\\jturs\\.nuget\\packages\\serilog.sinks.postgresql\\2.3.0\\serilog.sinks.postgresql.2.3.0.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\sixlabors.fonts\\1.0.0-beta19\\sixlabors.fonts.1.0.0-beta19.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
-    "C:\\Users\\jturs\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
-    "C:\\Users\\jturs\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "C:\\Users\\jturs\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\jturs\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",

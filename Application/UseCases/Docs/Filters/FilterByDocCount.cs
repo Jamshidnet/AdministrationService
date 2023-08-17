@@ -18,6 +18,8 @@ public record FilterByDocCount : IRequest<List<DocCountResponse>>
     public bool ByDistrict { get; set; } = false;
     public Guid? QuarterId { get; set; }
     public bool ByQuarter { get; set; } = false;
+
+
 }
 
 

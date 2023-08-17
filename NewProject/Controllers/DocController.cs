@@ -56,21 +56,18 @@ public class DocController : ApiBaseController
 
     [HttpPost("[action]")]
     [Authorize(Roles = "GetFilteredDoc")]
-    public async ValueTask<IEnumerable<DocCountResponse>> GetFilteredDoc(FilterByDocCount filter, int PageNumber = 1, int PageSize = 10)
+    public async ValueTask<IEnumerable<DocCountResponse>> GetFilteredDoc(FilterByDocCount filter)
     {
-        IPagedList<DocCountResponse> query = (await _mediator
-             .Send(filter))
-             .ToPagedList(PageNumber, PageSize);
+        IEnumerable<DocCountResponse> query = await _mediator
+             .Send(filter);
         return query;
     }
 
     [HttpPost("[action]")]
     [Authorize(Roles = "GetFilteredDocsByUserType")]
-    public async ValueTask<IEnumerable<FilterByUserResponse>> GetFilteredDocsByUserType(FilterByUser filter, int PageNumber = 1, int PageSize = 10)
+    public async ValueTask<IEnumerable<FilterByUserResponse>> GetFilteredDocsByUserType(FilterByUser filter)
     {
-        IPagedList<FilterByUserResponse> query = (await _mediator
-             .Send(filter))
-             .ToPagedList(PageNumber, PageSize);
+        IEnumerable<FilterByUserResponse> query = await _mediator.Send(filter);
         return query;
     }
 

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using NewProject.JWT;
 using NewProject.Service;
+using PublicAffairsPortal.Application.Common.JWT.Service;
 using System.Text.Json.Serialization;
 
 namespace NewProject;
@@ -37,7 +38,7 @@ public static class ConfigureService
 
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Example API", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Public Affairs Portal API" });
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
@@ -59,9 +60,10 @@ public static class ConfigureService
                             Id = "Bearer"
                         }
                     },
-                    new string[] { }
+                    new string[] {}
                 }
             });
+            c.OperationFilter<SecurityRequirementsOperationFilter>();
 
         });
 
