@@ -102,6 +102,7 @@ public class JwtToken : IJwtToken
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("JWT:Key")))
 
         };
+
         var tokenHandler = new JwtSecurityTokenHandler();
         var principal = tokenHandler.ValidateToken(token, tokenValidationParametrs, out SecurityToken securityToken);
         JwtSecurityToken jwtSecurityToken = securityToken as JwtSecurityToken;

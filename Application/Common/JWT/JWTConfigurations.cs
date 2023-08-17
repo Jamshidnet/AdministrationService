@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security;
 using System.Text;
 
 namespace NewProject.JWT;
@@ -12,6 +14,7 @@ public static class JWTConfigurations
     {
         builder.AddJwtBearer(opt =>
         {
+           
             opt.SaveToken = true;
             opt.TokenValidationParameters = new TokenValidationParameters
             {
@@ -25,17 +28,17 @@ public static class JWTConfigurations
                 ClockSkew = TimeSpan.Zero,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT:Key")))
             };
-            //opt.Events = new JwtBearerEvents()
-            //{
-            //    OnAuthenticationFailed = context =>
-            //    {
-            //        if (context.Exception.GetType() == typeof(SecurityException))
-            //        {
-            //            context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
-            //        }
-            //        return Task.CompletedTask;
-            //    }
-            //};
+            opt.Events = new JwtBearerEvents()
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    if (context.Exception.GetType() == typeof(SecurityException))
+                    {
+                        context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
+                    }
+                    return Task.CompletedTask;
+                }
+            };
         });
 
         return builder;

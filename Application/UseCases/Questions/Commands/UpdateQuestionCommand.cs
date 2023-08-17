@@ -9,19 +9,17 @@ using NewProject.Abstraction;
 
 namespace Application.UseCases.Questions.Commands;
 
-
 public class UpdateQuestionCommand : IRequest<QuestionResponse>
 {
     public Guid Id { get; set; }
 
     public string QuestionText { get; set; }
 
-    public Guid? QuestionId { get; set; }
-
-    public Guid? CreatorUserId { get; set; }
-
     public Guid? QuestionTypeId { get; set; }
+
+    public Guid  CategoryId { get; set; }
 }
+
 public class UpdateQuestionCommandHandler : IRequestHandler<UpdateQuestionCommand, QuestionResponse>
 {
     private IApplicationDbContext _context;
@@ -40,13 +38,15 @@ public class UpdateQuestionCommandHandler : IRequestHandler<UpdateQuestionComman
             ?? throw new NotFoundException(nameof(Question), request.Id);
 
         _mapper.Map(request, foundQuestion);
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == _userService.Username)
+             ?? throw new NotFoundException("There is no user with this id. ");
 
         var transQuestion = await _context.TranslateQuestions
              .FirstOrDefaultAsync(x => x.OwnerId == foundQuestion.Id
-                                  && x.LanguageId.ToString() == _userService.LanguageId);
+                                  && x.LanguageId == user.LanguageId);
 
         transQuestion.TranslateText = request.QuestionText;
-
+        foundQuestion.CreatorUserId = user.Id;
         _context.Questions.Update(foundQuestion);
         _context.TranslateQuestions.Update(transQuestion);
         await _context.SaveChangesAsync(cancellationToken);

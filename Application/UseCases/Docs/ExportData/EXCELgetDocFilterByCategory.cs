@@ -47,9 +47,7 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
         sheet1.Column(1).Width = 38;
         sheet1.Column(2).Width = 50;
         sheet1.Column(3).Width = 40;
-        sheet1.Column(4).Width = 20;
-        sheet1.Column(5).Width = 20;
-        sheet1.Columns(6, _context.Categories.Count() + 6).Width = 20;
+        sheet1.Columns(4, _context.Categories.Count() + 4).Width = 20;
         using MemoryStream ms = new();
         wb.SaveAs(ms);
         return new ExcelReportResponse(ms.ToArray(),
@@ -60,55 +58,44 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
     {
         var docs = await _context.Docs.ToListAsync();
 
+        var filteredDocs = docs.GroupBy(d => d.Client.Person.QuarterId).ToList();
+
         DataTable dt = new()
         {
             TableName = "Documents"
         };
-        dt.Columns.Add("Id", typeof(Guid));
-        dt.Columns.Add("User FullName", typeof(string));
-        dt.Columns.Add("Client FullName", typeof(string));
-        dt.Columns.Add("Device", typeof(string));
-        dt.Columns.Add("Taken date", typeof(string));
 
-        var categories = await _context.Categories.ToListAsync();
+        dt.Columns.Add("Region Name", typeof(string));
+        dt.Columns.Add("District Name", typeof(string));
+        dt.Columns.Add("Quarter Name", typeof(string));
+        var categories = await _context.Categories.ToListAsync(cancellationToken: cancellationToken);
 
         foreach (var item in categories)
         {
-            dt.Columns.Add($"{item.CategoryName} Category");
+            dt.Columns.Add($"{item.CategoryName} Category", typeof(long));
         }
 
-        if (docs.Count > 0)
+        if (filteredDocs.Any())
         {
-            docs.ForEach(item =>
+            filteredDocs.ForEach(item =>
             {
-                var answers = item.ClientAnswers.GroupBy(x => x.Question.CategoryId).ToList();
-
                 Dictionary<string, int> counts = new();
                 categories.ForEach(x =>
                 {
-                    bool HasValue = false;
-                    foreach (var y in answers)
-                    {
-                        if (y.First().Question.CategoryId == x.Id)
-                        {
-                            counts.Add(x.CategoryName, y.Count()); HasValue = true;
-                            break;
-                        }
-                    };
-                    if (!HasValue) counts.Add(x.CategoryName, 0);
+                        var matchedDocs = item.Where(d => d.ClientAnswers
+                            .Any(a => a.Question.CategoryId == x.Id)).ToList();
+
+                        counts.Add(x.CategoryName, matchedDocs.Count);
                 });
 
                 DataRow row = dt.NewRow();
 
-                row["Id"] = item.Id;
-                row["User FullName"] = $"{item.User.Person.FirstName} {item.User.Person.LastName}";
-                row["Client FullName"] = $"{item.Client.Person.FirstName} {item.Client.Person.LastName}";
-                row["Device"] = item.Device;
-                row["Taken date"] = item.TakenDate;
-
+                row["Region Name"] = item.First().Client.Person.Quarter.District.Region.RegionName;
+                row["District Name"] = item.First().Client.Person.Quarter.District.DistrictName;
+                row["Quarter Name"] = item.First().Client.Person.Quarter.QuarterName;
                 foreach (var count in counts)
                 {
-                    row[$"{count.Key} Category"] = count.Value;
+                    row[$"{count.Key} Category"] = (long)count.Value;
                 }
                 dt.Rows.Add(row.ItemArray);
             });
