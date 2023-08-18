@@ -1,4 +1,5 @@
 # Public-Affairs-Portal
+![image](https://github.com/Jamshidnet/Public-Affairs-Portal/assets/122851582/a9926526-7ab9-48ea-9c09-1d61ba9142a6)
 
 I have developed a .NET project named "Public Affairs Portal," equipped with a range of compelling features. This platform enables registered users to conduct interviews with citizens based on a database of predefined questions. These questions come with both default answers and options for user-generated responses. The project encompasses various entities, including users, questions, answers, and documents.
 
