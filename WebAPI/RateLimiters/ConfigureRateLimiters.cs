@@ -22,7 +22,7 @@ namespace PublicAffairsPortal.WebUI.RateLimiters
                         }));
             });
 
-
+            
             builder.Services.AddRateLimiter(options =>
             {
                 options.AddTokenBucketLimiter("Token", c =>
@@ -33,21 +33,6 @@ namespace PublicAffairsPortal.WebUI.RateLimiters
                     c.ReplenishmentPeriod = TimeSpan.FromSeconds(10);
                 });
             });
-
-
-            builder.Services.AddRateLimiter(options =>
-            {
-                options.AddSlidingWindowLimiter("Sliding", s =>
-                {
-                    s.PermitLimit = 6;
-                    s.QueueLimit = 0;
-                    s.AutoReplenishment = false;
-                    s.SegmentsPerWindow = 2;
-                    s.Window = TimeSpan.FromSeconds(50);
-                });
-            });
-
         }
-
     }
 }
