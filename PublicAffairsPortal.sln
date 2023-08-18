@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAffairsPortal.Applica
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAffairsPortal.Domein", "Domein\PublicAffairsPortal.Domein.csproj", "{8C5E344F-2D27-4C14-8C09-B983E98819A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAffairsPortal.DataLayer", "Infrustructure\PublicAffairsPortal.DataLayer.csproj", "{D173D252-8971-4235-A0F2-E4750B231178}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAffairsPortal.DataLayer", "DataLayer\PublicAffairsPortal.DataLayer.csproj", "{D173D252-8971-4235-A0F2-E4750B231178}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
