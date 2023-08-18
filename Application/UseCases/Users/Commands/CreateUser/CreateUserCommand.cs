@@ -29,6 +29,7 @@ public record CreateUserCommand : IRequest<Guid>
 
     public Guid UserTypeId { get; set; }
 }
+
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
 {
     private readonly IApplicationDbContext _context;
