@@ -5,6 +5,7 @@ using Application.UseCases.Docs.Queries;
 using Application.UseCases.Docs.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -75,7 +76,8 @@ public class DocController : ApiBaseController
     }
 
     [HttpGet("[action]")]
-    //[Authorize(Roles = "PDFGetDocById")]
+    [Authorize(Roles = "PDFGetDocById")]
+    [EnableRateLimiting("Token")]
     public async ValueTask<FileResult> PDFGetDocById(Guid DocId, string filename = "DocFile")
     {
         var result = await _mediator.Send(new GetDocPDF(filename, DocId));
@@ -83,7 +85,7 @@ public class DocController : ApiBaseController
     }
 
     [HttpGet("[action]")]
-   // [Authorize(Roles = "ExportExcelDocs")]
+    [Authorize(Roles = "ExportExcelDocs")]
     public async Task<FileResult> ExportExcelDocs(string fileName = "DocsFile")
     {
         var result = await _mediator.Send(new GetDocsExcelQuery(fileName));

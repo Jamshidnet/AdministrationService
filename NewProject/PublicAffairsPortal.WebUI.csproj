@@ -30,8 +30,4 @@
     <ProjectReference Include="..\Infrustructure\PublicAffairsPortal.Infrustructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="RateLimiters\" />
-  </ItemGroup>
-
 </Project>
