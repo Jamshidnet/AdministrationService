@@ -11,7 +11,7 @@ For the database architecture, I've adopted a "database first" approach using EF
 
 In summary, the "Public Affairs Portal" showcases a robust array of features, facilitating citizen interviews, comprehensive document management, insightful data analytics, and secure user interactions. The use of permission-based JWT, advanced logging, and MediatR ensures a secure and efficient user experience. The project's entity models, database scripts, and application logic together form a cohesive and versatile solution.
 
-
+https://dbdiagram.io/d/64df610702bd1c4a5e01a529
 
 
 
