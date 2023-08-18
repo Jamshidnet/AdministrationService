@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RMkUEBrxupQ2ZMJL6xanmEAgPLVUEjtSwToGjo5eGmjjn9Cr+ZMre8RvtAhOZY3Xd6L+sR7DFwXJduES/nHQHw==",
+  "dgSpecHash": "FQ32DpczYv0HDrr6o/fNZYNIvrXv7J2tjMHtaRWDIUdGlGVdHSl24xD921DOP/9YEnOb5N+NG4VBCWLdfgDgFQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\PublicAffairsPortal.Domein.csproj",
+  "projectFilePath": "C:\\Users\\jturs\\source\\repos\\Public-Affairs-Portal\\Domein\\PublicAffairsPortal.Domein.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jturs\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.9\\microsoft.entityframeworkcore.abstractions.7.0.9.nupkg.sha512"
   ],

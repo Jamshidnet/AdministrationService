@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="DatabaseScripts\INDEXscripts.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="DatabaseScripts\INDEXscripts.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 

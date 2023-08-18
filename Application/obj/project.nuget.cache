@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4/B+JspSueJ3IDgbRT3YavJ0sr2adWgZQYFKZqEB5LjLFAWr84vvriVGoT3KDjygP+yR/DBPsnwEhgcJbuhjKQ==",
+  "dgSpecHash": "luzmO3Ry5rja/fUxy2UNIyX/jleIyimR3gg20PzRDK8u04L2Hj8Uvewazw5IFiLMdSWctNfktzMRRXqc2hWj+g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Application\\PublicAffairsPortal.Application.csproj",
+  "projectFilePath": "C:\\Users\\jturs\\source\\repos\\Public-Affairs-Portal\\Application\\PublicAffairsPortal.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jturs\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

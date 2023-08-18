@@ -45,11 +45,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\PublicAffairsPortal.Domein.csproj",
+      "projectUniqueName": "C:\\Users\\jturs\\source\\repos\\Public-Affairs-Portal\\Domein\\PublicAffairsPortal.Domein.csproj",
       "projectName": "PublicAffairsPortal.Domein",
-      "projectPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\PublicAffairsPortal.Domein.csproj",
+      "projectPath": "C:\\Users\\jturs\\source\\repos\\Public-Affairs-Portal\\Domein\\PublicAffairsPortal.Domein.csproj",
       "packagesPath": "C:\\Users\\jturs\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jturs\\source\\repos\\NewProject\\Domein\\obj\\",
+      "outputPath": "C:\\Users\\jturs\\source\\repos\\Public-Affairs-Portal\\Domein\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
