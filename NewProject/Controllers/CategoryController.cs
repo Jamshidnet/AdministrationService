@@ -12,7 +12,6 @@ namespace NewProject.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-//[LogControllerActions(TableId =TableIdConst.CategoryTable)]
 public class CategoryController : ApiBaseController
 {
     [HttpGet("[action]")]

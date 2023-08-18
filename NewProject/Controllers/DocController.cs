@@ -42,7 +42,7 @@ public class DocController : ApiBaseController
     }
 
     [HttpPut("[action]")]
-    //[Authorize(Roles ="UpdateDoc")]
+    [Authorize(Roles ="UpdateDoc")]
     public async ValueTask<IActionResult> UpdateDoc(UpdateDocCommand command)
     {
         _ = await _mediator.Send(command);
@@ -83,7 +83,7 @@ public class DocController : ApiBaseController
     }
 
     [HttpGet("[action]")]
-    // [Authorize(Roles = "ExportExcelDocs")]
+   // [Authorize(Roles = "ExportExcelDocs")]
     public async Task<FileResult> ExportExcelDocs(string fileName = "DocsFile")
     {
         var result = await _mediator.Send(new GetDocsExcelQuery(fileName));
