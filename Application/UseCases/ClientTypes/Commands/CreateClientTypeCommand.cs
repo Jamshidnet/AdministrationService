@@ -31,13 +31,13 @@ public class CreateClientTypeCommandHandler : IRequestHandler<CreateClientTypeCo
             TclientType.OwnerId = clientType.Id;
             TclientType.ColumnName = "ClientTypeName";
             TclientType.Id = Guid.NewGuid();
-            _ = _dbContext.TranslateClientTypes
+             _dbContext.TranslateClientTypes
             .Add(TclientType);
         });
 
-        _ = await _dbContext.ClientTypes.AddAsync(clientType);
+         await _dbContext.ClientTypes.AddAsync(clientType);
 
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.SaveChangesAsync();
         return clientType.Id;
     }
 }

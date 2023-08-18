@@ -71,7 +71,7 @@ public class JwtToken : IJwtToken
         };
 
 
-        _ = refreshTokenService.AddOrUpdateRefreshToken(new UserRefreshToken()
+         refreshTokenService.AddOrUpdateRefreshToken(new UserRefreshToken()
         {
             RefreshToken = responseModel.RefreshToken,
             ExpiresTime = DateTime.Now.AddDays(_configuration.GetValue<int>("JWT:RefreshTokenExpiredTimeAtDays")),

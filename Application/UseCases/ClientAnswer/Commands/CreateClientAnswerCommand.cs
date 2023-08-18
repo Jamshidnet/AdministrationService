@@ -7,12 +7,12 @@ using NewProject.Abstraction;
 namespace Application.UseCases.DefaultAnswers.Commands;
 
 
-public record CreateClientAnswerCommand(string? AnswerText, Guid QuestionId, Guid DocId, Guid? DefaultAnswerId) : IRequest<Guid>;
+public record CreateClientAnswerCommand(string AnswerText, Guid QuestionId, Guid DocId, Guid? DefaultAnswerId) : IRequest<Guid>;
 
 public class CreateClientAnswerCommandHandler : IRequestHandler<CreateClientAnswerCommand, Guid>
 {
 
-    private IApplicationDbContext _dbContext;
+    private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
 
     public CreateClientAnswerCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
@@ -35,8 +35,8 @@ public class CreateClientAnswerCommandHandler : IRequestHandler<CreateClientAnsw
         ClientAnswer clientAnswer = _mapper.Map<ClientAnswer>(request);
 
         clientAnswer.Id = Guid.NewGuid();
-        _ = await _dbContext.ClientAnswers.AddAsync(clientAnswer);
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.ClientAnswers.AddAsync(clientAnswer,cancellationToken);
+         await _dbContext.SaveChangesAsync(cancellationToken);
         return clientAnswer.Id;
     }
 

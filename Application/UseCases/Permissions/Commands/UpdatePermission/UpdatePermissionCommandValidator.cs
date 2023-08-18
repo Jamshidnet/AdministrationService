@@ -8,7 +8,7 @@ public class UpdatePermissionCommandValidation : AbstractValidator<UpdatePermiss
 
     public UpdatePermissionCommandValidation()
     {
-        _ = RuleFor(x => x.Name)
+         RuleFor(x => x.Name)
            .NotNull()
            .NotEmpty().WithMessage("Permission name must not be empty!")
            .MaximumLength(255).WithMessage("Permission name cannot exceed 255 characters.");

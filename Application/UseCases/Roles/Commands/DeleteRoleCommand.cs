@@ -23,7 +23,7 @@ public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
         if (entity is null)
             throw new NotFoundException(nameof(Role), request.Id);
 
-        _ = _context.Roles.Remove(entity);
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         _context.Roles.Remove(entity);
+         await _context.SaveChangesAsync(cancellationToken);
     }
 }

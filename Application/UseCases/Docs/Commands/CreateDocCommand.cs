@@ -72,8 +72,8 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
             };
 
             doc.Client = client;
-            _ = await _dbContext.Clients.AddAsync(client);
-            _ = await _dbContext.People.AddAsync(person);
+             await _dbContext.Clients.AddAsync(client);
+             await _dbContext.People.AddAsync(person);
         }
         else
         {
@@ -97,9 +97,9 @@ public class CreateDocCommandHandler : IRequestHandler<CreateDocCommand, Guid>
         doc.ClientAnswers = clientAnswers;
 
         doc.UserId = user.Id;
-        _ = await _dbContext.Docs.AddAsync(doc);
+         await _dbContext.Docs.AddAsync(doc);
         await _dbContext.ClientAnswers.AddRangeAsync(clientAnswers);
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.SaveChangesAsync();
 
         await _logger.Log(doc.Id, "Create");
 

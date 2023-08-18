@@ -43,7 +43,7 @@ public class QuestionTypeController : ApiBaseController
     [Authorize(Roles = "UpdateQuestionType")]
     public async ValueTask<IActionResult> UpdateQuestionType(UpdateQuestionTypeCommand command)
     {
-        _ = await _mediator.Send(command);
+         await _mediator.Send(command);
         return NoContent();
     }
 

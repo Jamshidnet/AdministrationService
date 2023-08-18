@@ -34,13 +34,13 @@ public class CreateDefaultAnswerCommandHandler : IRequestHandler<CreateDefaultAn
             TdefaultAnswer.OwnerId = defaultAnswer.Id;
             TdefaultAnswer.ColumnName = "DefaultAnswerName";
             TdefaultAnswer.Id = Guid.NewGuid();
-            _ = _dbContext.TranslateDefaultAnswers
+             _dbContext.TranslateDefaultAnswers
             .Add(TdefaultAnswer);
         });
 
-        _ = await _dbContext.DefaultAnswers.AddAsync(defaultAnswer);
+         await _dbContext.DefaultAnswers.AddAsync(defaultAnswer);
 
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.SaveChangesAsync();
         return defaultAnswer.Id;
     }
 

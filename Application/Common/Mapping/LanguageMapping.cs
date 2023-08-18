@@ -10,8 +10,8 @@ public class LanguageMapping : Profile
 
     public LanguageMapping()
     {
-        _ = CreateMap<CreateLanguageCommand, Language>();
-        _ = CreateMap<Language, LanguageResponse>();
+         CreateMap<CreateLanguageCommand, Language>();
+         CreateMap<Language, LanguageResponse>();
     }
 
 }

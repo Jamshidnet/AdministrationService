@@ -22,10 +22,10 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
         var person = await _context.People.FindAsync(user.PersonId)
             ?? throw new NotFoundException(" there is no person with this id ");
 
-        _ = _context.Users.Remove(user);
+         _context.Users.Remove(user);
 
-        _ = _context.People.Remove(person);
+         _context.People.Remove(person);
 
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         await _context.SaveChangesAsync(cancellationToken);
     }
 }

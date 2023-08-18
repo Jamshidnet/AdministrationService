@@ -45,7 +45,7 @@ public class DocController : ApiBaseController
     [Authorize(Roles ="UpdateDoc")]
     public async ValueTask<IActionResult> UpdateDoc(UpdateDocCommand command)
     {
-        _ = await _mediator.Send(command);
+         await _mediator.Send(command);
         return NoContent();
     }
 

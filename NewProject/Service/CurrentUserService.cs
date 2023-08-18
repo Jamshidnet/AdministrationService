@@ -7,7 +7,7 @@ namespace NewProject.Service;
 
 public class CurrentUserService : ICurrentUserService
 {
-    private IHttpContextAccessor _httpContextAccessor;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public CurrentUserService(IHttpContextAccessor httpContextAccessor)
     {

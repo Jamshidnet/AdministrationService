@@ -67,11 +67,11 @@ public class GetQuestionExcel : IRequest<ExcelReportResponse>
             {
                 TableName = "Questions"
             };
-            _ = dt.Columns.Add("Id", typeof(Guid));
-            _ = dt.Columns.Add("Question Text", typeof(string));
-            _ = dt.Columns.Add("Creator Username", typeof(string));
-            _ = dt.Columns.Add("Category Name", typeof(string));
-            _ = dt.Columns.Add("Question type", typeof(string));
+             dt.Columns.Add("Id", typeof(Guid));
+             dt.Columns.Add("Question Text", typeof(string));
+             dt.Columns.Add("Creator Username", typeof(string));
+             dt.Columns.Add("Category Name", typeof(string));
+             dt.Columns.Add("Question type", typeof(string));
 
 
             var _list = _mapper.Map<List<GetListQuestionResponse>>(AllQuestions);
@@ -79,7 +79,7 @@ public class GetQuestionExcel : IRequest<ExcelReportResponse>
             {
                 _list.ForEach(item =>
                 {
-                    _ = dt.Rows.Add(
+                     dt.Rows.Add(
                         item.Id,
                         item.QuestionText,
                         item.CreatorUser,

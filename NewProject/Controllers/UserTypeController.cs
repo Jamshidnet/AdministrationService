@@ -42,7 +42,7 @@ public class UserTypeController : ApiBaseController
     [HttpPut("[action]")]
     public async ValueTask<IActionResult> UpdateUserType(UpdateUserTypeCommand command)
     {
-        _ = await _mediator.Send(command);
+         await _mediator.Send(command);
         return NoContent();
     }
 

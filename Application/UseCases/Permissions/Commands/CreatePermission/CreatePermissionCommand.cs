@@ -31,13 +31,13 @@ public class CreatePermissionCommandHandler : IRequestHandler<CreatePermissionCo
             Tpermission.OwnerId = permission.Id;
             Tpermission.ColumnName = "PermissionName";
             Tpermission.Id = Guid.NewGuid();
-            _ = _dbContext.TranslatePermissions
+             _dbContext.TranslatePermissions
             .Add(Tpermission);
         });
 
-        _ = await _dbContext.Permissions.AddAsync(permission);
+         await _dbContext.Permissions.AddAsync(permission);
 
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.SaveChangesAsync();
         return permission.Id;
     }
 }

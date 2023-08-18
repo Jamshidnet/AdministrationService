@@ -12,7 +12,7 @@ namespace Application.Common.Mapping
     {
         public CategoryMapping()
         {
-            _ = CreateMap<CreateCategoryCommand, Category>()
+             CreateMap<CreateCategoryCommand, Category>()
                 .ForMember(sr => sr.CategoryName, des => des
                 .MapFrom(y => y.categories
                 .FirstOrDefault().TranslateText));
@@ -21,17 +21,17 @@ namespace Application.Common.Mapping
             //    .ForMember(x => x.TranslateCategories, des => des.MapFrom(y => y.categories))
             //    .ForMember(x => x.CategoryName, des => des.MapFrom(y => y.categories.First().TranslateText));
 
-            _ = CreateMap<Category, CategoryResponse>()
+             CreateMap<Category, CategoryResponse>()
                 .ForMember(cr => cr.CategoryName, cfg => cfg
                 .MapFrom<CategoryValueResolver<CategoryResponse>>());
 
-            _ = CreateMap<Category, GetListCategoryResponse>()
+             CreateMap<Category, GetListCategoryResponse>()
                 .ForMember(cr => cr.CategoryName, cfg => cfg
                 .MapFrom<CategoryValueResolver<GetListCategoryResponse>>());
 
-            _ = CreateMap<CreateCommandTranslate, TranslateCategory>();
+             CreateMap<CreateCommandTranslate, TranslateCategory>();
 
-            _ = CreateMap<UpdateCommandTranslate, TranslateCategory>();
+             CreateMap<UpdateCommandTranslate, TranslateCategory>();
 
         }
     }

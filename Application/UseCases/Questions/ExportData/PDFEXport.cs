@@ -25,8 +25,8 @@ public class GetQuestionPDFHandler : IRequestHandler<GetQuestionPDF, PDFExportRe
     {
         using MemoryStream ms = new();
         Document document = new();
-        _ = document.SetMargins(0, 0, 40, 20); // Adjusted margins
-        _ = document.SetPageSize(PageSize.A4);
+         document.SetMargins(0, 0, 40, 20); // Adjusted margins
+         document.SetPageSize(PageSize.A4);
 
         PdfWriter writer = PdfWriter.GetInstance(document, ms);
 
@@ -45,7 +45,7 @@ public class GetQuestionPDFHandler : IRequestHandler<GetQuestionPDF, PDFExportRe
             HorizontalAlignment = Element.ALIGN_CENTER,
             BackgroundColor = BaseColor.LIGHT_GRAY
         }; // Increased font size
-        _ = table.AddCell(headerCell);
+         table.AddCell(headerCell);
         table.CompleteRow();
 
         PdfPCell cell = new()
@@ -55,19 +55,19 @@ public class GetQuestionPDFHandler : IRequestHandler<GetQuestionPDF, PDFExportRe
 
             Phrase = new Phrase("Id", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)) // Adjusted font size
         };
-        _ = table.AddCell(cell);
+         table.AddCell(cell);
 
         cell.Phrase = new Phrase("Question Text", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
-        _ = table.AddCell(cell);
+         table.AddCell(cell);
 
         cell.Phrase = new Phrase("Question Type", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
-        _ = table.AddCell(cell);
+         table.AddCell(cell);
 
         cell.Phrase = new Phrase("Creator User", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
-        _ = table.AddCell(cell);
+         table.AddCell(cell);
 
         cell.Phrase = new Phrase("Category Name", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
-        _ = table.AddCell(cell);
+         table.AddCell(cell);
 
         table.CompleteRow();
 
@@ -82,7 +82,7 @@ public class GetQuestionPDFHandler : IRequestHandler<GetQuestionPDF, PDFExportRe
             table.CompleteRow();
         }
 
-        _ = document.Add(table);
+         document.Add(table);
         document.Close();
 
         return await Task.FromResult(new PDFExportResponse(ms.ToArray(), "application/pdf", request.FileName));
@@ -101,7 +101,7 @@ public class HeaderFooterHelper : PdfPageEventHelper
         footerTable.DefaultCell.HorizontalAlignment = Element.ALIGN_RIGHT;
         footerTable.AddCell(new Phrase($"Date: {DateTime.Now:yyyy-MM-dd}", new Font(Font.FontFamily.HELVETICA, 8)));
 
-        _ = footerTable.WriteSelectedRows(0, -1, document.LeftMargin, document.BottomMargin, writer.DirectContent);
+         footerTable.WriteSelectedRows(0, -1, document.LeftMargin, document.BottomMargin, writer.DirectContent);
     }
 }
 

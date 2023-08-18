@@ -1,7 +1,6 @@
 ﻿using Application.Common.Abstraction;
 using Application.Common.Logging;
 using Application.Common.Mapping;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,18 +16,17 @@ public static class ConfigureService
     public static IServiceCollection AddApi(this IServiceCollection services, IConfiguration configuration)
     {
 
-        _ = services.AddControllers().AddJsonOptions(x =>
+         services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-        _ = services.AddEndpointsApiExplorer();
-        _ = services.AddAuthorization();
-        _ = services.AddScoped<IDocChangeLogger, LoggingService>();
-        _ = services.AddScoped<ICurrentUserService, CurrentUserService>();
-        _ = services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtSettings(configuration);
-        _ = services.AddHttpContextAccessor();
-        _ = services.AddSwaggerGen();
-        _ = services.AddAutoMapper(typeof(CategoryMapping));
-        _ = services.AddFluentValidation(); 
-        _ = services.AddSwaggerGen(c =>
+         services.AddEndpointsApiExplorer();
+         services.AddAuthorization();
+         services.AddScoped<IDocChangeLogger, LoggingService>();
+         services.AddScoped<ICurrentUserService, CurrentUserService>();
+         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtSettings(configuration);
+         services.AddHttpContextAccessor();
+         services.AddSwaggerGen();
+         services.AddAutoMapper(typeof(CategoryMapping));
+         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Public Affairs Portal API" });
 
@@ -54,7 +52,7 @@ public static class ConfigureService
 
                         }
                     },
-                    new string[] {}
+                    System.Array.Empty<string>()
                 }
             });
         });

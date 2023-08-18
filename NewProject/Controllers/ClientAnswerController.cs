@@ -43,7 +43,7 @@ public class ClientAnswerController : ApiBaseController
     [Authorize(Roles = "UpdateClientAnswer")]
     public async ValueTask<IActionResult> UpdateClientAnswer(UpdateClientAnswerCommand command)
     {
-        _ = await _mediator.Send(command);
+         await _mediator.Send(command);
         return NoContent();
     }
 

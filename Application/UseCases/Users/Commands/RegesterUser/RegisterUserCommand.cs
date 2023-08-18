@@ -50,7 +50,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
         var user = _mapper.Map<User>(request);
         var person = _mapper.Map<Person>(request);
         person.Id = Guid.NewGuid();
-        var roles = await _context.Roles.ToListAsync();
+        var roles = await _context.Roles.ToListAsync(cancellationToken);
         var NewUserRole = roles.SingleOrDefault(x => x.RoleName == "NewUser");
         user.Roles.Add(NewUserRole);
         user.SaltId = Guid.NewGuid();
@@ -58,11 +58,11 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
         user.Id = Guid.NewGuid();
         user.Person = person;
         user.UserType = await _context.UserTypes.SingleOrDefaultAsync(x => x.TypeName == "NoneSet");
-        _ = await _context.Users.AddAsync(user, cancellationToken);
-        _ = await _context.People.AddAsync(person, cancellationToken);
+         await _context.Users.AddAsync(user, cancellationToken);
+         await _context.People.AddAsync(person, cancellationToken);
 
         user.Language = _context.Languages.Find(user.LanguageId);
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         await _context.SaveChangesAsync(cancellationToken);
 
         UserResponse userResponse = _mapper.Map<UserResponse>(user);
         var tokenResponse = _jwtToken.CreateTokenAsync(userResponse, cancellationToken);

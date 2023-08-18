@@ -43,7 +43,7 @@ public class RegionController : ApiBaseController
     [HttpPut("[action]")]
     public async ValueTask<IActionResult> UpdateRegion(UpdateRegionCommand command)
     {
-        _ = await _mediator.Send(command);
+         await _mediator.Send(command);
         return NoContent();
     }
     [Authorize(Roles = "DeleteRegion")]

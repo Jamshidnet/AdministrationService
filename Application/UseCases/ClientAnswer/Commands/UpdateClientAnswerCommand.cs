@@ -38,9 +38,9 @@ public class UpdateClientAnswerCommandHandler : IRequestHandler<UpdateClientAnsw
         await FilterIfClienExsists(request.DocId);
         var foundClientAnswer = await _context.ClientAnswers.FindAsync(new object[] { request.Id }, cancellationToken)
             ?? throw new NotFoundException(nameof(ClientAnswer), request.Id);
-        _ = _mapper.Map(request, foundClientAnswer);
-        _ = _context.ClientAnswers.Update(foundClientAnswer);
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         _mapper.Map(request, foundClientAnswer);
+         _context.ClientAnswers.Update(foundClientAnswer);
+         await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<ClientAnswerResponse>(foundClientAnswer);
     }
     private async Task FilterIfClientAnswerExsists(Guid answerId)

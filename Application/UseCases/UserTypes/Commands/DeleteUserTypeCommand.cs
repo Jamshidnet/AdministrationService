@@ -23,7 +23,7 @@ public class DeleteUserTypeCommandHandler : IRequestHandler<DeleteUserTypeComman
         {
             throw new NotFoundException(nameof(UserType), request.UserTypeId);
         }
-        _ = _context.UserTypes.Remove(clientType);
+         _context.UserTypes.Remove(clientType);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

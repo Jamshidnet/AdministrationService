@@ -46,8 +46,8 @@ public class UpdateDistrictCommandHandler : IRequestHandler<UpdateDistrictComman
         }
         foundDistrict.RegionId = request.RegionId;
         foundDistrict.DistrictName = request.DistrictName;
-        _ = _context.Districts.Update(foundDistrict);
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         _context.Districts.Update(foundDistrict);
+         await _context.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<DistrictResponse>(foundDistrict);
     }

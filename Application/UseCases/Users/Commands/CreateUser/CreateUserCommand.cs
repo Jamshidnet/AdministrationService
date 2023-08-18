@@ -68,7 +68,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
             QuarterId = request.QuarterId,
             Id = Guid.NewGuid()
         };
-        _ = await _context.People.AddAsync(person);
+         await _context.People.AddAsync(person, cancellationToken);
 
         Guid salt = Guid.NewGuid();
         User user = new()
@@ -82,8 +82,8 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
             UserTypeId = request.UserTypeId,
             LanguageId = request.LanguageId
         };
-        _ = await _context.Users.AddAsync(user, cancellationToken);
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         await _context.Users.AddAsync(user, cancellationToken);
+         await _context.SaveChangesAsync(cancellationToken);
         return user.Id;
 
 

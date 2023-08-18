@@ -14,7 +14,7 @@ public record UpdateCategoryCommand(Guid Id, string CategoryName) : IRequest<Cat
 public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, CategoryResponse>
 {
 
-    private IApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
     private readonly ICurrentUserService _userService;
     public UpdateCategoryCommandHandler(IApplicationDbContext dbContext, IMapper mapper, ICurrentUserService userService)
@@ -30,11 +30,11 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
 
         var transCategory = await _context.TranslateCategories
              .FirstOrDefaultAsync(x => x.OwnerId == category.Id
-                                  && x.LanguageId.ToString() == _userService.LanguageId);
+                                  && x.LanguageId.ToString() == _userService.LanguageId, cancellationToken);
 
         transCategory.TranslateText = request.CategoryName;
-        _ = _context.TranslateCategories.Update(transCategory);
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         _context.TranslateCategories.Update(transCategory);
+         await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<CategoryResponse>(category);
     }
 

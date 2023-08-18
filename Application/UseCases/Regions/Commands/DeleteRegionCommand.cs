@@ -21,7 +21,7 @@ public class DeleteRegionCommandHandler : IRequestHandler<DeleteRegionCommand>
         {
             throw new NotFoundException(nameof(Regions), request.RegionId);
         }
-        _ = _context.Regions.Remove(region);
+         _context.Regions.Remove(region);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

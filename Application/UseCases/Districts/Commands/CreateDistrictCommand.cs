@@ -22,8 +22,8 @@ public class CreateDistrictCommandHandler : IRequestHandler<CreateDistrictComman
         await FilterIfRegionExsists(request.RegionId);
         District district = _mapper.Map<District>(request);
         district.Id = Guid.NewGuid();
-        _ = await _dbContext.Districts.AddAsync(district);
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.Districts.AddAsync(district);
+         await _dbContext.SaveChangesAsync();
         return district.Id;
 
     }

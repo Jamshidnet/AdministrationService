@@ -23,7 +23,7 @@ public class DeleteLanguageCommandHandler : IRequestHandler<DeleteLanguageComman
         {
             throw new NotFoundException(nameof(Language), request.LanguageId);
         }
-        _ = _context.Languages.Remove(clientType);
+         _context.Languages.Remove(clientType);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

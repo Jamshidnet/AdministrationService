@@ -64,14 +64,14 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
             TableName = "Documents"
         };
 
-        _ = dt.Columns.Add("Region Name", typeof(string));
-        _ = dt.Columns.Add("District Name", typeof(string));
-        _ = dt.Columns.Add("Quarter Name", typeof(string));
+         dt.Columns.Add("Region Name", typeof(string));
+         dt.Columns.Add("District Name", typeof(string));
+         dt.Columns.Add("Quarter Name", typeof(string));
         var categories = await _context.Categories.ToListAsync(cancellationToken: cancellationToken);
 
         foreach (var item in categories)
         {
-            _ = dt.Columns.Add($"{item.CategoryName} Category", typeof(long));
+             dt.Columns.Add($"{item.CategoryName} Category", typeof(long));
         }
 
         if (filteredDocs.Any())
@@ -96,7 +96,7 @@ public class GetDocsExcelQueryHandler : IRequestHandler<GetDocsExcelQuery, Excel
                 {
                     row[$"{count.Key} Category"] = (long)count.Value;
                 }
-                _ = dt.Rows.Add(row.ItemArray);
+                 dt.Rows.Add(row.ItemArray);
             });
         }
 

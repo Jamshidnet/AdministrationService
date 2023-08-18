@@ -44,7 +44,7 @@ public class QuestionController : ApiBaseController
     [Authorize(Roles = "UpdateQuestion")]
     public async ValueTask<IActionResult> UpdateQuestion(UpdateQuestionCommand command)
     {
-        _ = await _mediator.Send(command);
+         await _mediator.Send(command);
         return NoContent();
     }
 

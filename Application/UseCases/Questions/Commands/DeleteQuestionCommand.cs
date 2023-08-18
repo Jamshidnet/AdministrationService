@@ -22,7 +22,7 @@ public class DeleteQuestionCommandHandler : IRequestHandler<DeleteQuestionComman
         {
             throw new NotFoundException(nameof(Questions), request.QuestionId);
         }
-        _ = _context.Questions.Remove(question);
+         _context.Questions.Remove(question);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

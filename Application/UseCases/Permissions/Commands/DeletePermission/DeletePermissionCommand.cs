@@ -21,7 +21,7 @@ public class DeletePermissionCommandHandler : IRequestHandler<DeletePermissionCo
         {
             throw new NotFoundException(nameof(Permissions), request.PermissionId);
         }
-        _ = _context.Permissions.Remove(permission);
+         _context.Permissions.Remove(permission);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

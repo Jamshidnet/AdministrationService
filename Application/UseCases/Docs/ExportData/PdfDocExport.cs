@@ -25,8 +25,8 @@ public class GenerateDocPDFHandler : IRequestHandler<GetDocPDF, PDFExportRespons
 
         using MemoryStream ms = new();
         Document document = new();
-        _ = document.SetMargins(30, 30, 40, 40);
-        _ = document.SetPageSize(PageSize.A4);
+         document.SetMargins(30, 30, 40, 40);
+         document.SetPageSize(PageSize.A4);
 
         PdfWriter writer = PdfWriter.GetInstance(document, ms);
 
@@ -40,7 +40,7 @@ public class GenerateDocPDFHandler : IRequestHandler<GetDocPDF, PDFExportRespons
         {
             Alignment = Element.ALIGN_CENTER
         };
-        _ = document.Add(titleParagraph);
+         document.Add(titleParagraph);
 
         Chunk creatorUserChunk = new($"\n\nCreator User:\n" +
           $"    Username: {doc.User.Username}\n" +
@@ -52,7 +52,7 @@ public class GenerateDocPDFHandler : IRequestHandler<GetDocPDF, PDFExportRespons
           $"    Usser Type: {doc.User.UserType.TypeName}\n\n", regularFont);
 
         Paragraph creatorUserParagraph = new(creatorUserChunk);
-        _ = document.Add(creatorUserParagraph);
+         document.Add(creatorUserParagraph);
 
         Chunk clientInfoChunk = new($"Client:\n" +
             $"  First Name: {doc.Client.Person.FirstName}\n" +
@@ -63,35 +63,35 @@ public class GenerateDocPDFHandler : IRequestHandler<GetDocPDF, PDFExportRespons
             $"  Client Type: {doc.Client.ClientType.TypeName}\n\n", regularFont);
 
         Paragraph clientInfoParagraph = new(clientInfoChunk);
-        _ = document.Add(clientInfoParagraph);
+         document.Add(clientInfoParagraph);
 
         Chunk takenDateChunk = new($"Taken Date: {doc.TakenDate}", regularFont);
         Paragraph takenDateParagraph = new(takenDateChunk);
-        _ = document.Add(takenDateParagraph);
+         document.Add(takenDateParagraph);
 
         Chunk locationChunk = new($"Location: Latitude - {doc.Latitude}, Longitude - {doc.Longitude}", regularFont);
         Paragraph locationParagraph = new(locationChunk);
-        _ = document.Add(locationParagraph);
+         document.Add(locationParagraph);
 
         Chunk deviceChunk = new($"Device: {doc.Device}", regularFont);
         Paragraph deviceParagraph = new(deviceChunk);
-        _ = document.Add(deviceParagraph);
+         document.Add(deviceParagraph);
 
         Chunk answersTitleChunk = new("\n\n\nClient Answers:", sectionTitleFont);
         Paragraph answersTitleParagraph = new(answersTitleChunk);
-        _ = document.Add(answersTitleParagraph);
+         document.Add(answersTitleParagraph);
 
         var answers = doc.ClientAnswers.GroupBy(x => x.Question.CategoryId);
         foreach (var item in answers)
         {
             Chunk category = new($"\nCategory: {item.First().Question.Category.CategoryName}", regularFont);
             Paragraph categorypar = new(category);
-            _ = document.Add(categorypar);
+             document.Add(categorypar);
             foreach (var answer in item)
             {
                 Chunk answerTextChunk = new($"     Question: {answer.Question.QuestionText}      Answer: {answer.AnswerText}", regularFont);
                 Paragraph answerParagraph = new(answerTextChunk);
-                _ = document.Add(answerParagraph);
+                 document.Add(answerParagraph);
             }
         }
         document.Close();

@@ -10,11 +10,11 @@ public class QuarterMapping : Profile
     public QuarterMapping()
     {
 
-        _ = CreateMap<CreateQuarterCommand, Quarter>();
-        _ = CreateMap<UpdateQuarterCommand, Quarter>();
-        _ = CreateMap<Quarter, GetListQuarterResponse>()
+         CreateMap<CreateQuarterCommand, Quarter>();
+         CreateMap<UpdateQuarterCommand, Quarter>();
+         CreateMap<Quarter, GetListQuarterResponse>()
             .ForMember(x => x.DistrictName, y => y.MapFrom(q => q.District.DistrictName));
-        _ = CreateMap<Quarter, QuarterResponse>();
+         CreateMap<Quarter, QuarterResponse>();
         //   .ForMember(x => x.Clients, z => z.MapFrom(t => t.People.SingleOrDefault(y => y.QuarterId == t.Id).Clients));
     }
 }

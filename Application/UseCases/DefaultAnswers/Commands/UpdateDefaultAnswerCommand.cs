@@ -38,8 +38,8 @@ public class UpdateDefaultAnswerCommandHandler : IRequestHandler<UpdateDefaultAn
         var foundDefaultAnswer = await FilterIfDefaultAnswerExsists(request.Id);
         await FilterIfQuestionExsists(request.QuestionId);
 
-        _ = _mapper.Map(request, foundDefaultAnswer);
-        _ = _context.DefaultAnswers.Update(foundDefaultAnswer);
+         _mapper.Map(request, foundDefaultAnswer);
+         _context.DefaultAnswers.Update(foundDefaultAnswer);
 
 
         var transDefaultAnswer = await _context.TranslateDefaultAnswers
@@ -47,10 +47,10 @@ public class UpdateDefaultAnswerCommandHandler : IRequestHandler<UpdateDefaultAn
                                   && x.LanguageId.ToString() == _userService.LanguageId);
 
         transDefaultAnswer.TranslateText = request.AnswerText;
-        _ = _context.TranslateDefaultAnswers.Update(transDefaultAnswer);
+         _context.TranslateDefaultAnswers.Update(transDefaultAnswer);
 
 
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         await _context.SaveChangesAsync(cancellationToken);
         return _mapper.Map<DefaultAnswerResponse>(foundDefaultAnswer);
 
     }

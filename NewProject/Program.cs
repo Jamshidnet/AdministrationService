@@ -18,40 +18,40 @@ public class Program
     {
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         var builder = WebApplication.CreateBuilder(args);
-        _ = builder.Services.AddApplication();
-        _ = builder.Services.AddApi(builder.Configuration);
-        _ = builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationExceptionFilter)));
-        _ = builder.Services.AddEndpointsApiExplorer();
-        _ = builder.Services.AddSwaggerGen();
-        _ = builder.Services.AddScoped<ChangeLoggingMiddleware>();
-        _ = builder.Services.AddTransient<IApplicationDbContext, NewdatabaseContext>();
-        _ = builder.Services.AddDbContext<NewdatabaseContext>(
+         builder.Services.AddApplication();
+         builder.Services.AddApi(builder.Configuration);
+         builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationExceptionFilter)));
+         builder.Services.AddEndpointsApiExplorer();
+         builder.Services.AddSwaggerGen();
+         builder.Services.AddScoped<ChangeLoggingMiddleware>();
+         builder.Services.AddTransient<IApplicationDbContext, NewdatabaseContext>();
+         builder.Services.AddDbContext<NewdatabaseContext>(
             options =>
             {
-                _ = options.UseNpgsql(builder.Configuration.GetConnectionString("dbconnect"));
-                _ = options.UseLazyLoadingProxies();
+                 options.UseNpgsql(builder.Configuration.GetConnectionString("dbconnect"));
+                 options.UseLazyLoadingProxies();
             }
             ); ;
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
         {
-            _ = app.UseSwagger();
-            _ = app.UseSwaggerUI(c =>
+             app.UseSwagger();
+             app.UseSwaggerUI(c =>
             {
                 c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
             });
-            _ = app.UseSwaggerUI();
+             app.UseSwaggerUI();
 
         }
 
-        _ = app.UseHttpsRedirection();
+         app.UseHttpsRedirection();
 
-        _ = app.UseAuthentication();
-        _ = app.UseAuthorization();
+         app.UseAuthentication();
+         app.UseAuthorization();
 
-        _ = app.UseMiddleware<ChangeLoggingMiddleware>();
-        _ = app.MapControllers();
+         app.UseMiddleware<ChangeLoggingMiddleware>();
+         app.MapControllers();
 
         app.Run();
     }

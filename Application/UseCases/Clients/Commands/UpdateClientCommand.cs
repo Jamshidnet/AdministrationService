@@ -44,12 +44,12 @@ public class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand, C
         person.Birthdate = DateOnly.FromDateTime(request.Birthdate);
         person.PhoneNumber = request.PhoneNumber;
         person.QuarterId = request.QuarterId;
-        _ = _context.People.Update(person);
+         _context.People.Update(person);
 
         foundClient.ClientTypeId = request.ClientTypeId;
 
-        _ = _context.Clients.Update(foundClient);
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         _context.Clients.Update(foundClient);
+         await _context.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<ClientResponse>(foundClient);
     }

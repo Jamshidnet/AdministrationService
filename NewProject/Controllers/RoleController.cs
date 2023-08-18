@@ -42,7 +42,7 @@ namespace NewProject.Controllers
         [HttpPut("[action]")]
         public async ValueTask<IActionResult> UpdateRole(UpdateRoleCommand command)
         {
-            _ = await _mediator.Send(command);
+             await _mediator.Send(command);
             return NoContent();
         }
 

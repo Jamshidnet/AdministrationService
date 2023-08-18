@@ -22,7 +22,7 @@ public class DeleteDefaultAnswerCommandHandler : IRequestHandler<DeleteDefaultAn
         {
             throw new NotFoundException(nameof(DefaultAnswers), request.DefaultAnswerId);
         }
-        _ = _context.DefaultAnswers.Remove(answer);
+         _context.DefaultAnswers.Remove(answer);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

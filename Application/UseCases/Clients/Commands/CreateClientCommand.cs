@@ -44,7 +44,7 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, G
             QuarterId = request.QuarterId,
             Id = Guid.NewGuid()
         };
-        _ = await _dbContext.People.AddAsync(person);
+         await _dbContext.People.AddAsync(person);
 
         Client client = new()
         {
@@ -52,8 +52,8 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, G
             ClientTypeId = request.ClientTypeId,
             Id = Guid.NewGuid()
         };
-        _ = await _dbContext.Clients.AddAsync(client);
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.Clients.AddAsync(client);
+         await _dbContext.SaveChangesAsync();
         return client.Id;
     }
 }

@@ -42,7 +42,7 @@ public class CategoryController : ApiBaseController
     [Authorize(Roles = "UpdateCategory")]
     public async ValueTask<IActionResult> UpdateCategory(UpdateCategoryCommand command)
     {
-        _ = await _mediator.Send(command);
+         await _mediator.Send(command);
         return NoContent();
     }
 

@@ -11,16 +11,16 @@ public class PermissionMapping : Profile
 {
     public PermissionMapping()
     {
-        _ = CreateMap<Permission, PermissionResponse>()
+         CreateMap<Permission, PermissionResponse>()
             .ForMember(x => x.PermissionId, o => o.MapFrom(x => x.Id))
            .ForMember(cr => cr.PermissionName, cfg => cfg
            .MapFrom<PermissionValueResolver<PermissionResponse>>());
 
-        _ = CreateMap<CreatePermissionCommand, Permission>()
+         CreateMap<CreatePermissionCommand, Permission>()
             .ForMember(x => x.PermissionName, o => o.MapFrom(y => y.permissions.First().TranslateText));
 
-        _ = CreateMap<CreateCommandTranslate, TranslatePermission>();
+         CreateMap<CreateCommandTranslate, TranslatePermission>();
 
-        _ = CreateMap<UpdateCommandTranslate, TranslatePermission>();
+         CreateMap<UpdateCommandTranslate, TranslatePermission>();
     }
 }

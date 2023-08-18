@@ -22,7 +22,7 @@ public class DeleteDocCommandHandler : IRequestHandler<DeleteDocCommand>
     {
         var doc = await _context.Docs.FindAsync(request.DocId, cancellationToken)
             ?? throw new NotFoundException(nameof(Docs), request.DocId);
-        _ = _context.Docs.Remove(doc);
+         _context.Docs.Remove(doc);
 
         await _logger.Log(doc.Id, "Delete");
 

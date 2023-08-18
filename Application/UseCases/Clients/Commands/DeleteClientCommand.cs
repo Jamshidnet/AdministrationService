@@ -20,12 +20,12 @@ public class DeleteClientCommandHandler : IRequestHandler<DeleteClientCommand>
     {
         var client = await _context.Clients.FindAsync(request.ClientId, cancellationToken)
             ?? throw new NotFoundException(nameof(Clients), request.ClientId);
-        _ = _context.Clients.Remove(client);
+         _context.Clients.Remove(client);
 
         var person = await _context.People.FindAsync(client.PersonId)
             ?? throw new NotFoundException(nameof(Person), client.PersonId);
-        _ = _context.People.Remove(person);
+         _context.People.Remove(person);
 
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         await _context.SaveChangesAsync(cancellationToken);
     }
 }

@@ -22,7 +22,7 @@ public class DeleteQuarterCommandHandler : IRequestHandler<DeleteQuarterCommand>
         {
             throw new NotFoundException(nameof(Quarters), request.QuarterId);
         }
-        _ = _context.Quarters.Remove(quarter);
+         _context.Quarters.Remove(quarter);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

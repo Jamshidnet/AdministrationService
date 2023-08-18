@@ -10,16 +10,16 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            _ = services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            _ = services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            _ = services.AddMediatR(option =>
+             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+             services.AddMediatR(option =>
             {
-                _ = option.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                 option.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 
             });
 
-            _ = services.AddScoped<IUserRefreshToken, RefreshToken>();
-            _ = services.AddScoped<IJwtToken, JwtToken>();
+             services.AddScoped<IUserRefreshToken, RefreshToken>();
+             services.AddScoped<IJwtToken, JwtToken>();
 
             return services;
         }

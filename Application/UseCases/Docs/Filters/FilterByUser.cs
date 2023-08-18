@@ -17,14 +17,10 @@ public class FilterByUser : IRequest<List<FilterByUserResponse>>
 }
 public class FilterByUserHandler : IRequestHandler<FilterByUser, List<FilterByUserResponse>>
 {
-    IApplicationDbContext _dbContext;
-    IMapper _mapper;
 
-    public FilterByUserHandler(IApplicationDbContext dbContext, IMapper mapper)
-    {
-        _dbContext = dbContext;
-        _mapper = mapper;
-    }
+    private readonly IApplicationDbContext _dbContext;
+
+    public FilterByUserHandler(IApplicationDbContext dbContext) => _dbContext = dbContext;
 
     /// <summary>
     /// Here Handler function executes a function in database. 
@@ -32,7 +28,7 @@ public class FilterByUserHandler : IRequestHandler<FilterByUser, List<FilterByUs
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<FilterByUserResponse>> Handle(FilterByUser request, CancellationToken cancellationToken)
+    public Task<List<FilterByUserResponse>> Handle(FilterByUser request, CancellationToken cancellationToken)
     {
 
 
@@ -46,7 +42,7 @@ public class FilterByUserHandler : IRequestHandler<FilterByUser, List<FilterByUs
                                                  request.ByQuarter
                                                  );
 
-        return result.ToList();
+        return Task.FromResult(result.ToList());
     }
 }
 

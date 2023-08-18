@@ -37,7 +37,7 @@ public class UpdateQuestionCommandHandler : IRequestHandler<UpdateQuestionComman
         var foundQuestion = await _context.Questions.FindAsync(new object[] { request.Id }, cancellationToken)
             ?? throw new NotFoundException(nameof(Question), request.Id);
 
-        _ = _mapper.Map(request, foundQuestion);
+         _mapper.Map(request, foundQuestion);
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == _userService.Username)
              ?? throw new NotFoundException("There is no user with this id. ");
 
@@ -47,9 +47,9 @@ public class UpdateQuestionCommandHandler : IRequestHandler<UpdateQuestionComman
 
         transQuestion.TranslateText = request.QuestionText;
         foundQuestion.CreatorUserId = user.Id;
-        _ = _context.Questions.Update(foundQuestion);
-        _ = _context.TranslateQuestions.Update(transQuestion);
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         _context.Questions.Update(foundQuestion);
+         _context.TranslateQuestions.Update(transQuestion);
+         await _context.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<QuestionResponse>(foundQuestion);
     }

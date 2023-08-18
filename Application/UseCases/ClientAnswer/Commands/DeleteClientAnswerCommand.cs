@@ -20,7 +20,7 @@ public class DeleteClientAnswerCommandHandler : IRequestHandler<DeleteClientAnsw
         var answer = await _context.ClientAnswers.FindAsync(request.ClientAnswerId, cancellationToken)
             ?? throw new NotFoundException(nameof(ClientAnswers), request.ClientAnswerId);
         
-        _ = _context.ClientAnswers.Remove(answer);
+         _context.ClientAnswers.Remove(answer);
         var result = await _context.SaveChangesAsync(cancellationToken);
     }
 }

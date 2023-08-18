@@ -7,22 +7,22 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     public CreateUserCommandValidator()
     {
 
-        _ = RuleFor(user => user.FirstName)
+         RuleFor(user => user.FirstName)
          .NotEmpty().WithMessage("First Name is required.")
          .MinimumLength(3)
             .MaximumLength(50);
 
-        _ = RuleFor(user => user.Username)
+         RuleFor(user => user.Username)
             .NotEmpty().WithMessage("should be not empty value")
             .MinimumLength(3)
             .MaximumLength(20);
 
-        _ = RuleFor(user => user.PhoneNumber)
+         RuleFor(user => user.PhoneNumber)
             .NotEmpty().WithMessage("Phone is required.")
             .Matches(@"^\+998(33|9[0-9])\d{7}$")
                 .WithMessage("Phone must be in the format of '+998 90 123 45 67'.");
 
-        _ = RuleFor(p => p.Password).NotEmpty().WithMessage("Your password cannot be empty")
+         RuleFor(p => p.Password).NotEmpty().WithMessage("Your password cannot be empty")
                    .MinimumLength(8).WithMessage("Your password length must be at least 8.")
                    .MaximumLength(16).WithMessage("Your password length must not exceed 16.")
                    .Matches(@"[A-Z]+").WithMessage("Your password must contain at least one uppercase letter.")

@@ -10,19 +10,19 @@ public class DocMapping : Profile
 {
     public DocMapping()
     {
-        _ = CreateMap<CreateDocCommand, Doc>();
-        _ = CreateMap<UpdateDocCommand, Doc>();
-        _ = CreateMap<Doc, GetListDocResponse>()
+         CreateMap<CreateDocCommand, Doc>();
+         CreateMap<UpdateDocCommand, Doc>();
+         CreateMap<Doc, GetListDocResponse>()
             .ForMember(x => x.UserName, des => des
                 .MapFrom(doc => doc.User.Person.FirstName + " " + doc.User.Person.LastName))
             .ForMember(x => x.ClientName, des => des
                 .MapFrom(doc => doc.Client.Person.FirstName + " " + doc.Client.Person.LastName));
 
-        _ = CreateMap<Doc, DocResponse>()
+         CreateMap<Doc, DocResponse>()
                .ForMember(x => x.UserName, des => des
                 .MapFrom(doc => doc.User.Person.FirstName + " " + doc.User.Person.LastName));
 
-        _ = CreateMap<Doc, DocCountResponse>()
+         CreateMap<Doc, DocCountResponse>()
             .ForMember(x => x.Region, y => y.MapFrom(z => z.Client.Person.Quarter.District.Region))
             .ForMember(x => x.District, y => y.MapFrom(z => z.Client.Person.Quarter.District))
             .ForMember(x => x.Quarter, y => y.MapFrom(z => z.Client.Person.Quarter));

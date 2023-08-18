@@ -12,7 +12,7 @@ public record CreateCategoryCommand(List<CreateCommandTranslate> categories) : I
 public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Guid>
 {
 
-    private IApplicationDbContext _dbContext;
+    private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
 
     public CreateCategoryCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
@@ -35,13 +35,13 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
             Tcategory.OwnerId = category.Id;
             Tcategory.ColumnName = "CategoryName";
             Tcategory.Id = Guid.NewGuid();
-            _ = _dbContext.TranslateCategories
+             _dbContext.TranslateCategories
             .Add(Tcategory);
         });
 
-        _ = await _dbContext.Categories.AddAsync(category);
+         await _dbContext.Categories.AddAsync(category, cancellationToken);
 
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.SaveChangesAsync(cancellationToken);
         return category.Id;
     }
 }

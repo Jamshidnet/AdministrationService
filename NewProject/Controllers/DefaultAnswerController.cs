@@ -43,7 +43,7 @@ public class DefaultAnswerController : ApiBaseController
     [Authorize(Roles = "UpdateDefaultAnswer")]
     public async ValueTask<IActionResult> UpdateDefaultAnswer(UpdateDefaultAnswerCommand command)
     {
-        _ = await _mediator.Send(command);
+         await _mediator.Send(command);
         return NoContent();
     }
 

@@ -45,8 +45,8 @@ public class UpdateRegionCommandHandler : IRequestHandler<UpdateRegionCommand, R
         }
 
         foundRegion.RegionName = request.RegionName;
-        _ = _context.Regions.Update(foundRegion);
-        _ = await _context.SaveChangesAsync(cancellationToken);
+         _context.Regions.Update(foundRegion);
+         await _context.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<RegionResponse>(foundRegion);
     }

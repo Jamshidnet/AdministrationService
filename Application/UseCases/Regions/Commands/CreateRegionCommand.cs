@@ -21,8 +21,8 @@ public class CreateRegionCommandHandler : IRequestHandler<CreateRegionCommand, G
     {
         Region region = _mapper.Map<Region>(request);
         region.Id = Guid.NewGuid();
-        _ = await _dbContext.Regions.AddAsync(region);
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.Regions.AddAsync(region);
+         await _dbContext.SaveChangesAsync();
         return region.Id;
     }
 }

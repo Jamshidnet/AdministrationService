@@ -42,7 +42,7 @@ namespace NewProject.Controllers
         [Authorize(Roles = "UpdateQuarter")]
         public async ValueTask<IActionResult> UpdateQuarter(UpdateQuarterCommand command)
         {
-            _ = await _mediator.Send(command);
+             await _mediator.Send(command);
             return NoContent();
         }
 

@@ -55,7 +55,7 @@ namespace NewProject.Controllers
         [Authorize(Roles = "UpdatePermission")]
         public async ValueTask<IActionResult> UpdatePermission(UpdatePermissionCommand command)
         {
-            _ = await _mediator.Send(command);
+             await _mediator.Send(command);
             return NoContent();
         }
 

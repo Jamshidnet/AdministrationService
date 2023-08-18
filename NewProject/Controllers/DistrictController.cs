@@ -43,7 +43,7 @@ public class DistrictController : ApiBaseController
     [HttpPut("[action]")]
     public async ValueTask<IActionResult> UpdateDistrict(UpdateDistrictCommand command)
     {
-        _ = await _mediator.Send(command);
+         await _mediator.Send(command);
         return NoContent();
     }
 

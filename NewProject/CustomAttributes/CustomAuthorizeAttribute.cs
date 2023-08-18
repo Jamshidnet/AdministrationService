@@ -13,7 +13,7 @@ namespace NewProject.CustomAttributes
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
 
-        public PermissionTypes permission { get; set; }
+        public PermissionTypes _permission { get; set; }
 
         public void OnAuthorizationn(HttpActionContext actionContext)
         {
@@ -34,7 +34,7 @@ namespace NewProject.CustomAttributes
                             .Select(claim => (PermissionTypes)Enum.Parse(typeof(PermissionTypes), claim.Value))
                             .ToList();
 
-                        if (!userPermissions.Contains(permission))
+                        if (!userPermissions.Contains(_permission))
                         {
                             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Forbidden, "Unauthorized");
                             return;

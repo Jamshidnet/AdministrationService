@@ -26,8 +26,8 @@ public class CreateQuarterCommandHandler : IRequestHandler<CreateQuarterCommand,
         await FilterIfDistrictExsists(request.DistrictId);
         Quarter quarter = _mapper.Map<Quarter>(request);
         quarter.Id = Guid.NewGuid();
-        _ = await _dbContext.Quarters.AddAsync(quarter);
-        _ = await _dbContext.SaveChangesAsync();
+         await _dbContext.Quarters.AddAsync(quarter);
+         await _dbContext.SaveChangesAsync();
         return quarter.Id;
     }
 
