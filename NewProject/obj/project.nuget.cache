@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TKh+gF/EoQfyvn6dF6FIIu1Nv0tef8korXh3B/c7MQzps12821/qtoITvhntIK4cmCrMz9dcBVS303lrIiJdpA==",
+  "dgSpecHash": "2a48gZdeLSeufr62o2h+2YqRKiCp3Xr4eiPYc0Cc2S07+Z6pr+PccRdnVKQgScuesylnU+1g6Bom0T6iSNqCxA==",
   "success": true,
   "projectFilePath": "C:\\Users\\jturs\\source\\repos\\NewProject\\NewProject\\PublicAffairsPortal.WebUI.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,8 @@
     "C:\\Users\\jturs\\.nuget\\packages\\documentformat.openxml\\2.16.0\\documentformat.openxml.2.16.0.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\excelnumberformat\\1.1.0\\excelnumberformat.1.1.0.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
+    "C:\\Users\\jturs\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\jturs\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\jturs\\.nuget\\packages\\irony.netcore\\1.0.11\\irony.netcore.1.0.11.nupkg.sha512",

@@ -1,4 +1,5 @@
 ﻿using Application.Common.JWT.Service;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using NewProject.JWT.Interfaces;
 using System.Reflection;
@@ -9,6 +10,7 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            _ = services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             _ = services.AddAutoMapper(Assembly.GetExecutingAssembly());
             _ = services.AddMediatR(option =>
             {

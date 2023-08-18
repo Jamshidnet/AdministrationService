@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NewProject.Abstraction;
 using NewProject.Middlewares;
+using PublicAffairsPortal.WebUI.CustomAttributes;
 using System;
 
 namespace NewProject;
@@ -19,7 +20,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         _ = builder.Services.AddApplication();
         _ = builder.Services.AddApi(builder.Configuration);
-        _ = builder.Services.AddControllers();
+        _ = builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationExceptionFilter)));
         _ = builder.Services.AddEndpointsApiExplorer();
         _ = builder.Services.AddSwaggerGen();
         _ = builder.Services.AddScoped<ChangeLoggingMiddleware>();

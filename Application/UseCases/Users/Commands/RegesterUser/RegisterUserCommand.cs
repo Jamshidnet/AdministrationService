@@ -5,6 +5,7 @@ using AutoMapper;
 using Domein.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NewProject.Abstraction;
 using NewProject.JWT.Interfaces;
 using NewProject.JWT.Models;
@@ -43,7 +44,6 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, T
 
     public async Task<TokenResponse> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-
         if (_context.Users.Any(x => x.Username == request.Username))
             throw new AlreadyExistsException(nameof(User), request.Username);
 
