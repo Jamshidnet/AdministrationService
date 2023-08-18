@@ -37,7 +37,7 @@ public class UpdateDocCommandHandler : IRequestHandler<UpdateDocCommand, DocResp
     public async Task<DocResponse> Handle(UpdateDocCommand request, CancellationToken cancellationToken)
     {
         await FilterIfDocExsists(request.Id);
-        var foundDoc = await _context.Docs.FindAsync(new object[] { request.Id }, cancellationToken)
+        var foundDoc = await _context.Docs.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Doc), request.Id);
 
         var client = _mapper.Map<Client>(request.client);

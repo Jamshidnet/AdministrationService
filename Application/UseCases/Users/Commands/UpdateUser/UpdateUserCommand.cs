@@ -45,7 +45,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
     public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         var roles = await _context.Roles.ToListAsync(cancellationToken);
-        var foundUser = await _context.Users.FindAsync(new object[] { request.Id }, cancellationToken)
+        var foundUser = await _context.Users.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(User), request.Id);
 
         if (request?.RoleIds?.Length > 0)

@@ -23,7 +23,7 @@ public class GetByIdDefaultAnswerQueryHandler : IRequestHandler<GetByIdDefaultAn
 
     public async Task<DefaultAnswerResponse> Handle(GetByIdDefaultAnswerQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _context.DefaultAnswers.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.DefaultAnswers.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(DefaultAnswer), request.Id);
 
         var result = _mapper.Map<DefaultAnswerResponse>(entity);

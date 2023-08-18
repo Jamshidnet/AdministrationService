@@ -24,7 +24,7 @@ public class GetByIdClientTypeQueryHandler : IRequestHandler<GetByIdClientTypeQu
     public async Task<ClientTypeResponse> Handle(GetByIdClientTypeQuery request,
         CancellationToken cancellationToken)
     {
-        var entity = await _context.ClientTypes.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.ClientTypes.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(ClientType), request.Id);
 
         var result = _mapper.Map<ClientTypeResponse>(entity);

@@ -24,7 +24,7 @@ public class GetByIdQuestionTypeQueryHandler : IRequestHandler<GetByIdQuestionTy
     public async Task<QuestionTypeResponse> Handle(GetByIdQuestionTypeQuery request,
         CancellationToken cancellationToken)
     {
-        var entity = await _context.QuestionTypes.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.QuestionTypes.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(QuestionType), request.Id);
 
         var result = _mapper.Map<QuestionTypeResponse>(entity);

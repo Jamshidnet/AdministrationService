@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infrustructure\PublicAffairsPortal.DataLayer.csproj" />
+    <ProjectReference Include="..\DataLayer\PublicAffairsPortal.DataLayer.csproj" />
   </ItemGroup>
 
 </Project>

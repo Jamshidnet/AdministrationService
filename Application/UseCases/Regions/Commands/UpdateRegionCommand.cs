@@ -30,7 +30,7 @@ public class UpdateRegionCommandHandler : IRequestHandler<UpdateRegionCommand, R
     public async Task<RegionResponse> Handle(UpdateRegionCommand request, CancellationToken cancellationToken)
     {
         var districts = await _context.Districts.ToListAsync(cancellationToken);
-        var foundRegion = await _context.Regions.FindAsync(new object[] { request.Id }, cancellationToken)
+        var foundRegion = await _context.Regions.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Region), request.Id);
 
         if (request?.Districts?.Count > 0)

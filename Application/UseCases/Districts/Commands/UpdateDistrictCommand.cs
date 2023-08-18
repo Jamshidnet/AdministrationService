@@ -31,7 +31,7 @@ public class UpdateDistrictCommandHandler : IRequestHandler<UpdateDistrictComman
     public async Task<DistrictResponse> Handle(UpdateDistrictCommand request, CancellationToken cancellationToken)
     {
         var quarters = await _context.Quarters.ToListAsync(cancellationToken);
-        var foundDistrict = await _context.Districts.FindAsync(new object[] { request.Id }, cancellationToken)
+        var foundDistrict = await _context.Districts.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(District), request.Id);
 
         if (request?.Quarters?.Count >= 0)

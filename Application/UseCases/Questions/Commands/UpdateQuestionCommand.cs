@@ -34,7 +34,7 @@ public class UpdateQuestionCommandHandler : IRequestHandler<UpdateQuestionComman
 
     public async Task<QuestionResponse> Handle(UpdateQuestionCommand request, CancellationToken cancellationToken)
     {
-        var foundQuestion = await _context.Questions.FindAsync(new object[] { request.Id }, cancellationToken)
+        var foundQuestion = await _context.Questions.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Question), request.Id);
 
          _mapper.Map(request, foundQuestion);

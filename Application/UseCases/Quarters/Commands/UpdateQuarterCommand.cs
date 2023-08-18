@@ -27,7 +27,7 @@ public class UpdateQuarterCommandHandler : IRequestHandler<UpdateQuarterCommand,
 
     public async Task<QuarterResponse> Handle(UpdateQuarterCommand request, CancellationToken cancellationToken)
     {
-        var foundQuarter = await _context.Quarters.FindAsync(new object[] { request.Id }, cancellationToken)
+        var foundQuarter = await _context.Quarters.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Quarter), request.Id);
          _mapper.Map(request, foundQuarter);
          _context.Quarters.Update(foundQuarter);

@@ -23,7 +23,7 @@ public class GetByIdQuestionQueryHandler : IRequestHandler<GetByIdQuestionQuery,
 
     public async Task<QuestionResponse> Handle(GetByIdQuestionQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Questions.FindAsync(new object[] { request.Id }, cancellationToken);
+        var entity = await _context.Questions.FindAsync(request.Id, cancellationToken);
         if (entity is null)
             throw new NotFoundException(nameof(Question), request.Id);
 

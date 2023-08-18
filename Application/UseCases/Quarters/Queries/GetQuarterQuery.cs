@@ -23,7 +23,7 @@ public class GetByIdQuarterQueryHandler : IRequestHandler<GetByIdQuarterQuery, Q
 
     public async Task<QuarterResponse> Handle(GetByIdQuarterQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Quarters.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.Quarters.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Quarter), request.Id);
 
         var result = _mapper.Map<QuarterResponse>(entity);

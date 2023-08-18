@@ -24,7 +24,7 @@ public class GetByIdUserTypeQueryHandler : IRequestHandler<GetByIdUserTypeQuery,
     public async Task<UserTypeResponse> Handle(GetByIdUserTypeQuery request,
         CancellationToken cancellationToken)
     {
-        var entity = await _context.UserTypes.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.UserTypes.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(UserType), request.Id);
 
         var result = _mapper.Map<UserTypeResponse>(entity);

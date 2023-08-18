@@ -22,7 +22,7 @@ public class GetByIdRoleQueryHandler : IRequestHandler<GetByIdRoleQuery, RoleRes
 
     public async Task<RoleResponse> Handle(GetByIdRoleQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Roles.FindAsync(new object[] { request.Id }, cancellationToken);
+        var entity = await _context.Roles.FindAsync(request.Id, cancellationToken);
         if (entity is null)
             throw new NotFoundException(nameof(Role), request.Id);
 

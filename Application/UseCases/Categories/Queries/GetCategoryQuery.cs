@@ -25,7 +25,7 @@ public class GetByIdCategoryQueryHandler : IRequestHandler<GetByIdCategoryQuery,
     public async Task<CategoryResponse> Handle(GetByIdCategoryQuery request,
         CancellationToken cancellationToken)
     {
-        var entity = await _context.Categories.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.Categories.FindAsync( request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Category), request.Id);
 
 

@@ -24,7 +24,7 @@ public class GetByIdClientQueryHandler : IRequestHandler<GetByIdClientQuery, Cli
     public async Task<ClientResponse> Handle(GetByIdClientQuery request, CancellationToken cancellationToken)
     {
         var entity = await _context.Clients
-            .FindAsync(new object[] { request.Id }, cancellationToken)
+            .FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Client), request.Id);
 
         ClientResponse clientResponse = _mapper.Map<ClientResponse>(entity);

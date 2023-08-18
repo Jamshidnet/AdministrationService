@@ -23,7 +23,7 @@ public class GetByIdDistrictQueryHandler : IRequestHandler<GetByIdDistrictQuery,
 
     public async Task<DistrictResponse> Handle(GetByIdDistrictQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Districts.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.Districts.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(District), request.Id);
 
         var result = _mapper.Map<DistrictResponse>(entity);

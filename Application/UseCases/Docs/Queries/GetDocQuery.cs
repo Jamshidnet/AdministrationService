@@ -22,7 +22,7 @@ public class GetByIdDocQueryHandler : IRequestHandler<GetByIdDocQuery, DocRespon
 
     public async Task<DocResponse> Handle(GetByIdDocQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Docs.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.Docs.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Doc), request.Id);
 
         var result = _mapper.Map<DocResponse>(entity);

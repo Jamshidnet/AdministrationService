@@ -22,8 +22,8 @@ public class GetByIdUserResponse : IRequestHandler<GetByIdUserQuery, UserRespons
 
     public async Task<UserResponse> Handle(GetByIdUserQuery request, CancellationToken cancellationToken)
     {
-        var foundUser = await _context.Users.FindAsync(new object[] { request.Id }, cancellationToken);
-        if (foundUser is null)
+        var foundUser = await _context.Users.FindAsync(request.Id, cancellationToken);
+        if (foundUser is null) 
             throw new NotFoundException(nameof(User), request.Id);
 
 

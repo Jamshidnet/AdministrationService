@@ -19,7 +19,7 @@ public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
 
     public async Task Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Roles.FindAsync(new object[] { request.Id }, cancellationToken);
+        var entity = await _context.Roles.FindAsync(request.Id, cancellationToken);
         if (entity is null)
             throw new NotFoundException(nameof(Role), request.Id);
 

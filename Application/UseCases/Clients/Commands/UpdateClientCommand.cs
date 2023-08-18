@@ -36,7 +36,7 @@ public class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand, C
     public async Task<ClientResponse> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
     {
         await FilterIfQuarterExsists(request.QuarterId);
-        var foundClient = await _context.Clients.FindAsync(new object[] { request.Id }, cancellationToken)
+        var foundClient = await _context.Clients.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Client), request.Id);
         Person person = await FilterIfPersonExsists(foundClient.PersonId);
         person.FirstName = request.FirstName;

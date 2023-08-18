@@ -23,7 +23,7 @@ public class GetByIdClientAnswerQueryHandler : IRequestHandler<GetByIdClientAnsw
 
     public async Task<ClientAnswerResponse> Handle(GetByIdClientAnswerQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _context.ClientAnswers.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.ClientAnswers.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(DefaultAnswer), request.Id);
 
         var result = _mapper.Map<ClientAnswerResponse>(entity);

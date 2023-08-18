@@ -22,7 +22,7 @@ public class GetByIdRegionQueryHandler : IRequestHandler<GetByIdRegionQuery, Reg
 
     public async Task<RegionResponse> Handle(GetByIdRegionQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Regions.FindAsync(new object[] { request.Id }, cancellationToken)
+        var entity = await _context.Regions.FindAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Region), request.Id);
 
         var result = _mapper.Map<RegionResponse>(entity);
