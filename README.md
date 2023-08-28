@@ -1,6 +1,7 @@
 # Public-Affairs-Portal
 ![image](https://github.com/Jamshidnet/Public-Affairs-Portal/assets/122851582/a9926526-7ab9-48ea-9c09-1d61ba9142a6)
 
+In English description
 I have developed a .NET project named "Public Affairs Portal," equipped with a range of compelling features. This platform enables registered users to conduct interviews with citizens based on a database of predefined questions. These questions come with both default answers and options for user-generated responses. The project encompasses various entities, including users, questions, answers, and documents.
 
 One of the notable features is the document entity, which involves attributes like the creator user, client questions, and selected/entered answers for the document. I've also implemented diverse filters for documents, allowing users to extract statistical insights in formats such as Excel and PDF. For instance, you can effortlessly generate counts of documents categorized by question types, segmented by region, district, or quarter.
@@ -19,6 +20,10 @@ https://dbdiagram.io/d/64df610702bd1c4a5e01a529
 
 
 
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+In russion description
 Я разработал проект .NET под названием «Портал по связям с общественностью», оснащенный рядом интересных функций. Эта платформа позволяет зарегистрированным пользователям проводить интервью с гражданами на основе базы данных заранее заданных вопросов. На эти вопросы есть как ответы по умолчанию, так и варианты ответов, созданных пользователем. Проект охватывает различные объекты, включая пользователей, вопросы, ответы и документы.
 
 Одной из примечательных особенностей является сущность документа, которая включает в себя такие атрибуты, как пользователь-создатель, вопросы клиента и выбранные/введенные ответы для документа. Я также реализовал разнообразные фильтры для документов, позволяющие пользователям извлекать статистическую информацию в таких форматах, как Excel и PDF. Например, вы можете легко генерировать количество документов, классифицированных по типам вопросов, сегментированных по регионам, районам или кварталам.
